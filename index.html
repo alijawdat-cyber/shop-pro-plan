@@ -206,23 +206,21 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 /* === Lock-as-decision button === */
 .lock-btn{display:inline-flex;align-items:center;gap:6px;background:#f1f5f9;color:var(--accent);border:1.5px dashed var(--accent);border-radius:8px;padding:6px 12px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
 .lock-btn:hover{background:var(--accent-soft);border-style:solid}
-.question.locked{background:linear-gradient(180deg,#ecfdf5 0%,#ffffff 80%);border:1px solid #10b981;border-right:4px solid #10b981}
-.question.locked .question-id{display:none}
-.question.locked .question-badge{background:#10b981}
-.question.locked .opt-btn:not(.selected){display:none}
-.question.locked .opt-btn.selected{background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:#fff;border:1px solid #059669;opacity:1;text-decoration:none;font-weight:700;pointer-events:none;box-shadow:0 2px 6px -1px rgba(16,185,129,.4)}
-.question.locked .opt-btn.selected::before{content:"\2713  ";font-weight:700}
-.question.locked .opt-btns{margin-bottom:6px}
-.question.locked h3{color:#065f46}
-.question.locked h3::before{content:"\2713  ";color:#10b981;font-weight:800;margin-left:6px}
-.locked-summary{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:8px;font-size:14px;color:#065f46;line-height:1.6}
-.locked-summary strong{color:#047857}
-.locked-badge{display:inline-block;background:#10b981;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;letter-spacing:.03em;margin-right:8px}
-.unlock-btn{float:left;background:transparent;border:none;color:#059669;cursor:pointer;font-size:12px;font-weight:600;text-decoration:underline;padding:2px 4px}
-.unlock-btn:hover{color:var(--danger)}
-.question.locked .decision-label{display:none}
-.question.locked textarea{display:none}
-.question.locked .desc{opacity:.6}
+.question.locked{background:#f0fdf4;border:1px solid #86efac;border-right:4px solid #10b981;padding:16px 20px}
+.question.locked .question-id,
+.question.locked .question-badge,
+.question.locked .opt-btns,
+.question.locked .desc,
+.question.locked textarea,
+.question.locked .decision-label,
+.question.locked .lock-btn{display:none !important}
+.question.locked h3{color:#065f46;font-size:15px;font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+.question.locked h3::before{content:"\2713";color:#10b981;font-weight:800;font-size:16px}
+.locked-doc{font-size:14.5px;color:#1e293b;line-height:1.75}
+.locked-doc .value{color:#065f46;font-weight:600}
+.locked-doc .detail{color:#334155;margin-top:4px}
+.unlock-btn{float:left;background:transparent;border:none;color:#059669;cursor:pointer;font-size:12px;font-weight:500;padding:2px 4px;opacity:.6}
+.unlock-btn:hover{opacity:1;color:var(--danger);text-decoration:underline}
 </style>
 </head>
 <body>
@@ -2351,17 +2349,43 @@ function showProgress(){
 }
 
 function buildAnswersText(){
-  const lines = ['*Shop Pro — إجابات علي جودت*', new Date().toLocaleString('ar-IQ'), ''];
+  const lines = ['*Shop Pro — توثيق القرارات المعتمدة — علي جودت*', new Date().toLocaleString('ar-IQ'), ''];
+  const locked = [];
+  const open = [];
   document.querySelectorAll('.question[data-qid]').forEach(q=>{
     const qid = q.dataset.qid;
     const title = q.querySelector('.question-title')?.textContent?.trim() || qid;
     const a = answers[qid];
     if(!a || (!a.choice && !a.note)) return;
-    lines.push(`*${qid}* — ${title}`);
-    if(a.choice) lines.push(`• الخيار: ${a.choice}`);
-    if(a.note)   lines.push(`• ملاحظة: ${a.note}`);
-    lines.push('');
+    // Resolve choice label (Arabic) instead of raw value
+    let choiceLabel = '';
+    if(a.choice){
+      const btns = [...q.querySelectorAll('.opt-btn')];
+      const m = btns.find(b=>(b.getAttribute('onclick')||'').includes(`'${a.choice}'`));
+      choiceLabel = m ? m.textContent.replace(/⭐|\s*★\s*مقترح\s*/g,'').trim() : a.choice;
+    }
+    const bucket = a.locked ? locked : open;
+    bucket.push({qid, title, choiceLabel, note:a.note||'', locked:!!a.locked});
   });
+  if(locked.length){
+    lines.push('*◆ قرارات معتمدة (ثوابت):*', '');
+    locked.forEach(r=>{
+      let body = `• *${r.title}:*`;
+      if(r.choiceLabel) body += ` ${r.choiceLabel}`;
+      if(r.note) body += (r.choiceLabel ? ' — ' : ' ') + r.note;
+      lines.push(body);
+    });
+    lines.push('');
+  }
+  if(open.length){
+    lines.push('*◇ نقاط مفتوحة للنقاش:*', '');
+    open.forEach(r=>{
+      lines.push(`• *${r.title}:*`);
+      if(r.choiceLabel) lines.push(`   الخيار المقترح: ${r.choiceLabel}`);
+      if(r.note) lines.push(`   ملاحظة: ${r.note}`);
+    });
+    lines.push('');
+  }
   // Chapter-level comments
   const chapterNotes = Object.keys(answers).filter(k=>/^CH\d+-notes$/.test(k) && answers[k].note);
   if(chapterNotes.length){
@@ -2537,40 +2561,39 @@ function clearAll(){
     const data = answers[qid] || {};
     q.classList.add('locked');
 
-    // Mark active choice (if any)
-    q.querySelectorAll('.opt-btn').forEach(b=>{
-      const onclick = b.getAttribute('onclick') || '';
-      if(data.choice && onclick.includes(`'${data.choice}'`)) b.classList.add('selected', 'active');
-      else b.classList.remove('active');
-    });
-    // If no choice, and there's a recommended one, mark it selected visually
-    if(!data.choice){
-      const rec = q.querySelector('.opt-btn.recommended');
-      if(rec) rec.classList.add('selected');
+    // Remove interactive bits & old doc
+    q.querySelector('.lock-btn')?.remove();
+    q.querySelector('.locked-doc')?.remove();
+
+    // Find chosen option label (prefer explicit choice; fallback to ⭐/recommended)
+    let choiceLabel = '';
+    const btns = [...q.querySelectorAll('.opt-btn')];
+    if(data.choice){
+      const match = btns.find(b=>(b.getAttribute('onclick')||'').includes(`'${data.choice}'`));
+      if(match) choiceLabel = match.textContent.replace(/⭐|\s*★\s*مقترح\s*/g,'').trim();
+      else choiceLabel = data.choice;
     }
 
-    // Remove lock button, existing summary
-    q.querySelector('.lock-btn')?.remove();
-    q.querySelector('.locked-summary')?.remove();
-
-    // Build summary
-    const summary = document.createElement('div');
-    summary.className = 'locked-summary';
-    let html = '<span class="locked-badge">قرار ثابت</span>';
+    // Build inline documentation paragraph
+    const doc = document.createElement('div');
+    doc.className = 'locked-doc';
+    let html = '';
+    if(choiceLabel){
+      html += `<span class="value">${choiceLabel}</span>`;
+    }
     if(data.note){
-      html += `<strong>الملاحظة:</strong> ${data.note.replace(/</g,'&lt;').replace(/\n/g,'<br>')}`;
-    } else {
-      html += '<em>(بدون ملاحظة إضافية)</em>';
+      const noteTxt = data.note.replace(/</g,'&lt;').replace(/\n/g,'<br>');
+      html += (choiceLabel ? ' — ' : '') + `<span class="detail">${noteTxt}</span>`;
     }
     html += `<button class="unlock-btn" title="فكّ التثبيت وعدّل">🔓 تعديل</button>`;
-    summary.innerHTML = html;
-    summary.querySelector('.unlock-btn').onclick = ()=>{
-      if(!confirm('تفتح هذا القرار مرة ثانية للتعديل؟')) return;
+    doc.innerHTML = html;
+    doc.querySelector('.unlock-btn').onclick = ()=>{
+      if(!confirm('تفتح هذا البند للتعديل؟')) return;
       answers[qid].locked = false;
       saveAnswers(answers);
       location.reload();
     };
-    q.appendChild(summary);
+    q.appendChild(doc);
   }
 })();
 
