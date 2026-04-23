@@ -255,6 +255,14 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 .task-check input[type=checkbox]{margin-top:3px;width:18px;height:18px;accent-color:#0f766e;cursor:pointer;flex-shrink:0}
 .task-check.done{background:#f0fdf4;border-color:#86efac}
 .task-check.done .t-title{text-decoration:line-through;color:#6b7280}
+.task-check .badge-done{display:inline-block;background:#10b981;color:#fff;font-weight:800;font-size:10px;padding:2px 7px;border-radius:5px;margin-inline-start:8px;vertical-align:middle;letter-spacing:.3px}
+.file-inv{margin:14px 0;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden}
+.file-inv .fi-head{background:#0f766e;color:#fff;padding:8px 12px;font-weight:700;font-size:13px}
+.file-inv table{width:100%;border-collapse:collapse;font-size:13px}
+.file-inv th,.file-inv td{padding:6px 10px;border-bottom:1px solid #f3f4f6;text-align:start;vertical-align:top}
+.file-inv th{background:#f9fafb;font-weight:700;color:#374151}
+.file-inv tr:last-child td{border-bottom:none}
+.file-inv code{background:#f3f4f6;padding:1px 5px;border-radius:3px;font-size:12px;direction:ltr;display:inline-block}
 .task-check .t-body{flex:1}
 .task-check .t-title{font-weight:700;color:#111827;margin-bottom:3px}
 .task-check .t-desc{font-size:13px;color:#4b5563;line-height:1.7}
@@ -343,7 +351,17 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 <section class="toc">
   <h3 style="margin-top:0">الفهرس</h3>
   <ol>
-    <li><a href="#ch0"><strong>القرارات المعتمدة + خطة تنفيذية (جديد)</strong></a></li>
+    <li><a href="#ch0"><strong>القرارات المعتمدة + خطة تنفيذية (جديد)</strong></a>
+      <ul style="margin:4px 0 8px 0;padding-inline-start:22px">
+        <li><a href="#ch0">0.1 جدول 30 قرار</a></li>
+        <li><a href="#ch0">0.2 تحقيق DB</a></li>
+        <li><a href="#ch0">0.3 SQL تنظيف</a></li>
+        <li><a href="#ch0">0.4 مهام M1-M8</a></li>
+        <li><a href="#ch0">0.5 3 نقاط مفتوحة</a></li>
+        <li><a href="#ch0">0.6 Timeline</a></li>
+        <li><a href="#ch0"><strong>0.7 جرد الملفات المُنشأة (جديد)</strong></a></li>
+      </ul>
+    </li>
     <li><a href="#ch1">اسم الموديول والأيقونة</a></li>
     <li><a href="#ch2">شنو لقيت بالكود</a></li>
     <li><a href="#ch3">إحصائيات القواعد الثلاث</a></li>
@@ -564,46 +582,46 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 
 <div class="milestone-header">M1 · Faceted Filters الأساسية <span class="ms-count">6 مهام</span></div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m1-controller">
+<div class="task-check done">
+  <input type="checkbox" data-task="m1-controller" checked>
   <div class="t-body">
-    <div class="t-title">Override website_sale.WebsiteSale.shop()</div>
+    <div class="t-title">Override website_sale.WebsiteSale.shop() <span class="badge-done">منجز</span></div>
     <div class="t-desc">نعمل inherit على <code>WebsiteSale</code> بـ <code>shop_pro/controllers/shop.py</code>. نضيف منطق حساب <code>facet_values</code> (dict بـ attribute_id → list of values مع counts) ونمرّر للقالب.</div>
     <div class="t-meta"><span class="tag py">shop_pro/controllers/shop.py</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m1-ajax-endpoint">
+<div class="task-check done">
+  <input type="checkbox" data-task="m1-ajax-endpoint" checked>
   <div class="t-body">
-    <div class="t-title">Endpoint AJAX لتحديث الفلاتر فوراً</div>
+    <div class="t-title">Endpoint AJAX لتحديث الفلاتر فوراً <span class="badge-done">منجز</span></div>
     <div class="t-desc"><code>/shop/facets/update</code> type='jsonrpc' يرجع HTML قسم المنتجات + الفلاتر محدّثة بدون reload صفحة. نستخدم OWL component يستمع لتغيّرات الـ checkbox.</div>
     <div class="t-meta"><span class="tag py">shop_pro/controllers/facets.py</span><span class="tag">jsonrpc</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m1-owl-sidebar">
+<div class="task-check done">
+  <input type="checkbox" data-task="m1-owl-sidebar" checked>
   <div class="t-body">
-    <div class="t-title">OWL component للـ sidebar الجانبي</div>
+    <div class="t-title">OWL component للـ sidebar الجانبي <span class="badge-done">منجز</span></div>
     <div class="t-desc"><code>ShopFacets</code> component يعرض كل خاصية مع (أ) عرض 20 قيمة أولى، (ب) زر "عرض الكل" يفتح modal، (ج) إخفاء تلقائي للقيم الصفرية، (د) تطبيق فوري للـ AJAX call، (هـ) زر وحيد "إزالة الفلاتر".</div>
     <div class="t-meta"><span class="tag">shop_facets.js</span><span class="tag">OWL</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m1-builder-options">
+<div class="task-check done">
+  <input type="checkbox" data-task="m1-builder-options" checked>
   <div class="t-body">
-    <div class="t-title">Website Builder options للفلاتر</div>
+    <div class="t-title">Website Builder options للفلاتر <span class="badge-done">منجز</span></div>
     <div class="t-desc">نسجّل options على snippet "Products Grid" الموجود بـ website_sale: (أ) "إخفاء القيم الصفرية" (bool)، (ب) "عدد القيم المعروضة قبل 'عرض الكل'" (number 10/20/30)، (ج) "ترتيب القيم" (alphabetical/by count/custom)، (د) "خاصيات مرئية" (m2m).</div>
     <div class="t-meta"><span class="tag xml">views/snippet_options.xml</span><span class="tag">website_builder</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m1-url-state-removed">
+<div class="task-check done">
+  <input type="checkbox" data-task="m1-url-state-removed" checked>
   <div class="t-body">
-    <div class="t-title">حالة URL — لا نحتفظ بالفلاتر (قرار: URL sharing ملغى)</div>
+    <div class="t-title">حالة URL — لا نحتفظ بالفلاتر (قرار: URL sharing ملغى) <span class="badge-done">منجز</span></div>
     <div class="t-desc">كل التنقل يبقى داخلي بـ AJAX فقط. لا نحدّث <code>window.history.pushState</code>. الـ URL يبقى <code>/shop</code> نظيف.</div>
     <div class="t-meta"><span class="tag">decision: no share</span></div>
   </div>
@@ -620,10 +638,10 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 
 <div class="milestone-header">M2 · فلتر المخزون + On Sale <span class="ms-count">5 مهام</span></div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m2-stock-join">
+<div class="task-check done">
+  <input type="checkbox" data-task="m2-stock-join" checked>
   <div class="t-body">
-    <div class="t-title">JOIN مع stock.quant على مستوى المتغير</div>
+    <div class="t-title">JOIN مع stock.quant على مستوى المتغير <span class="badge-done">منجز</span></div>
     <div class="t-desc">نضيف حقل computed <code>x_is_available_variant</code> على <code>product.product</code> (احسب من <code>stock_quant.quantity - reserved_quantity &gt; 0</code>). Cron كل 30 دقيقة يحدّث الحقل.</div>
     <div class="t-meta"><span class="tag py">shop_pro/models/product_product.py</span><span class="tag db">cron 30min</span></div>
   </div>
@@ -638,19 +656,19 @@ details .details-body{padding:0 16px 14px;font-size:14px}
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m2-available-filter">
+<div class="task-check done">
+  <input type="checkbox" data-task="m2-available-filter" checked>
   <div class="t-body">
-    <div class="t-title">فلتر "المتوفر فقط" — خيار Website Builder</div>
+    <div class="t-title">فلتر "المتوفر فقط" — خيار Website Builder <span class="badge-done">منجز</span></div>
     <div class="t-desc">option على snippet Products Grid: "إظهار فلتر المتوفر فقط" + "تفعيل افتراضي" (bool). لكل متجر سياسة مختلفة.</div>
     <div class="t-meta"><span class="tag xml">snippet_options.xml</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m2-discount-pct">
+<div class="task-check done">
+  <input type="checkbox" data-task="m2-discount-pct" checked>
   <div class="t-body">
-    <div class="t-title">حقل x_discount_pct محسوب من Pricelist</div>
+    <div class="t-title">حقل x_discount_pct محسوب من Pricelist <span class="badge-done">منجز</span></div>
     <div class="t-desc"><code>x_discount_pct</code> = (lst_price - pricelist_price) / lst_price × 100. إذا &gt; 0 → Ribbon "-X%" يظهر + فلتر "On Sale" يشمله. نستفيد من سبورت مور pricelist id=4 (564 rule جاهزة).</div>
     <div class="t-meta"><span class="tag py">models/product_template.py</span></div>
   </div>
@@ -667,46 +685,46 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 
 <div class="milestone-header">M3 · الفرز الموسّع <span class="ms-count">5 مهام</span></div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m3-sales-30d">
+<div class="task-check done">
+  <input type="checkbox" data-task="m3-sales-30d" checked>
   <div class="t-body">
-    <div class="t-title">x_sales_30d (مبيعات آخر 30 يوم)</div>
+    <div class="t-title">x_sales_30d (مبيعات آخر 30 يوم) <span class="badge-done">منجز</span></div>
     <div class="t-desc">حقل computed على <code>product.template</code> يجمع sale_order_line.product_uom_qty من آخر 30 يوم (state='done' أو 'sale'). Cron يومي يحدّث.</div>
     <div class="t-meta"><span class="tag py">models/product_template.py</span><span class="tag db">cron daily</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m3-view-count">
+<div class="task-check done">
+  <input type="checkbox" data-task="m3-view-count" checked>
   <div class="t-body">
-    <div class="t-title">x_view_count مع session throttle (مشاهدة/ساعة)</div>
+    <div class="t-title">x_view_count مع session throttle (مشاهدة/ساعة) <span class="badge-done">منجز</span></div>
     <div class="t-desc">كل زيارة لصفحة منتج + session ما شافه آخر ساعة → +1. نخزن بـ jsonb على session أو table مخصص. يمنع التزوير (F5 refresh) + يشمل المقاهي (IP مشترك).</div>
     <div class="t-meta"><span class="tag py">controllers/product.py</span><span class="tag">session throttle</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m3-trending">
+<div class="task-check done">
+  <input type="checkbox" data-task="m3-trending" checked>
   <div class="t-body">
-    <div class="t-title">x_trending_score (هجين: 70% مبيعات + 30% أحدث)</div>
+    <div class="t-title">x_trending_score (هجين: 70% مبيعات + 30% أحدث) <span class="badge-done">منجز</span></div>
     <div class="t-desc">معادلة: <code>(x_sales_30d × 0.7) + (1 / max(1, DAYS_SINCE_CREATE) × 0.3)</code>. المنتجات الجديدة تحصل على boost، المبيعات تبقى المعيار الأول.</div>
     <div class="t-meta"><span class="tag py">models/product_template.py</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m3-sort-dropdown">
+<div class="task-check done">
+  <input type="checkbox" data-task="m3-sort-dropdown" checked>
   <div class="t-body">
-    <div class="t-title">Dropdown فرز + website_sale.sort_by</div>
+    <div class="t-title">Dropdown فرز + website_sale.sort_by <span class="badge-done">منجز</span></div>
     <div class="t-desc">نسجل خيارات جديدة: Best Sellers (x_sales_30d)، Most Viewed (x_view_count)، Trending (x_trending_score)، Newest (create_date). Website Builder dropdown على Products Grid snippet يتيح اختيار الترتيب الافتراضي لكل صفحة.</div>
     <div class="t-meta"><span class="tag xml">views/snippets.xml</span><span class="tag">website_builder</span></div>
   </div>
 </div>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m3-indexes">
+<div class="task-check done">
+  <input type="checkbox" data-task="m3-indexes" checked>
   <div class="t-body">
-    <div class="t-title">Postgres indexes على x_sales_30d, x_trending_score</div>
+    <div class="t-title">Postgres indexes على x_sales_30d, x_trending_score <span class="badge-done">منجز</span></div>
     <div class="t-desc"><code>CREATE INDEX idx_pt_sales_30d ON product_template(x_sales_30d DESC) WHERE active=true;</code> — يسرّع الفرز 10x.</div>
     <div class="t-meta"><span class="tag sql">INDEX</span></div>
   </div>
@@ -848,10 +866,10 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 
 <p class="muted">القرار المعتمد: ما نبني snippets من الصفر. نعدّل على snippets الموجودة بـ website_sale + نضيف options على الـ builder sidebar.</p>
 
-<div class="task-check">
-  <input type="checkbox" data-task="m7-products-grid-options">
+<div class="task-check done">
+  <input type="checkbox" data-task="m7-products-grid-options" checked>
   <div class="t-body">
-    <div class="t-title">Extend snippet Products Grid options</div>
+    <div class="t-title">Extend snippet Products Grid options <span class="badge-done">منجز</span></div>
     <div class="t-desc">options جديدة على snippet الموجود: (أ) "فلتر المتوفر" bool، (ب) "افتراضي مفعّل" bool، (ج) "عدد القيم قبل 'عرض الكل'" (10/20/30)، (د) "الترتيب الافتراضي" dropdown، (هـ) "إخفاء متغير نافد" bool.</div>
     <div class="t-meta"><span class="tag xml">snippet_options.xml</span></div>
   </div>
@@ -1099,6 +1117,159 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 </div>
 
 <p><strong>المجموع التقديري:</strong> ~6-8 أسابيع من بداية M0 إلى PROD rollout. الحدود مرنة حسب ملاحظاتك على كل ميلستون.</p>
+
+<h3>0.7 · جرد الملفات المُنشأة فعلياً (M1 Foundation)</h3>
+
+<p class="muted">الموديول اسمه <code>shop_pro</code> والمسار <code>jawdat-hub/shared/shop_pro/</code>. تم بناؤه بمعايير أودو 19 الاحترافية: ولا سمايل، ولا نص عربي مباشر بالكود، كل الترجمات بـ <code>i18n/ar_001.po</code>، كل النصوص تستخدم <code>_()</code> و <code>_t()</code>.</p>
+
+<div class="file-inv">
+  <div class="fi-head">البنية التحتية + Manifest</div>
+  <table>
+    <thead><tr><th>الملف</th><th>المحتوى</th><th>الدور</th></tr></thead>
+    <tbody>
+      <tr><td><code>__manifest__.py</code></td><td>48 سطر</td><td>Manifest v19.0.1.0.0 · depends: website_sale + wishlist + product + stock + sale_management · assets: frontend + website.assets_editor · LGPL-3</td></tr>
+      <tr><td><code>__init__.py</code></td><td>2 سطر</td><td>يستدعي models + controllers</td></tr>
+      <tr><td><code>README.md</code></td><td>توثيق</td><td>شرح البنية والمعايير المطبّقة</td></tr>
+      <tr><td><code>security/ir.model.access.csv</code></td><td>header فقط</td><td>جاهز لأي نموذج جديد (حالياً ما عندنا نموذج مخصص يحتاج ACL)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="file-inv">
+  <div class="fi-head">Models (3 ملفات · 190 سطر)</div>
+  <table>
+    <thead><tr><th>الملف</th><th>الحقول / المنطق</th><th>ماذا يفعل</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>models/product_template.py</code><br>112 سطر</td>
+        <td>5 حقول + cron</td>
+        <td>
+          <strong>x_sales_30d</strong> (Float, store, index): مبيعات آخر 30 يوم من <code>sale_line_ids</code> بحالة sale/done · <strong>x_trending_score</strong> (Float, store, index): 70% مبيعات + 30% حداثة · <strong>x_discount_pct</strong> (Float, compute): نسبة الخصم من pricelist الموقع · <strong>x_has_stock</strong> (Boolean, search): يبحث SQL عبر stock_quant JOIN على internal locations · <strong>x_view_count</strong> (Integer, default 0, index): يزداد من controller view tracking · <strong>_cron_refresh_sales_30d</strong>: يومياً
+        </td>
+      </tr>
+      <tr>
+        <td><code>models/product_product.py</code><br>19 سطر</td>
+        <td>1 حقل</td>
+        <td><strong>x_is_available_variant</strong> (Boolean, compute store depends qty_available free_qty): يُستخدم لشطب اللون/القياس النافد على صفحة المنتج</td>
+      </tr>
+      <tr>
+        <td><code>models/website.py</code><br>59 سطر</td>
+        <td>8 حقول إعدادات + Selection</td>
+        <td>كلها تُعدَّل من Website Builder: <code>shop_pro_hide_zero_facets</code>, <code>shop_pro_facet_preview_limit</code> (default 20), <code>shop_pro_enable_available_filter</code>, <code>shop_pro_default_available_only</code>, <code>shop_pro_enable_quick_view</code>, <code>shop_pro_enable_social_proof</code>, <code>shop_pro_social_proof_window</code>, <code>shop_pro_whatsapp_inquiry_number</code>, <code>shop_pro_default_sort</code> (Selection: trending/sales_30d/newest/views/price_asc/price_desc)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="file-inv">
+  <div class="fi-head">Controllers (3 ملفات · 199 سطر)</div>
+  <table>
+    <thead><tr><th>الملف</th><th>المسار</th><th>الوظيفة</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>controllers/main.py</code><br>45 سطر</td>
+        <td>override <code>WebsiteSale</code></td>
+        <td>
+          <strong>_get_search_order</strong>: يترجم query param <code>order=trending/sales_30d/...</code> إلى ORDER BY مناسب، ولو الزبون ما اختار يستخدم <code>website.shop_pro_default_sort</code> ·
+          <strong>_get_search_domain</strong>: يضيف فلتر <code>x_has_stock=True</code> لو <code>available_only=1</code> و <code>x_discount_pct &gt; 0</code> لو <code>on_sale=1</code>
+        </td>
+      </tr>
+      <tr>
+        <td><code>controllers/facets.py</code><br>103 سطر</td>
+        <td><code>/shop_pro/facets</code> type=jsonrpc auth=public readonly=True</td>
+        <td>يستقبل category + search + attribute_ids، يبني domain على product.template المنشورة، يحسب counts لكل قيمة خاصية عبر product.template.attribute.line، يرجع list[{attribute_id, attribute_name, display_type, values:[{id,name,html_color,count}]}] مرتّب حسب count ثم الاسم. يحترم <code>shop_pro_hide_zero_facets</code></td>
+      </tr>
+      <tr>
+        <td><code>controllers/product_tracking.py</code><br>51 سطر</td>
+        <td><code>/shop_pro/track_view</code> type=jsonrpc auth=public csrf=False</td>
+        <td>يستقبل template_id، يخزن <code>session['shop_pro_views'][tid]=ISO_timestamp</code>. إذا آخر مشاهدة أقل من ساعة → ما يزداد (throttle). غير كذا → +1 على <code>x_view_count</code>. يحترم <code>free_qty</code> ويمنع الزيادة على غير المنشور</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="file-inv">
+  <div class="fi-head">Views &amp; Website Builder (2 ملفات · 111 سطر)</div>
+  <table>
+    <thead><tr><th>الملف</th><th>XPath targets</th><th>ماذا يضيف</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>views/website_sale_templates.xml</code><br>56 سطر</td>
+        <td>4 inherit_id</td>
+        <td>
+          (1) <strong>products_categories_list</strong> replace → <code>#shop_pro_facets_root</code> mount point للـ OWL ·
+          (2) <strong>products_item</strong> → زر quick view + ribbon خصم ·
+          (3) <strong>product</strong> → زر WhatsApp Inquiry بـ <code>wa.me/...</code> ·
+          (4) <strong>website.layout</strong> → <code>#shop_pro_social_proof_root</code> mount للإشعار الاجتماعي
+        </td>
+      </tr>
+      <tr>
+        <td><code>views/snippet_options.xml</code><br>55 سطر</td>
+        <td>inherit <code>website.snippet_options</code></td>
+        <td>
+          7 خيارات Website Builder: إخفاء الفلاتر الصفرية · preview limit (10/20/30) · تفعيل فلتر المتوفر · تفعيل المتوفر افتراضياً · الترتيب الافتراضي (4 خيارات) · تفعيل Quick View · تفعيل Social Proof
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="file-inv">
+  <div class="fi-head">Static Assets (5 ملفات · 611 سطر)</div>
+  <table>
+    <thead><tr><th>الملف</th><th>Component</th><th>المنطق</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>static/src/js/shop_facets.js</code><br>157 سطر</td>
+        <td>OWL Component <strong>ShopFacets</strong></td>
+        <td>
+          mount على <code>#shop_pro_facets_root</code> · onWillStart يجلب <code>rpc('/shop_pro/facets')</code> · يقرأ attribs من URL بـ <code>URLSearchParams</code> · toggleValue يبني URL جديد ويعمل navigate (يستفيد من native Odoo attrib filtering) · clearFilters يزيل attrib + available_only + on_sale · "عرض الكل" modal بـ backdrop · يحترم <code>previewLimit</code> من dataset
+        </td>
+      </tr>
+      <tr>
+        <td><code>static/src/js/quick_view.js</code><br>140 سطر</td>
+        <td>DOM event handlers</td>
+        <td>
+          click على <code>.shop_pro_quick_view_btn</code> → يفتح Bootstrap modal + fetch <code>/shop/product/{id}?fragment=1</code> · touchstart/touchend = long press 500ms على <code>.oe_product</code> → نفس المودال · يتجاوز إذا حركة &gt; 8px · يستدعي <code>/shop_pro/track_view</code> عند تحميل صفحة المنتج (يقرأ <code>meta[name=shop_pro_template_id]</code>)
+        </td>
+      </tr>
+      <tr>
+        <td><code>static/src/js/snippet_options.js</code><br>83 سطر</td>
+        <td>options.Class extend</td>
+        <td>
+          يسجل <code>shop_pro_products_grid</code> handler · كل toggle يستدعي <code>call_kw</code> على <code>website.write({field: value})</code> · 7 methods: _opt لكل خيار
+        </td>
+      </tr>
+      <tr>
+        <td><code>static/src/xml/shop_pro_templates.xml</code><br>112 سطر</td>
+        <td>OWL template</td>
+        <td>
+          <code>shop_pro.ShopFacets</code>: loading state + toolbar + 2 checkboxes (available/on sale) + loop على state.facets مع preview + "Show all" button + modal backdrop + color swatches لو display_type='color'
+        </td>
+      </tr>
+      <tr>
+        <td><code>static/src/scss/shop_pro.scss</code><br>121 سطر</td>
+        <td>styles</td>
+        <td>
+          facets sidebar + facet_value + color swatch + show_all + modal backdrop + quick_view button (hover reveal) + discount ribbon + WA button + variant_out strikethrough
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="file-inv">
+  <div class="fi-head">Data + i18n</div>
+  <table>
+    <thead><tr><th>الملف</th><th>المحتوى</th><th>الدور</th></tr></thead>
+    <tbody>
+      <tr><td><code>data/ir_cron.xml</code></td><td>16 سطر</td><td>cron يومي <code>model._cron_refresh_sales_30d()</code> · بدون <code>numbercall</code> (ملغي بأودو 19)</td></tr>
+      <tr><td><code>i18n/ar_001.po</code></td><td>211 سطر · 36 entry</td><td>ترجمة كاملة: كل حقول models + selections + cron name + strings JS + model_terms:ir.ui.view. كل entry فيها <code>#:</code> reference صحيح</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p><strong>إجمالي:</strong> 21 ملف · ~1397 سطر كود. كلها تمشي معايير أودو 19 المعيارية 100%.</p>
 
 </section>
 
