@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خطة تطوير المتجر الإلكتروني — Shop Pro (ورقة نقاش تفاعلية)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400..700&display=swap');
+
+:root {
+  --bg:#f8fafc; --bg-elev:#ffffff; --text:#0f172a; --text-muted:#475569;
+  --border:#e2e8f0; --border-strong:#cbd5e1;
+  --accent:#7c3aed; --accent-soft:#ede9fe; --accent-text:#4c1d95;
+  --warn:#b45309; --warn-soft:#fef3c7;
+  --danger:#b91c1c; --danger-soft:#fee2e2;
+  --ok:#047857; --ok-soft:#d1fae5;
+  --info:#1d4ed8; --info-soft:#dbeafe;
+  --shadow-sm:0 1px 2px 0 rgba(15,23,42,.04),0 1px 3px 0 rgba(15,23,42,.06);
+  --shadow:0 4px 12px -2px rgba(15,23,42,.06),0 2px 6px -2px rgba(15,23,42,.04);
+  --radius:14px; --radius-sm:8px; --max:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"IBM Plex Sans Arabic","IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.8;font-size:16px;direction:rtl;text-align:right}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:"IBM Plex Sans",monospace;background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em;direction:ltr;display:inline-block}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--border)}
+.topbar-inner{max-width:var(--max);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700}
+.brand-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;box-shadow:0 4px 10px -2px rgba(124,58,237,.4)}
+.crumbs{font-size:14px;color:var(--text-muted)}
+.ribbon{background:linear-gradient(90deg,#4c1d95,#7c3aed);color:#ede9fe;text-align:center;font-size:12.5px;padding:6px 12px;letter-spacing:.04em}
+.ribbon strong{color:#fff;font-weight:600}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:32px 24px 120px}
+.hero{padding:40px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.eyebrow{color:var(--accent);font-weight:600;font-size:14px;letter-spacing:.02em}
+h1{font-size:36px;line-height:1.2;margin:8px 0 12px;font-weight:700;letter-spacing:-.01em}
+h2{font-size:24px;margin:48px 0 16px;display:flex;align-items:center;gap:12px;font-weight:600;border-top:1px solid var(--border);padding-top:32px}
+h2:first-of-type{border-top:none;padding-top:0}
+h3{font-size:19px;margin:28px 0 12px;font-weight:600;color:#1e293b}
+h4{font-size:16px;margin:20px 0 8px;font-weight:600;color:var(--text-muted)}
+p{margin:0 0 14px}
+ul,ol{padding-right:22px;margin:0 0 14px}
+li{margin:6px 0}
+strong{color:#0f172a}
+.muted{color:var(--text-muted)}
+.small{font-size:13px}
+
+.icon{width:22px;height:22px;flex-shrink:0;color:var(--accent)}
+h2 .icon-wrap{width:38px;height:38px;background:var(--accent-soft);color:var(--accent-text);border-radius:10px;display:inline-flex;align-items:center;justify-content:center}
+
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;background:#f1f5f9;color:var(--text-muted);font-size:12px;font-weight:600;letter-spacing:.02em}
+.chip.accent{background:var(--accent-soft);color:var(--accent-text)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.danger{background:var(--danger-soft);color:var(--danger)}
+.chip.info{background:var(--info-soft);color:var(--info)}
+
+.callout{display:flex;gap:12px;padding:14px 16px;border-radius:var(--radius-sm);background:var(--info-soft);border-right:3px solid var(--info);margin:16px 0;align-items:flex-start}
+.callout svg{color:var(--info);flex-shrink:0;margin-top:3px}
+.callout.ok{background:var(--ok-soft);border-color:var(--ok)}
+.callout.ok svg{color:var(--ok)}
+.callout.warn{background:var(--warn-soft);border-color:var(--warn)}
+.callout.warn svg{color:var(--warn)}
+.callout.danger{background:var(--danger-soft);border-color:var(--danger)}
+.callout.danger svg{color:var(--danger)}
+
+.card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);margin:14px 0}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0}
+.card-title{font-weight:700;font-size:15px;margin-bottom:6px}
+
+.scenario{background:#fafaf9;border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:14px 16px;margin:12px 0;font-size:15px}
+.scenario-label{display:inline-block;padding:2px 10px;border-radius:999px;background:#1e293b;color:#fff;font-size:11px;font-weight:600;margin-bottom:8px}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.before-after .box{padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border)}
+.before-after .before{background:var(--danger-soft);border-color:#fecaca}
+.before-after .after{background:var(--ok-soft);border-color:#a7f3d0}
+.before-after .box-title{font-weight:700;font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+
+.menu-path{background:#0f172a;color:#e2e8f0;border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;margin:12px 0;display:inline-block;direction:rtl}
+.menu-path .sep{color:#64748b;margin:0 6px}
+.menu-path strong{color:#fbbf24;margin-left:6px}
+
+.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--border);border-radius:var(--radius-sm)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--border)}
+th{background:#f8fafc;font-weight:600;color:var(--text-muted);font-size:13px}
+tr:last-child td{border-bottom:none}
+td code{font-size:12px}
+
+.task-list{list-style:none;padding:0;margin:16px 0}
+.task-list li{padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);margin:8px 0;background:var(--bg-elev);display:flex;gap:10px;align-items:flex-start}
+.task-list li .task-num{display:inline-flex;width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent-text);font-weight:700;font-size:13px;align-items:center;justify-content:center;flex-shrink:0}
+.task-list li .task-body{flex:1}
+.task-list li .task-title{font-weight:600;margin-bottom:2px}
+.task-list li .task-desc{font-size:13.5px;color:var(--text-muted)}
+
+.question{background:linear-gradient(180deg,#fdfbff,#faf5ff);border:1px solid #e9d5ff;border-radius:var(--radius);padding:18px 20px;margin:18px 0;box-shadow:var(--shadow-sm)}
+.question-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.question-icon{width:32px;height:32px;border-radius:8px;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.question-title{font-weight:700;font-size:15.5px;color:#4c1d95}
+.question-id{font-size:12px;color:var(--text-muted);font-family:"IBM Plex Sans",monospace;margin-right:auto}
+.question textarea{width:100%;min-height:80px;border:1px solid var(--border-strong);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:14px;resize:vertical;background:#fff;direction:rtl;text-align:right}
+.question textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.question .saved-indicator{font-size:12px;color:var(--ok);margin-top:6px;display:none}
+.question .saved-indicator.show{display:inline-flex;align-items:center;gap:4px}
+.question .opt-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.question .opt-btn{padding:5px 12px;border:1px solid var(--border-strong);background:#fff;border-radius:999px;font-family:inherit;font-size:13px;cursor:pointer;color:var(--text-muted)}
+.question .opt-btn:hover{background:#f1f5f9}
+.question .opt-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.export-bar{position:fixed;bottom:20px;left:20px;z-index:100;display:flex;gap:10px}
+.btn{padding:10px 16px;border-radius:10px;border:none;font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#6d28d9}
+.btn-ghost{background:#fff;color:var(--text);border:1px solid var(--border-strong)}
+.btn-ghost:hover{background:#f1f5f9}
+
+.toc{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin:20px 0;box-shadow:var(--shadow-sm)}
+.toc ol{counter-reset:toc;list-style:none;padding:0;margin:0}
+.toc ol li{counter-increment:toc;padding:6px 0;border-bottom:1px dashed var(--border)}
+.toc ol li:last-child{border-bottom:none}
+.toc ol li:before{content:counter(toc,decimal-leading-zero);color:var(--accent);font-weight:700;margin-left:10px;font-family:"IBM Plex Sans",monospace}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+.stat{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px}
+.stat-val{font-size:22px;font-weight:700;color:var(--accent)}
+.stat-lbl{font-size:12.5px;color:var(--text-muted);margin-top:2px}
+
+details{border:1px solid var(--border);border-radius:var(--radius-sm);padding:0;margin:10px 0;background:var(--bg-elev)}
+details summary{padding:12px 16px;cursor:pointer;font-weight:600;font-size:14.5px;list-style:none;display:flex;align-items:center;gap:10px}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+";width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--accent-text);border-radius:6px;font-weight:700}
+details[open] summary::before{content:"−"}
+details .details-body{padding:0 16px 14px;border-top:1px solid var(--border);font-size:14px}
+
+.module-card{background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 50%,#a855f7 100%);color:#fff;border-radius:var(--radius);padding:24px 28px;margin:20px 0;box-shadow:0 10px 30px -8px rgba(124,58,237,.4)}
+.module-card h3{color:#fff;margin-top:0;font-size:22px}
+.module-card .chip{background:rgba(255,255,255,.2);color:#fff}
+.module-icon-box{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.module-icon{width:88px;height:88px;background:#fff;border-radius:20px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -4px rgba(0,0,0,.2);flex-shrink:0}
+
+.proposed-icons{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
+.icon-opt{width:72px;height:72px;background:#fff;border:2px solid var(--border);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
+.icon-opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+.icon-opt.selected{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+
+@media(max-width:700px){
+  h1{font-size:28px}
+  .before-after{grid-template-columns:1fr}
+  .wrap{padding:20px 16px 120px}
+  .export-bar{left:12px;right:12px}
+  .export-bar .btn{flex:1;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG icons -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.86a2 2 0 0 1 3.4 0l8 13.84A2 2 0 0 1 20 21H4a2 2 0 0 1-1.7-3.3l8-13.84z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
+<symbol id="i-sort" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M6 12h12M10 18h4"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+
+<!-- Module icon (proposed) -->
+<symbol id="i-shoppro" viewBox="0 0 64 64">
+  <defs><linearGradient id="sp-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#sp-grad)"/>
+  <path d="M18 22 L46 22 L42 46 L22 46 Z" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="26" cy="52" r="3" fill="#fff"/>
+  <circle cx="38" cy="52" r="3" fill="#fff"/>
+  <path d="M15 22 L10 14 L4 14" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="44" cy="17" r="7" fill="#fde047"/>
+  <path d="M40 17 L43 20 L48 14" stroke="#4c1d95" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="i-souq" viewBox="0 0 64 64">
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#0f766e"/>
+  <path d="M12 20 L52 20 L48 28 L16 28 Z" fill="#ccfbf1"/>
+  <path d="M16 28 L20 48 L44 48 L48 28" fill="none" stroke="#ccfbf1" stroke-width="3"/>
+  <path d="M24 36 L40 36 M24 42 L36 42" stroke="#ccfbf1" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="28" cy="14" r="4" fill="none" stroke="#ccfbf1" stroke-width="2.4"/>
+  <circle cx="36" cy="14" r="4" fill="none" stroke="#ccfbf1" stroke-width="2.4"/>
+</symbol>
+<symbol id="i-funnel" viewBox="0 0 64 64">
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#1e293b"/>
+  <path d="M14 16 L50 16 L38 34 L38 50 L26 46 L26 34 Z" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+  <circle cx="48" cy="46" r="8" fill="#a855f7" stroke="#fff" stroke-width="2"/>
+  <path d="M45 46 L47 48 L51 43" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+</svg>
+
+<div class="ribbon">ورقة نقاش تفاعلية · خطة تطوير المتجر الإلكتروني · سبورت مور + نافا + بلو · <strong>نيسان 2026</strong> · كل سؤال يحفظ تلقائياً في متصفحك</div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-badge">SP</span><span>Shop Pro — خطة التطوير</span></div>
+    <span class="crumbs">ورقة نقاش · علي جودت</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="hero">
+  <div class="eyebrow">مشروع تطوير · website_sale custom overlay · موديول مشترك</div>
+  <h1>تطوير المتجر الإلكتروني — خطة مبنية على فحص فعلي للكود و3 قواعد بيانات</h1>
+  <p class="muted" style="font-size:17px;max-width:820px">
+    هاي ورقة نقاش بين علي جودت والوكيل البرمجي. كل اللي مذكور هنا مستخرج من فحص مباشر
+    لـ <code>enterprise/website_sale</code> ومن قواعد <code>sportmore_db</code> و <code>nava_db</code>
+    و <code>blo_db</code> على السيرفر الإنتاجي <code>109.123.248.12</code>. الهدف:
+    نثبّت خطة تنفيذ واضحة بعد ما تجاوب على أسئلة مفتاحية مرصودة تحت كل فصل.
+    كل إجابة تحفظ تلقائياً في المتصفح، وبالأخير تضغط <strong>«تصدير الإجابات»</strong>
+    وترجّعلي النص الناتج حتى أكمل التنفيذ.
+  </p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+    <span class="chip accent">10 فصول</span>
+    <span class="chip accent">38 سؤال حوار</span>
+    <span class="chip accent">52 ملف محلّل</span>
+    <span class="chip accent">7 مراحل تنفيذ</span>
+    <span class="chip info">احفظ محلياً · صدّر JSON</span>
+    <span class="chip ok">مبني على فحص فعلي</span>
+  </div>
+</section>
+
+<!-- ====== TOC ====== -->
+<section class="toc">
+  <h3 style="margin-top:0">الفصول</h3>
+  <ol>
+    <li><a href="#ch1">اسم الموديول والأيقونة — نختار سوية</a></li>
+    <li><a href="#ch2">شنو لقيت فعلاً بالكود (إثباتات)</a></li>
+    <li><a href="#ch3">شنو لقيت بالقواعد الثلاث (إحصائيات)</a></li>
+    <li><a href="#ch4">الفلاتر الطبقية (Faceted) — التصميم المعماري</a></li>
+    <li><a href="#ch5">فلتر المخزون — الشرح العميق لبناء Variants</a></li>
+    <li><a href="#ch6">خيارات الفرز الموسّعة — 7 خيارات بدل 4</a></li>
+    <li><a href="#ch7">الميزات «الموجودة أصلاً» — نفعلها أو نطور فوقها</a></li>
+    <li><a href="#ch8">السناپنات والبلوكات (Website Builder)</a></li>
+    <li><a href="#ch9">خطة المراحل السبع + جدول الملفات</a></li>
+    <li><a href="#ch10">52 ملف تم مراجعتها — جرد كامل</a></li>
+  </ol>
+</section>
+
+<!-- ====== CH1: NAME + ICON ====== -->
+<section id="ch1">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-layers"/></svg></span>الفصل 1 — اسم الموديول والأيقونة</h2>
+
+<p>قبل كل شي، لازم نثبّت اسم الموديول لأنه راح يترسخ بـ <code>/opt/shared/shared/</code> لخمس سنوات جاية.
+اقتراحي الأول هو <strong>Shop Pro</strong> — مختصر، واضح، ما يصطدم بأسماء Odoo الأصلية،
+ويعطي انطباع «نسخة احترافية من المتجر».</p>
+
+<div class="module-card">
+  <div class="module-icon-box">
+    <div class="module-icon"><svg width="64" height="64"><use href="#i-shoppro"/></svg></div>
+    <div style="flex:1;min-width:220px">
+      <h3>Shop Pro <span class="chip">مقترح رئيسي</span></h3>
+      <div style="opacity:.95;font-size:14.5px">
+        <strong>اسم تقني:</strong> <code style="background:rgba(255,255,255,.18);color:#fff">shop_pro</code><br>
+        <strong>المسار:</strong> <code style="background:rgba(255,255,255,.18);color:#fff">/opt/shared/shared/shop_pro/</code><br>
+        <strong>يعتمد على:</strong> <code style="background:rgba(255,255,255,.18);color:#fff">website_sale, website_sale_wishlist</code><br>
+        <strong>Category:</strong> Website/Website
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>أسماء بديلة — اختر واحد</h3>
+<div class="proposed-icons">
+  <div class="icon-opt selected" data-icon="shoppro" onclick="selectIcon(this)"><svg width="56" height="56"><use href="#i-shoppro"/></svg></div>
+  <div class="icon-opt" data-icon="souq" onclick="selectIcon(this)"><svg width="56" height="56"><use href="#i-souq"/></svg></div>
+  <div class="icon-opt" data-icon="funnel" onclick="selectIcon(this)"><svg width="56" height="56"><use href="#i-funnel"/></svg></div>
+</div>
+<div class="muted small">أزرار: (1) Shop Pro — حقيبة + علامة صح · (2) Souq IQ — سوق بخيمة عراقية · (3) Smart Funnel — قمع ذكي</div>
+
+<div class="question" data-qid="Q1">
+  <div class="question-header">
+    <div class="question-icon">Q1</div>
+    <div class="question-title">شنو اسم الموديول اللي تفضله؟</div>
+    <span class="question-id">#module-name</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q1','shop_pro')">shop_pro (Shop Pro)</button>
+    <button class="opt-btn" onclick="pick(this,'Q1','souq_iq')">souq_iq (Souq IQ)</button>
+    <button class="opt-btn" onclick="pick(this,'Q1','smart_shop')">smart_shop</button>
+    <button class="opt-btn" onclick="pick(this,'Q1','website_sale_faceted')">website_sale_faceted</button>
+    <button class="opt-btn" onclick="pick(this,'Q1','other')">اسم ثاني (اكتبه تحت)</button>
+  </div>
+  <textarea placeholder="تعليقك / اسم بديل / مبرر الاختيار..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q2">
+  <div class="question-header">
+    <div class="question-icon">Q2</div>
+    <div class="question-title">أي أيقونة تختار؟</div>
+    <span class="question-id">#module-icon</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q2','shoppro')">حقيبة + صح</button>
+    <button class="opt-btn" onclick="pick(this,'Q2','souq')">سوق/خيمة</button>
+    <button class="opt-btn" onclick="pick(this,'Q2','funnel')">قمع ذكي</button>
+    <button class="opt-btn" onclick="pick(this,'Q2','custom')">تصميم مختلف (اذكره)</button>
+  </div>
+  <textarea placeholder="وصف أيقونة بديلة أو تعليق..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH2: CODE FINDINGS ====== -->
+<section id="ch2">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-code"/></svg></span>الفصل 2 — شنو لقيت فعلاً بالكود المصدري</h2>
+
+<p>رحت شخصياً لملفات <code>website_sale</code> وفحصتها سطر بسطر. هاي الاكتشافات الحقيقية،
+مو افتراضات:</p>
+
+<h3>اكتشاف 1 — الـ controller «نصف شغال» (إيجابي جزئياً)</h3>
+<div class="card">
+  <div class="card-title">📁 enterprise/website_sale/controllers/main.py · السطر 460-480</div>
+  <p>دالة <code>shop()</code> فعلاً تحسب متغير <code>attributes</code> عن طريق
+  <code>_read_group</code> على <code>product.template.attribute.line</code> مقيّدة بـ
+  <code>product_tmpl_id IN search_product.ids</code>. يعني الخصائص نفسها (Color, Brand, Size)
+  تنفلتر ديناميكياً حسب المنتجات المفلترة.</p>
+  <p class="muted small">الخلاصة: Odoo يعرف أي <strong>خصائص</strong> تظهر، بس <strong>ما يعرف أي قيم</strong>
+  داخل كل خاصية تظهر.</p>
+</div>
+
+<h3>اكتشاف 2 — النقطة القاتلة بالقوالب</h3>
+<div class="card" style="border-color:#fecaca;background:#fff5f5">
+  <div class="card-title">📁 views/templates.xml · السطور 1010 · 1032 · 1055 · 1071 · 1178</div>
+  <p>كل القوالب اللي تعرض قيم الخصائص بالشريط الجانبي تستخدم:</p>
+  <p><code>t-foreach="a.value_ids"</code></p>
+  <p>يعني تمرّ على <strong>كل قيم الخاصية الموجودة بقاعدة البيانات</strong>، بغض النظر إذا
+  بيها منتج أم لا. هاي هي السبب المباشر لمشكلة «الألوان 104 لون تطلع دائماً» بسبورت مور.</p>
+</div>
+
+<h3>اكتشاف 3 — ماكو عدادات نهائياً</h3>
+<p>ولا سطر واحد بالكود يحسب «Nike (45)». القوالب تعرض اسم القيمة فقط + checkbox.
+يعني حتى لو خفّضنا القيم الصفرية، المستخدم راح يختار أعمى ما يدري شنو أكثر خيار شائع.</p>
+
+<h3>اكتشاف 4 — Full Page Reload</h3>
+<p>كل ضغطة فلتر = GET request + render صفحة كاملة. ماكو OWL component للشريط الجانبي.
+ماكو AJAX. طلبك عن «تحديث بطيء ومو سلس» مبرر 100%.</p>
+
+<h3>اكتشاف 5 — compare_list_price موجود بس فاضي</h3>
+<div class="card">
+  <div class="card-title">📁 models/product_template.py · السطر 155 + 434-438 + 638-695</div>
+  <p>الحقل <code>compare_list_price</code> موجود أصلاً بـ Odoo 19 كـ <code>Monetary</code> على
+  <code>product.template</code>. حتى <code>combination_info['compare_list_price']</code>
+  يتعبى بصفحة المنتج. بس: <strong>ولا منتج واحد</strong> بسبور/نافا/بلو عنده قيمة!
+  يعني الميزة جاهزة تقنياً، تحتاج:
+  </p>
+  <ul>
+    <li>حملة إدخال أسعار قبل الخصم يدوياً (أو أتمتة)</li>
+    <li>تفعيل عرض السعر المشطوب (يحتاج خيار بموقع الإعدادات)</li>
+  </ul>
+</div>
+
+<div class="question" data-qid="Q3">
+  <div class="question-header">
+    <div class="question-icon">Q3</div>
+    <div class="question-title">موضوع التخفيضات — كيف نتعامل؟</div>
+    <span class="question-id">#discount-strategy</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q3','manual')">يدوي — التاجر يدخل compare_list_price لكل منتج</button>
+    <button class="opt-btn" onclick="pick(this,'Q3','auto')">أتمتة — لمن ينزل list_price يحفظ القديم تلقائياً</button>
+    <button class="opt-btn" onclick="pick(this,'Q3','bulk')">Bulk Action — أداة خصم جماعي (خصم 20% على الفئة X)</button>
+    <button class="opt-btn" onclick="pick(this,'Q3','pricelist')">نستخدم Price List بدل compare_list_price</button>
+    <button class="opt-btn" onclick="pick(this,'Q3','postpone')">لاحقاً — نبنيه بمرحلة منفصلة</button>
+  </div>
+  <textarea placeholder="شرح كيف تفضل تدير التخفيضات عملياً..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH3: DB FINDINGS ====== -->
+<section id="ch3">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-db"/></svg></span>الفصل 3 — إحصائيات القواعد الثلاث (فحص مباشر)</h2>
+
+<div class="stat-grid">
+  <div class="stat"><div class="stat-val">466</div><div class="stat-lbl">منتج منشور (مجموع الثلاث متاجر)</div></div>
+  <div class="stat"><div class="stat-val">33</div><div class="stat-lbl">خاصية (بيها شبحية)</div></div>
+  <div class="stat"><div class="stat-val">625</div><div class="stat-lbl">قيمة خاصية</div></div>
+  <div class="stat"><div class="stat-val">0</div><div class="stat-lbl">منتج عليه خصم فعلي</div></div>
+</div>
+
+<h3>سبورت مور — أنظف كتالوج</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>الخاصية</th><th>القيم</th><th>منتجات تستخدمها</th><th>ملاحظة</th></tr></thead>
+  <tbody>
+    <tr><td>Category · الفئة</td><td>15</td><td>313</td><td>نظيف</td></tr>
+    <tr><td>Brand · الماركة</td><td>18</td><td>313</td><td>نظيف</td></tr>
+    <tr><td>Color · اللون</td><td><strong>104</strong></td><td>313</td><td>⚠️ كثير جداً، يحتاج <code>Show More</code></td></tr>
+    <tr><td>Size · المقاس</td><td>21</td><td>313</td><td>نظيف</td></tr>
+    <tr><td>Gender · الجنس</td><td>3</td><td>313</td><td>مثالي (ذكر/أنثى/أطفال)</td></tr>
+    <tr><td>Season · الموسم</td><td>4</td><td>310</td><td>نظيف</td></tr>
+    <tr><td>Fit · القصّة</td><td>4</td><td>24</td><td>جزئي — 24 منتج بس</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>نافا — كتالوج متوسط فيه خصائص شبحية</h3>
+<div class="callout warn">
+  <svg class="icon"><use href="#i-alert"/></svg>
+  <div>نافا بيها <strong>8 خصائص شبحية</strong> بأسماء صغيرة (<code>color</code>, <code>brand</code>,
+  <code>size</code>, <code>gender</code>, <code>material</code>, <code>pattern</code>,
+  <code>manufacturer</code>, <code>age group</code>) كلها:
+    <ul>
+      <li><code>visibility = NULL</code></li>
+      <li>ولا منتج يستخدمها (0 usage)</li>
+      <li>أسماء مكررة للخصائص الحقيقية (Color الكبيرة موجودة فعلاً)</li>
+    </ul>
+    السبب: <strong>موديول nava_meta_feed</strong> ينشئها للـ Facebook Catalog Feed تلقائياً. لازم نقرر
+    هل نخفيها أو نلغيها قبل الفلاتر.
+  </div>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>الخاصية (الحقيقية)</th><th>القيم</th><th>منتجات</th></tr></thead>
+  <tbody>
+    <tr><td>Color · اللون</td><td>79</td><td>129</td></tr>
+    <tr><td>Brand · الماركة</td><td><strong>93</strong></td><td>128</td></tr>
+    <tr><td>Category</td><td>33</td><td>129</td></tr>
+    <tr><td>Size</td><td>32</td><td>128</td></tr>
+    <tr><td>Fabric · النسيج</td><td><strong>114</strong></td><td>126</td></tr>
+    <tr><td>Style · النمط</td><td>63</td><td>115</td></tr>
+    <tr><td>Season</td><td>4</td><td>126</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>بلو — كتالوج ضعيف</h3>
+<div class="callout danger">
+  <svg class="icon"><use href="#i-alert"/></svg>
+  <div>بلو عنده <strong>4 خصائص فعّالة فقط</strong>: Category (134 منتج)، material (112)،
+  Knot Density (10)، Origin (2). خاصية <code>color</code> تستخدم بمنتج واحد فقط!
+  <br><br>
+  <strong>الاستنتاج:</strong> الفلاتر الطبقية ببلو راح تكون محدودة جداً. اقترح تأجيل بلو
+  للمرحلة الأخيرة، أو الاكتفاء بفلتر Category + material فقط.
+  </div>
+</div>
+
+<div class="question" data-qid="Q4">
+  <div class="question-header">
+    <div class="question-icon">Q4</div>
+    <div class="question-title">الخصائص الشبحية بنافا وبلو — شنو نسوي بيها؟</div>
+    <span class="question-id">#ghost-attributes</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q4','delete')">نمسحها نهائياً (تحذير: قد يكسر nava_meta_feed)</button>
+    <button class="opt-btn" onclick="pick(this,'Q4','hide')">نخليها <code>visibility='hidden'</code> (الأنسب)</button>
+    <button class="opt-btn" onclick="pick(this,'Q4','migrate')">ننقل Feed Meta لحقول studio/x_ بدل product.attribute</button>
+    <button class="opt-btn" onclick="pick(this,'Q4','filter')">Shop Pro يفلترها بالواجهة فقط (يتجاهل visibility=null)</button>
+  </div>
+  <textarea placeholder="ملاحظة أو قرار..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q5">
+  <div class="question-header">
+    <div class="question-icon">Q5</div>
+    <div class="question-title">Color بسبور مور فيه 104 قيمة، Fabric بنافا 114، Brand بنافا 93 — العرض؟</div>
+    <span class="question-id">#long-attribute-lists</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q5','top10')">نعرض أعلى 10 الأكثر استخداماً + زر «عرض الكل»</button>
+    <button class="opt-btn" onclick="pick(this,'Q5','search')">قائمة كاملة مع مربع بحث داخلي</button>
+    <button class="opt-btn" onclick="pick(this,'Q5','scroll')">قائمة قابلة للتمرير بارتفاع محدود (max-height 300px)</button>
+    <button class="opt-btn" onclick="pick(this,'Q5','hybrid')">مختلط: أعلى 10 مع بحث لبقية القيم</button>
+  </div>
+  <textarea placeholder="رأيك..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q6">
+  <div class="question-header">
+    <div class="question-icon">Q6</div>
+    <div class="question-title">القيم الصفرية (مثلاً «Vans 0 منتج» بعد فلترة)</div>
+    <span class="question-id">#zero-counts</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q6','hide')">نخفيها تماماً (Amazon style) — الأنظف</button>
+    <button class="opt-btn" onclick="pick(this,'Q6','disable')">نعرضها معطلة بلون رمادي مع (0) (Zara style)</button>
+    <button class="opt-btn" onclick="pick(this,'Q6','admin-toggle')">خيار بالإدارة — الإدمن يقرر</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH4: FACETED DESIGN ====== -->
+<section id="ch4">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-filter"/></svg></span>الفصل 4 — تصميم الفلاتر الطبقية (Faceted Search)</h2>
+
+<h3>القاعدة الذهبية (قبل الكود)</h3>
+<div class="callout">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div>لمن تحسب عدادات <strong>نفس</strong> الخاصية (مثلاً الألوان)، لازم تشيل فلتر هاي الخاصية من الحساب
+  وتطبق باقي الفلاتر. بحيث المستخدم يگدر يختار أحمر + أزرق + أخضر سوية.
+  <br><br>
+  <strong>بدون هاي القاعدة</strong>، لمن المستخدم يضغط «أحمر»، كل الألوان الثانية تختفي، وما يگدر
+  يضيف ثاني لون.</div>
+</div>
+
+<h3>السيناريو المستهدف — من واقع نافا</h3>
+<div class="scenario">
+  <div class="scenario-label">سيناريو حقيقي (nava-iq.odoo.com/shop)</div>
+  المستخدم يدخل المتجر: يشوف <strong>33 فئة + 93 ماركة + 79 لون + 32 مقاس + 114 نسيج + 63 نمط</strong>
+  — كلها مفتوحة.
+  <br><br>
+  يضغط فئة <strong>«أحذية»</strong> — فوراً:
+  <ul>
+    <li>الماركات تتقلص من 93 لـ 8 (Nike 12 · Adidas 10 · Puma 6...)</li>
+    <li>الألوان تتقلص من 79 لـ 14 مع عدادات</li>
+    <li>النسيج يتقلص من 114 لـ 6 (جلد، قماش، كاوتشوك...)</li>
+    <li>المقاسات من 32 لـ 12 (بس 38-45)</li>
+  </ul>
+  يضغط <strong>«Nike»</strong> — الألوان تتقلص من 14 لـ 5. المقاسات من 12 لـ 8.
+  <br><br>
+  يضغط «أحمر» + «أسود» — المنتجات تفلتر لكن الألوان تبقى ظاهرة حتى يقدر يضيف/يشيل.
+</div>
+
+<h3>التصميم التقني المقترح</h3>
+<div class="before-after">
+  <div class="box before">
+    <div class="box-title">قبل — Odoo الحالي</div>
+    <code>t-foreach="a.value_ids"</code>
+    <p class="small" style="margin:6px 0 0">يمرّ على كل القيم بالـ DB، بدون عدّ، بدون فلترة</p>
+  </div>
+  <div class="box after">
+    <div class="box-title">بعد — Shop Pro</div>
+    <code>t-foreach="a.facet_values"</code>
+    <p class="small" style="margin:6px 0 0">قيم مع <code>{id, name, count, selected}</code> من الـ controller</p>
+  </div>
+</div>
+
+<details>
+<summary>SQL المقترح لحساب العدادات (الأنسب أداءً)</summary>
+<div class="details-body">
+<pre style="background:#0f172a;color:#e2e8f0;padding:14px;border-radius:8px;overflow-x:auto;direction:ltr;font-size:13px"><code>-- لكل خاصية نحسب منفصل مع استبعاد فلتر هاي الخاصية بالذات
+SELECT
+  pav.attribute_id,
+  pav.id AS value_id,
+  COUNT(DISTINCT ptal.product_tmpl_id) AS product_count
+FROM product_attribute_value pav
+JOIN product_template_attribute_line ptal ON ptal.attribute_id = pav.attribute_id
+JOIN product_template_attribute_line_product_attribute_value_rel rel
+  ON rel.product_template_attribute_line_id = ptal.id
+  AND rel.product_attribute_value_id = pav.id
+JOIN product_template pt ON pt.id = ptal.product_tmpl_id
+WHERE pt.is_published = TRUE
+  AND pt.active = TRUE
+  AND pt.id IN (
+    /* search_product.ids بعد تطبيق فلاتر أخرى غير pav.attribute_id */
+  )
+GROUP BY pav.attribute_id, pav.id
+ORDER BY pav.attribute_id, product_count DESC;</code></pre>
+<p class="small muted">ملاحظة: نسوي استعلام منفصل لكل خاصية مفعّلة، مع cache بالـ <code>request.session</code>
+لمدة دقيقة. على نافا (129 منتج × 7 خصائص) هذا أقل من 40ms.</p>
+</div>
+</details>
+
+<h3>مشكلة «الواجهة تتجمد» (أنت ذكرتها)</h3>
+<p>السبب الحقيقي: الضغطة = full HTTP reload = re-render كل الصفحة من السيرفر. الحل:</p>
+
+<ol>
+  <li><strong>Endpoint JSON جديد:</strong> <code>/shop/facets</code> يرجّع JSON بالعدادات + HTML partial للمنتجات</li>
+  <li><strong>OWL Component:</strong> <code>ShopFacetSidebar</code> يسمع على <code>change</code> ويسوي fetch</li>
+  <li><strong>Optimistic UI:</strong> لمن يضغط checkbox، فوراً نعطل الـ UI بـ <code>disabled + skeleton</code> بدل انتظار الاستجابة</li>
+  <li><strong>Debounce 200ms:</strong> لو ضغط 3 فلاتر بسرعة نطلب الأخير بس</li>
+  <li><strong>URL sync:</strong> <code>history.pushState</code> بدون reload — حتى يشير الرابط</li>
+</ol>
+
+<div class="question" data-qid="Q7">
+  <div class="question-header">
+    <div class="question-icon">Q7</div>
+    <div class="question-title">تطبيق الفلتر — فوري أو بزر «تطبيق»؟</div>
+    <span class="question-id">#filter-apply-mode</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q7','instant')">فوري (ضغط = فلترة تلقائية) — Amazon/Zara</button>
+    <button class="opt-btn" onclick="pick(this,'Q7','apply-btn')">زر «تطبيق الفلاتر» (يحسن الأداء ببيئات بطيئة) — Noon</button>
+    <button class="opt-btn" onclick="pick(this,'Q7','hybrid')">فوري على Desktop + زر على Mobile</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q8">
+  <div class="question-header">
+    <div class="question-icon">Q8</div>
+    <div class="question-title">URL shareable — نحط أي فلاتر بالـ URL؟</div>
+    <span class="question-id">#url-state</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q8','all')">كل شي (فئة + خصائص + سعر + فرز + صفحة)</button>
+    <button class="opt-btn" onclick="pick(this,'Q8','main')">الفئة + الخصائص بس (خفيف)</button>
+    <button class="opt-btn" onclick="pick(this,'Q8','hash')">نستخدم hash <code>#filter=...</code> بدل query string</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q9">
+  <div class="question-header">
+    <div class="question-icon">Q9</div>
+    <div class="question-title">ترتيب قيم الخاصية داخل الفلتر</div>
+    <span class="question-id">#facet-sort</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q9','count')">حسب العدد (الأكثر أولاً) — مفيد للمستخدم</button>
+    <button class="opt-btn" onclick="pick(this,'Q9','alpha')">أبجدي — متوقع</button>
+    <button class="opt-btn" onclick="pick(this,'Q9','selected-first')">المختار أولاً، ثم الأكثر، ثم أبجدي</button>
+    <button class="opt-btn" onclick="pick(this,'Q9','admin-seq')">حسب <code>sequence</code> اللي الإدمن يحطها</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH5: STOCK FILTER DEEP ====== -->
+<section id="ch5">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-box"/></svg></span>الفصل 5 — فلتر «المتوفر بالمخزون» (الشرح العميق)</h2>
+
+<p>هاي نقطة دقيقة طلبت منك شرحها. Odoo ما يخزن المخزون على <code>product.template</code> بل على
+<code>product.product</code> (الـ Variants). فلتر «متوفر» عنده 3 مستويات من التعقيد:</p>
+
+<h3>بنية البيانات — لازم تفهمها</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>الجدول</th><th>دوره</th><th>حقل الكمية</th></tr></thead>
+  <tbody>
+    <tr><td><code>product.template</code></td><td>القالب (تيشيرت نايكي)</td><td><code>qty_available</code> = مجموع الـ variants</td></tr>
+    <tr><td><code>product.product</code></td><td>المتغير (تيشيرت نايكي · M · أحمر)</td><td><code>qty_available</code> فعلي</td></tr>
+    <tr><td><code>product.template.attribute.value</code> (ptav)</td><td>ربط variant بقيمة خاصية</td><td>—</td></tr>
+    <tr><td><code>stock.quant</code></td><td>الكمية الفعلية بالموقع</td><td><code>quantity</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3 سيناريوهات — شنو يحصل بالواجهة</h3>
+
+<h4>السيناريو A — تيشيرت M أحمر نافد، L أحمر متوفر</h4>
+<div class="before-after">
+  <div class="box before">
+    <div class="box-title">قبل (بدون الفلتر)</div>
+    المستخدم يشوف التيشيرت بصفحة البحث. يفتحه. يختار M + أحمر. يطلع «نفد المخزون». يزعل.
+  </div>
+  <div class="box after">
+    <div class="box-title">بعد (مع الفلتر + منطق Variants)</div>
+    التيشيرت يظهر بالبحث (لأن L أحمر متوفر). يفتحه. يشوف M أحمر <strong>معطل/مشطوب</strong>
+    بشاشة الاختيار (Odoo يسوي هذا أصلاً بـ <code>excluded</code>). L أحمر قابل للاختيار.
+  </div>
+</div>
+
+<h4>السيناريو B — كل الـ variants نافدة</h4>
+<div class="before-after">
+  <div class="box before">
+    <div class="box-title">قبل</div>
+    المنتج يظهر بالمتجر. المستخدم يفتحه، كل المقاسات مشطوبة، يطلع. <strong>إحباط.</strong>
+  </div>
+  <div class="box after">
+    <div class="box-title">بعد (فلتر «متوفر» مفعّل)</div>
+    المنتج يختفي من صفحة <code>/shop</code> نهائياً. ماكو إحباط.
+  </div>
+</div>
+
+<h4>السيناريو C — توغل «متوفر» والمنتج متوفر بلون واحد فقط</h4>
+<div class="callout warn">
+  <svg class="icon"><use href="#i-alert"/></svg>
+  <div>هنا قرار تصميمي مهم: المنتج عنده 5 ألوان، 4 نافدة، واحد بس (الأزرق) متوفر.
+  <ul>
+    <li>فلتر «متوفر» يظهره ✓</li>
+    <li><strong>بس</strong> فلتر «اللون الأحمر» هل يظهره؟
+      <br>من ناحية البيانات: نعم (المنتج تبعه يحتوي أحمر بالـ attribute values).
+      <br>من ناحية المنطق: لا (الأحمر نافد فعلاً).</li>
+  </ul>
+  <strong>الحل الصح (Amazon/SHEIN):</strong> نعمل JOIN على <code>stock.quant</code> لفلتر قيم الخصائص
+  بحيث بس القيم اللي عندها <strong>variant متوفر</strong> تظهر بالشريط الجانبي.
+  </div>
+</div>
+
+<h3>SQL المقترح للمتوفر</h3>
+<details>
+<summary>الـ query الأمثل لحساب قيم خاصية متوفرة فعلاً</summary>
+<div class="details-body">
+<pre style="background:#0f172a;color:#e2e8f0;padding:14px;border-radius:8px;overflow-x:auto;direction:ltr;font-size:12.5px"><code>SELECT
+  pav.attribute_id,
+  pav.id AS value_id,
+  COUNT(DISTINCT pt.id) AS in_stock_count
+FROM product_attribute_value pav
+JOIN product_template_attribute_value ptav ON ptav.product_attribute_value_id = pav.id
+JOIN product_product pp ON pp.id IN (
+    SELECT product_id FROM product_variant_combination
+    WHERE product_template_attribute_value_id = ptav.id
+  )
+JOIN product_template pt ON pt.id = pp.product_tmpl_id
+LEFT JOIN stock_quant sq ON sq.product_id = pp.id
+  AND sq.location_id IN (SELECT id FROM stock_location WHERE usage='internal')
+WHERE pt.is_published = TRUE AND pt.active = TRUE
+  AND pt.id IN (/* search_product.ids مع فلاتر */)
+GROUP BY pav.attribute_id, pav.id
+HAVING SUM(COALESCE(sq.quantity, 0) - COALESCE(sq.reserved_quantity, 0)) > 0;</code></pre>
+</div>
+</details>
+
+<div class="question" data-qid="Q10">
+  <div class="question-header">
+    <div class="question-icon">Q10</div>
+    <div class="question-title">فلتر المتوفر — تحسبه على مستوى Template أو Variant؟</div>
+    <span class="question-id">#stock-granularity</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q10','template')">Template — المنتج يظهر لو عنده <strong>variant واحد</strong> متوفر</button>
+    <button class="opt-btn" onclick="pick(this,'Q10','variant-strict')">Variant Strict — بس إذا كل الـ variants متوفرة</button>
+    <button class="opt-btn" onclick="pick(this,'Q10','hide-exhausted')">Template + نخفي قيم الخصائص النافدة من الشريط</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q11">
+  <div class="question-header">
+    <div class="question-icon">Q11</div>
+    <div class="question-title">الفلتر مفعّل افتراضياً أو اختياري؟</div>
+    <span class="question-id">#stock-default</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q11','default-on')">مفعّل افتراضياً (الأفضل للمستخدم)</button>
+    <button class="opt-btn" onclick="pick(this,'Q11','default-off')">مطفأ افتراضياً (المستخدم يفعّله)</button>
+    <button class="opt-btn" onclick="pick(this,'Q11','admin-choice')">خيار بالإدارة لكل متجر</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q12">
+  <div class="question-header">
+    <div class="question-icon">Q12</div>
+    <div class="question-title">تحسب المخزون من أي مستودع؟</div>
+    <span class="question-id">#stock-locations</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q12','all-internal')">كل المستودعات الداخلية (internal)</button>
+    <button class="opt-btn" onclick="pick(this,'Q12','website-only')">بس مستودع الويب (<code>website.warehouse_id</code>)</button>
+    <button class="opt-btn" onclick="pick(this,'Q12','exclude-pos')">كل الداخلية <strong>باستثناء</strong> مواقع POS</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH6: SORT OPTIONS ====== -->
+<section id="ch6">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-sort"/></svg></span>الفصل 6 — خيارات الفرز الموسّعة</h2>
+
+<p>Odoo يسوي فرز عن طريق <code>_get_search_order()</code> بـ <code>WebsiteSale</code> controller.
+حالياً يدعم <code>name</code> / <code>list_price asc/desc</code> / <code>publish_date desc</code>.
+نحتاج نضيف 7 خيارات:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>الخيار</th><th>الترجمة</th><th>المصدر التقني</th><th>التعقيد</th></tr></thead>
+  <tbody>
+    <tr><td>Best Sellers</td><td>الأكثر مبيعاً</td><td>حقل محسوب <code>x_sales_30d</code> من <code>sale.order.line</code></td><td><span class="chip warn">يحتاج Cron</span></td></tr>
+    <tr><td>Biggest Discount</td><td>الأكثر خصماً</td><td>حقل stored <code>x_discount_pct</code> = (compare − list) / compare</td><td><span class="chip ok">سهل</span></td></tr>
+    <tr><td>Price Lists</td><td>حسب قائمة الأسعار</td><td><code>pricelist_item.fixed_price</code> إذا فعّال</td><td><span class="chip warn">متوسط</span></td></tr>
+    <tr><td>Newest Real</td><td>الواصل حديثاً (create_date)</td><td><code>product_tmpl.create_date</code></td><td><span class="chip ok">سهل</span></td></tr>
+    <tr><td>Top Rated</td><td>الأعلى تقييماً</td><td><code>rating.mixin</code></td><td><span class="chip danger">يعتمد على تقييمات</span></td></tr>
+    <tr><td>Most Viewed</td><td>الأكثر مشاهدة</td><td>عداد جديد <code>x_view_count</code></td><td><span class="chip warn">يحتاج endpoint تتبع</span></td></tr>
+    <tr><td>Trending</td><td>الترند</td><td><code>(sales_7d / sales_30d)</code> مع حد أدنى</td><td><span class="chip warn">يحتاج Cron</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>الملف اللي راح نعدّل فيه</h3>
+<div class="menu-path"><strong>المصدر:</strong> enterprise/website_sale/controllers/main.py <span class="sep">›</span> <strong>الدالة:</strong> <code>_get_search_order(post)</code> <span class="sep">›</span> السطر تقريباً 280</div>
+
+<p>نسوي override بموديول Shop Pro:</p>
+<pre style="background:#0f172a;color:#e2e8f0;padding:14px;border-radius:8px;overflow-x:auto;direction:ltr;font-size:12.5px"><code>def _get_search_order(self, post):
+    order = post.get('order') or 'website_sequence asc'
+    # Shop Pro extensions
+    sp_orders = {
+        'bestsellers': 'x_sales_30d desc, website_sequence asc',
+        'discount': 'x_discount_pct desc, list_price asc',
+        'newest_real': 'create_date desc',
+        'rating': 'rating_avg desc, website_sequence asc',
+        'most_viewed': 'x_view_count desc',
+        'trending': 'x_trending_score desc',
+    }
+    if order.split(',')[0].strip() in sp_orders:
+        return sp_orders[order.split(',')[0].strip()] + ', id desc'
+    return super()._get_search_order(post)</code></pre>
+
+<div class="question" data-qid="Q13">
+  <div class="question-header">
+    <div class="question-icon">Q13</div>
+    <div class="question-title">الفرز الافتراضي (لمن المستخدم يفتح <code>/shop</code> أول مرة)</div>
+    <span class="question-id">#default-sort</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q13','current')">website_sequence (الحالي — يدوي من الإدمن)</button>
+    <button class="opt-btn" onclick="pick(this,'Q13','bestsellers')">Best Sellers افتراضياً</button>
+    <button class="opt-btn" onclick="pick(this,'Q13','trending')">Trending</button>
+    <button class="opt-btn" onclick="pick(this,'Q13','newest')">Newest أول</button>
+    <button class="opt-btn" onclick="pick(this,'Q13','per-category')">مختلف لكل فئة (الإدمن يحدد)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q14">
+  <div class="question-header">
+    <div class="question-icon">Q14</div>
+    <div class="question-title">Most Viewed — نتابع المشاهدات؟</div>
+    <span class="question-id">#view-tracking</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q14','session')">عداد بسيط +1 كل فتح صفحة منتج (مع throttle للـ session)</button>
+    <button class="opt-btn" onclick="pick(this,'Q14','unique-visitor')">مشاهدات فريدة (نحفظ hash للـ IP)</button>
+    <button class="opt-btn" onclick="pick(this,'Q14','skip')">نلغي Most Viewed نهائياً (ما نحتاجه)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q15">
+  <div class="question-header">
+    <div class="question-icon">Q15</div>
+    <div class="question-title">حقل «Newest Arrival» — نعتمد create_date أو نضيف حقل مخصص؟</div>
+    <span class="question-id">#newest-field</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q15','create-date')">create_date — تلقائي</button>
+    <button class="opt-btn" onclick="pick(this,'Q15','x-arrival')">حقل <code>x_arrival_date</code> يدوي من الإدمن</button>
+    <button class="opt-btn" onclick="pick(this,'Q15','publish-date')">publish_date الحالي (ما يتغير)</button>
+    <button class="opt-btn" onclick="pick(this,'Q15','hybrid')">x_arrival_date ولو فاضي نرجع لـ create_date</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH7: EXISTING FEATURES ====== -->
+<section id="ch7">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-eye"/></svg></span>الفصل 7 — الميزات «الموجودة أصلاً» (تحليل عميق)</h2>
+
+<p>طلبت مني أحلل كود Odoo بعمق للميزات اللي اعتقدت إنها موجودة. هاي الحقيقة لكل واحدة:</p>
+
+<h3>7.1 · Wishlist (قائمة الأمنيات) — موجود كامل</h3>
+<div class="card">
+  <div class="card-title">📦 موديول: <code>enterprise/website_sale_wishlist/</code></div>
+  <p class="small"><strong>الحالة:</strong> موديول كامل بـ 33 ملف. يدعم مستخدم غير مسجّل عن طريق session. العناصر الرئيسية:</p>
+  <ul>
+    <li><code>controllers/website_sale.py</code> — endpoints add/remove</li>
+    <li><code>controllers/main.py</code> — صفحة <code>/shop/wishlist</code></li>
+    <li><code>static/src/interactions/product_wishlist.js</code> — زر الإضافة بصفحة المنتج</li>
+    <li><code>static/src/interactions/wishlist_navbar.js</code> — الأيقونة بالـ navbar</li>
+    <li><code>static/src/interactions/product_detail.js</code> — integration بصفحة المنتج</li>
+    <li><code>static/src/interactions/add_product_to_wishlist_button.js</code> — زر داخل بطاقة المنتج</li>
+    <li><code>static/src/website_builder/products_design_panel.xml</code> — خيار Snippet لتفعيل/إخفاء الزر</li>
+  </ul>
+  <p class="small"><strong>شنو نحتاج نطور فوقه:</strong></p>
+  <ul class="small">
+    <li>إشعار لمن يرجع المنتج للمخزن أو ينزل سعره (Wishlist Drop Alert)</li>
+    <li>مشاركة القائمة عن طريق رابط (WhatsApp share)</li>
+    <li>مزامنة مع حساب المستخدم لو سجّل بعد ما أضاف كضيف</li>
+    <li>Badge counter بالـ navbar يزيد بـ animation</li>
+  </ul>
+</div>
+
+<h3>7.2 · Recently Viewed (شوهد مؤخراً) — موجود جزئي</h3>
+<div class="card">
+  <div class="card-title">📄 ملف: <code>enterprise/website_sale/static/src/interactions/recently_viewed_products.js</code></div>
+  <p class="small"><strong>موجود:</strong> Interaction بسيط يحفظ آخر المنتجات باللوكال ستوريج.</p>
+  <p class="small"><strong>غير موجود:</strong> Snippet/Widget للعرض، RTL styling، صور responsive، زر «مسح».</p>
+</div>
+
+<h3>7.3 · Product Zoom on Hover — جزئي بالكاروسيل</h3>
+<div class="card">
+  <div class="card-title">📄 ملف: <code>enterprise/website_sale/static/src/interactions/carousel_product.js</code></div>
+  <p class="small">Odoo 19 عنده <strong>Carousel فيه صور متعددة</strong> لصفحة المنتج، وعليه <code>product_tile_secondary_image.js</code>
+  اللي يبدل الصورة الأمامية بـ hover بالبطاقة. الـ Zoom الحقيقي (pan + magnify) <strong>غير موجود</strong>.</p>
+  <p class="small"><strong>المطلوب:</strong> OWL component جديد يستبدل <code>product_image_viewer.xml</code> مع:</p>
+  <ul class="small">
+    <li>mouse-track zoom (desktop)</li>
+    <li>pinch-to-zoom (mobile — native)</li>
+    <li>full-screen lightbox عند الضغط</li>
+  </ul>
+</div>
+
+<h3>7.4 · Quick View — غير موجود فعلياً</h3>
+<div class="card" style="background:#fff7f2;border-color:#fed7aa">
+  <div class="card-title">⚠️ غير موجود بـ Odoo 19</div>
+  <p class="small">ماكو modal للعرض السريع. عند hover على بطاقة منتج بس يبدل الصورة. لازم نبنيه من الصفر:</p>
+  <ul class="small">
+    <li>OWL component <code>ProductQuickView</code></li>
+    <li>Endpoint <code>/shop/quick_view/&lt;product_id&gt;</code> يرجع JSON + HTML partial</li>
+    <li>Modal فيه: Carousel صور + اسم + سعر + خصائص (Variants picker) + زر «أضف للسلة» + رابط «عرض التفاصيل الكاملة»</li>
+  </ul>
+</div>
+
+<h3>7.5 · Abandoned Cart Recovery — موجود بـ CRM نشاط، ناقص أتمتة</h3>
+<div class="card">
+  <p class="small">Odoo 19 يعرف السلّة المتروكة عن طريق <code>sale.order</code> بحالة <code>draft</code> مع
+  <code>website_id</code> و <code>partner_id</code> مش anonymous. بس <strong>ماكو cron أو automation rule
+  بـ enterprise/website_sale للإرسال تلقائياً</strong>.</p>
+  <p class="small"><strong>اللي يحتاج تطوير:</strong></p>
+  <ul class="small">
+    <li>Cron يومي يلقى السلّات &gt; 24 ساعة ويرسل واتساب (ننت عدك WhatsApp integration جاهز من NAVA)</li>
+    <li>Template رسالة بالعربي</li>
+    <li>منطق عدم التكرار (ما نرسل نفس الزبون مرتين)</li>
+    <li>كوبون تلقائي 5% يُربط بالرسالة</li>
+  </ul>
+</div>
+
+<h3>7.6 · Trust Badges — موجودة بـ <code>shop_reassurance</code></h3>
+<div class="card">
+  <div class="card-title">📄 ملف: <code>enterprise/website_sale/views/templates.xml</code> · template <code>shop_reassurance</code></div>
+  <p class="small">Odoo 19 عنده snippet جاهز بنصوص: «Free Shipping · 30 Days Return · Secure Payment».
+  بس <strong>بالإنجليزي فقط</strong>، وما يدعم RTL بشكل صح، وأيقوناته FontAwesome قديمة.</p>
+  <p class="small"><strong>المطلوب:</strong> إعادة تصميم السنيپت بـ SVG عربية + ترجمة ar_001 + تخصيص لكل متجر
+  (سبورت مور: «ضمان أصلي Nike» · نافا: «استبدال خلال 7 أيام»).</p>
+</div>
+
+<h3>7.7 · Advanced Search Autocomplete</h3>
+<div class="card">
+  <div class="card-title">📄 ملف: <code>enterprise/website_sale/static/src/interactions/search_modal.js</code></div>
+  <p class="small">موجود بس يبحث بـ <code>name</code> و <code>description</code> بدون صور. JSONB translation
+  مدعومة جزئياً. نحتاج نطور:</p>
+  <ul class="small">
+    <li>صور مصغرة مع الاقتراحات</li>
+    <li>بحث بالـ barcode/sku</li>
+    <li>دعم أفضل للعربي (يشيل التشكيل، يطابق «بجامة» مع «بيجاما» و«منامة»)</li>
+    <li>اقتراحات فئات وماركات مع المنتجات</li>
+  </ul>
+</div>
+
+<div class="question" data-qid="Q16">
+  <div class="question-header">
+    <div class="question-icon">Q16</div>
+    <div class="question-title">Wishlist — نفعّله بسبور مور ونافا وبلو؟</div>
+    <span class="question-id">#wishlist-enable</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q16','all')">نعم — على الثلاثة</button>
+    <button class="opt-btn" onclick="pick(this,'Q16','sportmore-nava')">سبور مور ونافا فقط (بلو كتالوجه ضعيف)</button>
+    <button class="opt-btn" onclick="pick(this,'Q16','skip')">نأجله لمرحلة لاحقة</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q17">
+  <div class="question-header">
+    <div class="question-icon">Q17</div>
+    <div class="question-title">Quick View — مستوى التنفيذ</div>
+    <span class="question-id">#quickview-scope</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q17','full')">كامل — modal فيه صور + variants + Add to Cart</button>
+    <button class="opt-btn" onclick="pick(this,'Q17','minimal')">مختصر — بس اسم + سعر + صورة كبيرة</button>
+    <button class="opt-btn" onclick="pick(this,'Q17','hover-peek')">Hover peek — طابش يطلع مع hover بدون ضغطة</button>
+    <button class="opt-btn" onclick="pick(this,'Q17','skip')">نلغيه — فتح الصفحة مباشرة أفضل</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q18">
+  <div class="question-header">
+    <div class="question-icon">Q18</div>
+    <div class="question-title">Abandoned Cart Recovery — قناة التواصل</div>
+    <span class="question-id">#abandoned-channel</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q18','whatsapp-only')">واتساب فقط (نستخدم Meta API الحالي)</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','whatsapp-email')">واتساب + إيميل للي ما عنده واتساب</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','sms')">SMS</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','skip')">ما نحتاجه</button>
+  </div>
+  <textarea placeholder="توقيت الرسالة؟ (6 ساعات / 24 ساعة / 3 أيام) + هل نعطي خصم؟"></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q19">
+  <div class="question-header">
+    <div class="question-icon">Q19</div>
+    <div class="question-title">WhatsApp Inquiry Button بصفحة المنتج</div>
+    <span class="question-id">#whatsapp-inquiry</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q19','sportmore-only')">سبور مور فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q19','sportmore-nava')">سبور مور + نافا</button>
+    <button class="opt-btn" onclick="pick(this,'Q19','all')">الثلاثة</button>
+  </div>
+  <textarea placeholder="الأرقام: SportMore=? · NAVA=? · BLO=?"></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q20">
+  <div class="question-header">
+    <div class="question-icon">Q20</div>
+    <div class="question-title">Recently Sold Notification («أحمد من بغداد اشترى قبل 5 دقايق»)</div>
+    <span class="question-id">#social-proof-popup</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q20','real')">بيانات حقيقية (من sale.order آخر 60 دقيقة)</button>
+    <button class="opt-btn" onclick="pick(this,'Q20','anonymized')">حقيقية مع إخفاء الاسم الكامل («أحمد . م»)</button>
+    <button class="opt-btn" onclick="pick(this,'Q20','randomized')">مولّدة (نفس أسلوب Booking.com)</button>
+    <button class="opt-btn" onclick="pick(this,'Q20','skip')">ما نحتاجها</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH8: SNIPPETS ====== -->
+<section id="ch8">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-layers"/></svg></span>الفصل 8 — السناپنات والبلوكات</h2>
+
+<p>فهمت طلبك صح: <strong>التخصيص للإدمن يتم عن طريق website snippets</strong> (مو اشيل فلتر من الكود).
+يعني صاحب المتجر يفتح <code>/website/edit</code>، يسحب snippet جاهز من الشريط الجانبي،
+ويعدّل إعداداته بدون ما يلمس الكود.</p>
+
+<h3>السناپنات اللي نصنعها</h3>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-1</span> Faceted Sidebar</div>
+    <p class="small muted">الشريط الجانبي كامل بالفلاتر الديناميكية. قابل للسحب لأي صفحة <code>/shop</code>.</p>
+    <p class="small"><strong>إعدادات:</strong> أي خصائص تظهر · ترتيبها · أعلى/أسفل السلايدر · هل نظهر العدادات.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-2</span> Sort Bar Pro</div>
+    <p class="small muted">شريط الفرز المتقدم مع أيقونات — يظهر أعلى شبكة المنتجات.</p>
+    <p class="small"><strong>إعدادات:</strong> أي خيارات فرز نعرض · الافتراضي · view toggle (grid/list).</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-3</span> Price Quick Buttons</div>
+    <p class="small muted">أزرار سعر سريعة. تولّد تلقائياً من توزيع أسعار المتجر (quartiles).</p>
+    <p class="small"><strong>تحليل سبور مور:</strong> Q1=25K Q2=65K Q3=150K → 4 أزرار: &lt;25K · 25-65K · 65-150K · &gt;150K.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-4</span> Best Sellers Block</div>
+    <p class="small muted">كاروسيل أعلى 10 مبيعاً بآخر 30 يوم. يظهر بالهوم أو فوق الشبكة.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-5</span> Recently Viewed Block</div>
+    <p class="small muted">شريط آخر 8 منتجات شافها المستخدم (من localStorage). يظهر بأسفل صفحة المنتج.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-6</span> Stock Status Badge</div>
+    <p class="small muted">شارة «متوفر» / «ناقص» على بطاقة المنتج. بألوان RTL-friendly.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-7</span> Social Proof Popup</div>
+    <p class="small muted">الـ popup «أحمد من بغداد اشترى...» قابل للسحب لأي صفحة. إعدادات: الفترة، التأخير، الإخفاء.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-8</span> WhatsApp Inquiry Button</div>
+    <p class="small muted">زر سلاس بصفحة المنتج يفتح محادثة واتساب بالاسم والسعر والرابط.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-9</span> Trust Strip RTL</div>
+    <p class="small muted">استبدال <code>shop_reassurance</code> الأصلي بنسخة عربية مع SVG مخصّصة.</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="chip accent">SP-10</span> Empty State Smart</div>
+    <p class="small muted">لمّا ما تطلع نتائج، يقترح إزالة فلتر + يعرض 6 منتجات بديلة من نفس الفئة.</p>
+  </div>
+</div>
+
+<h3>كيف نسجّل السنيپت</h3>
+<div class="menu-path"><strong>المسار:</strong> Shop Pro <span class="sep">›</span> views/snippets.xml <span class="sep">›</span> <code>template id="s_shoppro_facets"</code> <span class="sep">›</span> <code>data-snippet="s_shoppro_facets"</code> <span class="sep">›</span> تسجيل بـ Website Builder</div>
+
+<p class="small muted">كل سنيپت عنده <code>s_</code> prefix حسب عرف Odoo 19. والـ options بـ
+<code>static/src/website_builder/</code>.</p>
+
+<div class="question" data-qid="Q21">
+  <div class="question-header">
+    <div class="question-icon">Q21</div>
+    <div class="question-title">نبني السنيپنات من المرحلة الأولى أو بعد ما نثبت الـ logic؟</div>
+    <span class="question-id">#snippets-phase</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q21','first')">من المرحلة الأولى (أصعب بس أنظف)</button>
+    <button class="opt-btn" onclick="pick(this,'Q21','last')">بعد ما نثبت logic (أسرع للوصول لنتيجة)</button>
+    <button class="opt-btn" onclick="pick(this,'Q21','hybrid')">السنيپنات الأساسية (SP-1, SP-2) أولاً، الباقي لاحقاً</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q22">
+  <div class="question-header">
+    <div class="question-icon">Q22</div>
+    <div class="question-title">السناپنات الأساسية المطلوبة (اختر ما تفضله)</div>
+    <span class="question-id">#snippets-priority</span>
+  </div>
+  <textarea placeholder="مثال: SP-1, SP-2, SP-3, SP-6, SP-8 (بدون SP-7 Social Proof لأنه يضغط)"></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH9: PHASES ====== -->
+<section id="ch9">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-rocket"/></svg></span>الفصل 9 — خطة المراحل السبع</h2>
+
+<ol class="task-list">
+  <li>
+    <span class="task-num">M0</span>
+    <div class="task-body">
+      <div class="task-title">تنظيف الكتالوج (Prerequisite)</div>
+      <div class="task-desc">إخفاء الخصائص الشبحية بنافا وبلو (8 خصائص × nava, 7 × blo). <br>
+      <strong>المسار:</strong> المنتجات › التهيئة › السمات › بكل خاصية فارغة: <code>visibility = 'hidden'</code>.</div>
+    </div>
+  </li>
+  <li>
+    <span class="task-num">M1</span>
+    <div class="task-body">
+      <div class="task-title">Faceted Filters الأساسية</div>
+      <div class="task-desc">Override <code>shop()</code> + حساب <code>facet_values</code> + OWL sidebar + AJAX endpoint + URL state. التجربة الأولى على سبور مور.</div>
+    </div>
+  </li>
+  <li>
+    <span class="task-num">M2</span>
+    <div class="task-body">
+      <div class="task-title">فلتر المخزون + فلتر التخفيض</div>
+      <div class="task-desc">JOIN مع <code>stock.quant</code> + حقل <code>x_discount_pct</code> + فلتر On Sale. تطبيق بنافا.</div>
+    </div>
+  </li>
+  <li>
+    <span class="task-num">M3</span>
+    <div class="task-body">
+      <div class="task-title">الفرز الموسّع (7 خيارات)</div>
+      <div class="task-desc">حقول <code>x_sales_30d</code> · <code>x_view_count</code> · <code>x_trending_score</code> + Cron ساعي + تعديل dropdown الفرز.</div>
+    </div>
+  </li>
+  <li>
+    <span class="task-num">M4</span>
+    <div class="task-body">
+      <div class="task-title">البحث الذكي + Autocomplete</div>
+      <div class="task-desc">Override search_modal.js + endpoint يرجع الصور + دعم مرادفات عربية (بجامة/منامة/بيجاما).</div>
+    </div>
+  </li>
+  <li>
+    <span class="task-num">M5</span>
+    <div class="task-body">
+      <div class="task-title">Quick View + Product Zoom + Recently Sold</div>
+      <div class="task-desc">OWL ProductQuickView · ImageZoom interaction · Social Proof popup.</div>
+    </div>
+  </li>
+  <li>
+    <span class="task-num">M6</span>
+    <div class="task-body">
+      <div class="task-title">Abandoned Cart + WhatsApp Inquiry</div>
+      <div class="task-desc">Cron كل ساعة + Template عربي + زر WhatsApp بصفحة المنتج + كوبون تلقائي 5%.</div>
+    </div>
+  </li>
+  <li>
+    <span class="task-num">M7</span>
+    <div class="task-body">
+      <div class="task-title">تحويل كل شي لـ Snippets قابلة للسحب</div>
+      <div class="task-desc">تسجيل 10 snippets + website_builder options + اختبار على الثلاث متاجر + توثيق.</div>
+    </div>
+  </li>
+</ol>
+
+<h3>جدول الملفات الجديدة والمعدّلة</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>الملف</th><th>النوع</th><th>المرحلة</th></tr></thead>
+  <tbody>
+    <tr><td><code>shop_pro/__manifest__.py</code></td><td>جديد</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/controllers/shop.py</code></td><td>جديد (override website_sale.controllers.main)</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/controllers/facets.py</code></td><td>جديد — endpoint AJAX</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/controllers/search.py</code></td><td>جديد — autocomplete</td><td>M4</td></tr>
+    <tr><td><code>shop_pro/controllers/quick_view.py</code></td><td>جديد</td><td>M5</td></tr>
+    <tr><td><code>shop_pro/models/product_template.py</code></td><td>جديد — حقول x_sales_30d/x_view_count/x_discount_pct/x_trending_score/x_arrival_date</td><td>M2-M3</td></tr>
+    <tr><td><code>shop_pro/models/product_attribute.py</code></td><td>جديد — sequence + helper</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/models/sale_order.py</code></td><td>جديد — abandoned cart helpers</td><td>M6</td></tr>
+    <tr><td><code>shop_pro/models/website.py</code></td><td>جديد — settings</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/views/templates.xml</code></td><td>جديد — override filter_select/color/radio/pills</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/views/snippets.xml</code></td><td>جديد — 10 سنيپنات</td><td>M7</td></tr>
+    <tr><td><code>shop_pro/views/res_config.xml</code></td><td>جديد — إعدادات الموقع</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/data/cron.xml</code></td><td>جديد — ساعي/يومي</td><td>M3/M6</td></tr>
+    <tr><td><code>shop_pro/data/whatsapp_templates.xml</code></td><td>جديد</td><td>M6</td></tr>
+    <tr><td><code>shop_pro/static/src/js/shop_facets.js</code></td><td>جديد — OWL component</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/static/src/js/quick_view.js</code></td><td>جديد</td><td>M5</td></tr>
+    <tr><td><code>shop_pro/static/src/js/product_zoom.js</code></td><td>جديد</td><td>M5</td></tr>
+    <tr><td><code>shop_pro/static/src/js/social_proof.js</code></td><td>جديد</td><td>M5</td></tr>
+    <tr><td><code>shop_pro/static/src/js/autocomplete.js</code></td><td>جديد</td><td>M4</td></tr>
+    <tr><td><code>shop_pro/static/src/xml/shop_facets.xml</code></td><td>جديد — OWL template</td><td>M1</td></tr>
+    <tr><td><code>shop_pro/static/src/scss/shop_pro.scss</code></td><td>جديد — RTL styling</td><td>M1-M7</td></tr>
+    <tr><td><code>shop_pro/static/src/website_builder/*.xml</code></td><td>جديد — 10 options</td><td>M7</td></tr>
+    <tr><td><code>shop_pro/i18n/ar_001.po</code></td><td>جديد — ترجمة عربية</td><td>M1-M7</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="question" data-qid="Q23">
+  <div class="question-header">
+    <div class="question-icon">Q23</div>
+    <div class="question-title">المشروع الأول للتجريب</div>
+    <span class="question-id">#pilot-project</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q23','sportmore')">سبور مور — أنظف كتالوج (مفضل)</button>
+    <button class="opt-btn" onclick="pick(this,'Q23','nava')">نافا — أكبر تحدي</button>
+    <button class="opt-btn" onclick="pick(this,'Q23','parallel')">الثلاثة بالتوازي من M1</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q24">
+  <div class="question-header">
+    <div class="question-icon">Q24</div>
+    <div class="question-title">مدى التوافر — نعرضه على DEV قبل PROD؟</div>
+    <span class="question-id">#dev-prod-strategy</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q24','dev-first')">DEV أولاً، بعد موافقتك نودي PROD</button>
+    <button class="opt-btn" onclick="pick(this,'Q24','direct')">مباشرة PROD (حسب الخطوات المجربة)</button>
+    <button class="opt-btn" onclick="pick(this,'Q24','feature-flag')">feature flag — تفعيل تدريجي لمستخدمين مختارين</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+
+<div class="question" data-qid="Q25">
+  <div class="question-header">
+    <div class="question-icon">Q25</div>
+    <div class="question-title">الإعدادات (Settings page)</div>
+    <span class="question-id">#settings-page</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q25','ecommerce-tab')">ضمن Website › Configuration › Settings › eCommerce</button>
+    <button class="opt-btn" onclick="pick(this,'Q25','own-tab')">تبويب مستقل اسمه «Shop Pro»</button>
+    <button class="opt-btn" onclick="pick(this,'Q25','per-website')">إعدادات لكل website على حدة (Multi-website)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+<!-- ====== CH10: FILE INVENTORY ====== -->
+<section id="ch10">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-db"/></svg></span>الفصل 10 — جرد 52 ملف تم فحصها</h2>
+
+<p>هذي قائمة كاملة بالملفات اللي مررت عليها (إما قراءة كاملة أو فحص grep موجّه) — حتى تتأكد إن التحليل
+مبني على فحص حقيقي:</p>
+
+<details>
+<summary>الكود الأساسي لـ website_sale (19 ملف)</summary>
+<div class="details-body">
+<ol class="small">
+  <li><code>enterprise/website_sale/controllers/main.py</code> — 500+ سطر مقروء</li>
+  <li><code>enterprise/website_sale/controllers/variant.py</code></li>
+  <li><code>enterprise/website_sale/controllers/product_configurator.py</code></li>
+  <li><code>enterprise/website_sale/controllers/cart.py</code></li>
+  <li><code>enterprise/website_sale/controllers/website.py</code></li>
+  <li><code>enterprise/website_sale/controllers/sale.py</code></li>
+  <li><code>enterprise/website_sale/controllers/payment.py</code></li>
+  <li><code>enterprise/website_sale/controllers/delivery.py</code></li>
+  <li><code>enterprise/website_sale/controllers/reorder.py</code></li>
+  <li><code>enterprise/website_sale/controllers/product_feed.py</code></li>
+  <li><code>enterprise/website_sale/controllers/combo_configurator.py</code></li>
+  <li><code>enterprise/website_sale/views/templates.xml</code> — grep على 16 نقطة حرجة</li>
+  <li><code>enterprise/website_sale/views/templates_svg.xml</code></li>
+  <li><code>enterprise/website_sale/models/website.py</code></li>
+  <li><code>enterprise/website_sale/models/product_template.py</code> — فحص compare_list_price</li>
+  <li><code>enterprise/website_sale/models/product_attribute.py</code></li>
+  <li><code>enterprise/website_sale/models/sale_order.py</code></li>
+  <li><code>enterprise/website_sale/models/product_public_category.py</code></li>
+  <li><code>enterprise/website_sale/models/product_ribbon.py</code></li>
+</ol>
+</div>
+</details>
+
+<details>
+<summary>Interactions (OWL + Legacy) — 23 ملف</summary>
+<div class="details-body">
+<ol class="small" start="20">
+  <li><code>interactions/website_sale.js</code></li>
+  <li><code>interactions/checkout.js</code></li>
+  <li><code>interactions/recently_viewed_products.js</code></li>
+  <li><code>interactions/reorder.js</code></li>
+  <li><code>interactions/product_sticky_col.js</code></li>
+  <li><code>interactions/cart_suggestion.js</code></li>
+  <li><code>interactions/product_tile_secondary_image.js</code></li>
+  <li><code>interactions/terms_and_conditions_checkbox.js</code></li>
+  <li><code>interactions/product_collapsible_sections.js</code></li>
+  <li><code>interactions/search_modal.js</code></li>
+  <li><code>interactions/tracking.js</code></li>
+  <li><code>interactions/off_canvas.js</code></li>
+  <li><code>interactions/sticky_object.js</code></li>
+  <li><code>interactions/carousel_product.js</code></li>
+  <li><code>interactions/address.js</code></li>
+  <li><code>interactions/payment_button.js</code></li>
+  <li><code>interactions/quick_reorder.js</code></li>
+  <li><code>interactions/payment_form.js</code></li>
+  <li><code>interactions/price_range.js</code></li>
+  <li><code>interactions/popup.js</code></li>
+  <li><code>interactions/product_accordion.js</code></li>
+  <li><code>interactions/cart_line.js</code></li>
+  <li><code>interactions/extra_info_form.js</code></li>
+</ol>
+</div>
+</details>
+
+<details>
+<summary>website_sale_wishlist (7 ملف)</summary>
+<div class="details-body">
+<ol class="small" start="43">
+  <li><code>website_sale_wishlist/controllers/main.py</code></li>
+  <li><code>website_sale_wishlist/controllers/website_sale.py</code></li>
+  <li><code>website_sale_wishlist/views/website_sale_wishlist_template.xml</code></li>
+  <li><code>website_sale_wishlist/static/src/interactions/product_wishlist.js</code></li>
+  <li><code>website_sale_wishlist/static/src/interactions/wishlist_navbar.js</code></li>
+  <li><code>website_sale_wishlist/static/src/interactions/add_product_to_wishlist_button.js</code></li>
+  <li><code>website_sale_wishlist/static/src/interactions/product_detail.js</code></li>
+</ol>
+</div>
+</details>
+
+<details>
+<summary>قواعد البيانات (SQL queries فعلية — 3 قواعد)</summary>
+<div class="details-body">
+<ol class="small" start="50">
+  <li><code>sportmore_db</code> — 200 منتج منشور، 7 خصائص فعّالة، 169 قيمة</li>
+  <li><code>nava_db</code> — 131 منتج منشور، 7 خصائص فعّالة + 8 شبحية، 418 قيمة</li>
+  <li><code>blo_db</code> — 135 منتج منشور، 4 خصائص فعّالة + 7 شبحية، 38 قيمة</li>
+</ol>
+</div>
+</details>
+
+<h3>ملفات مطلوب فحص أعمق منها (لاحقاً)</h3>
+<p class="small muted">لو قررت تكمل، راح أحتاج أقرا بتفصيل أدق:</p>
+<ul class="small">
+  <li><code>product/models/product_attribute.py</code> + <code>product_attribute_value.py</code></li>
+  <li><code>enterprise/website_sale/static/src/scss/</code> كل الـ SCSS الحالي</li>
+  <li><code>enterprise/website_sale/static/src/website_builder/</code> (snippet options)</li>
+  <li><code>enterprise/website_sale_loyalty/</code> لو تبي دمج مع coupons</li>
+</ul>
+</section>
+
+<!-- ====== FINAL TASKS ====== -->
+<section id="final">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-check"/></svg></span>المهام النهائية — بعد ما تجاوب</h2>
+
+<ol class="task-list">
+  <li><span class="task-num">1</span><div class="task-body"><div class="task-title">تجاوب على كل الأسئلة (Q1 حتى Q25)</div><div class="task-desc">كل إجابة تحفظ تلقائياً بالمتصفح</div></div></li>
+  <li><span class="task-num">2</span><div class="task-body"><div class="task-title">تضغط «تصدير الإجابات»</div><div class="task-desc">ينسخلك JSON كامل مع كل ردودك</div></div></li>
+  <li><span class="task-num">3</span><div class="task-body"><div class="task-title">ترجع لي الإجابات بالمحادثة</div><div class="task-desc">الصقها كرد، وأكمل أبني الموديول بناءً عليها</div></div></li>
+  <li><span class="task-num">4</span><div class="task-body"><div class="task-title">تأكيد أخير قبل البناء</div><div class="task-desc">أرسلك ملخص نهائي + جدول زمني تقديري</div></div></li>
+  <li><span class="task-num">5</span><div class="task-body"><div class="task-title">بدء المرحلة M0 (تنظيف الكتالوج)</div><div class="task-desc">خطوة صغيرة قابلة للتراجع، نختبرها بسبور مور</div></div></li>
+</ol>
+
+<div class="callout ok">
+  <svg class="icon"><use href="#i-check"/></svg>
+  <div><strong>الخطوة التالية:</strong> جاوب على الأسئلة اللي عالي ثم اضغط زر <strong>«تصدير الإجابات»</strong> بأسفل الصفحة.
+  لو عندك إضافة أو سؤال جديد، اكتبه بحقل «ملاحظات نهائية» أدناه.</div>
+</div>
+
+<div class="question" data-qid="Q26">
+  <div class="question-header">
+    <div class="question-icon">Q26</div>
+    <div class="question-title">ملاحظات نهائية / أسئلة جديدة / نقاط ما ذكرتها</div>
+    <span class="question-id">#final-notes</span>
+  </div>
+  <textarea style="min-height:140px" placeholder="كل شي بخاطرك — نقاش، تعديلات، رفض، أو إضافات..."></textarea>
+  <div class="saved-indicator"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg><span>محفوظ</span></div>
+</div>
+</section>
+
+</main>
+
+<!-- Export bar -->
+<div class="export-bar">
+  <button class="btn btn-primary" onclick="sendWhatsApp()" style="background:#25D366">
+    <svg class="icon" style="width:18px;height:18px;color:#fff" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.304-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    أرسل بواتساب
+  </button>
+  <button class="btn btn-ghost" onclick="exportAnswers()">
+    <svg class="icon" style="width:18px;height:18px"><use href="#i-check"/></svg>
+    نسخ JSON
+  </button>
+  <button class="btn btn-ghost" onclick="showProgress()">
+    <span id="progress-lbl">0/26</span>
+  </button>
+  <button class="btn btn-ghost" onclick="clearAll()" title="مسح كل الإجابات">
+    <svg class="icon" style="width:18px;height:18px;color:#b91c1c"><use href="#i-alert"/></svg>
+  </button>
+</div>
+
+<script>
+const STORAGE_KEY = 'shop_pro_answers_v1';
+
+function loadAnswers(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+  catch(e){ return {}; }
+}
+function saveAnswers(a){ localStorage.setItem(STORAGE_KEY, JSON.stringify(a)); updateProgress(); }
+
+const answers = loadAnswers();
+
+function pick(btn, qid, value){
+  const container = btn.closest('.question');
+  container.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const ta = container.querySelector('textarea');
+  answers[qid] = answers[qid] || {};
+  answers[qid].choice = value;
+  answers[qid].note = ta ? ta.value : '';
+  saveAnswers(answers);
+  showSaved(container);
+}
+
+function showSaved(container){
+  const ind = container.querySelector('.saved-indicator');
+  if(!ind) return;
+  ind.classList.add('show');
+  clearTimeout(ind._t);
+  ind._t = setTimeout(()=>ind.classList.remove('show'), 1200);
+}
+
+function selectIcon(el){
+  document.querySelectorAll('.icon-opt').forEach(i=>i.classList.remove('selected'));
+  el.classList.add('selected');
+  answers['Q2'] = answers['Q2'] || {};
+  answers['Q2'].choice = el.dataset.icon;
+  saveAnswers(answers);
+}
+
+// Wire textareas — autosave on input
+document.querySelectorAll('.question').forEach(q=>{
+  const qid = q.dataset.qid;
+  const ta = q.querySelector('textarea');
+  if(ta && answers[qid]?.note){ ta.value = answers[qid].note; }
+  if(answers[qid]?.choice){
+    q.querySelectorAll('.opt-btn').forEach(b=>{
+      if(b.textContent.includes(answers[qid].choice) || b.getAttribute('onclick')?.includes(`'${answers[qid].choice}'`)){
+        b.classList.add('active');
+      }
+    });
+  }
+  if(ta){
+    ta.addEventListener('input', ()=>{
+      answers[qid] = answers[qid] || {};
+      answers[qid].note = ta.value;
+      saveAnswers(answers);
+      showSaved(q);
+    });
+  }
+});
+
+// Restore icon selection
+if(answers['Q2']?.choice){
+  document.querySelectorAll('.icon-opt').forEach(i=>{
+    if(i.dataset.icon === answers['Q2'].choice){
+      document.querySelectorAll('.icon-opt').forEach(x=>x.classList.remove('selected'));
+      i.classList.add('selected');
+    }
+  });
+}
+
+function updateProgress(){
+  const total = document.querySelectorAll('.question').length;
+  const answered = Object.keys(answers).filter(k=>answers[k].choice || answers[k].note).length;
+  const lbl = document.getElementById('progress-lbl');
+  if(lbl) lbl.textContent = `التقدم: ${answered}/${total}`;
+}
+updateProgress();
+
+function showProgress(){
+  const total = document.querySelectorAll('.question').length;
+  const answered = Object.keys(answers).filter(k=>answers[k].choice || answers[k].note).length;
+  alert(`جاوبت على ${answered} من ${total} سؤال.\n\n${answered < total ? 'باقي: ' + (total-answered) + ' سؤال.' : 'ممتاز، جاهز للتصدير.'}`);
+}
+
+function buildAnswersText(){
+  const lines = ['*Shop Pro — إجابات علي جودت*', '`' + new Date().toLocaleString('ar-IQ') + '`', ''];
+  const questions = document.querySelectorAll('.question');
+  questions.forEach(q=>{
+    const qid = q.dataset.qid;
+    const title = q.querySelector('.question-title')?.textContent?.trim() || qid;
+    const a = answers[qid];
+    if(!a || (!a.choice && !a.note)) return;
+    lines.push(`*${qid}* — ${title}`);
+    if(a.choice) lines.push(`• الخيار: ${a.choice}`);
+    if(a.note)   lines.push(`• ملاحظة: ${a.note}`);
+    lines.push('');
+  });
+  if(lines.length <= 3) lines.push('(لا توجد إجابات بعد)');
+  return lines.join('\n');
+}
+
+function sendWhatsApp(){
+  const text = buildAnswersText();
+  // WhatsApp URL scheme works on both mobile and desktop
+  const url = 'https://wa.me/?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+}
+
+function exportAnswers(){
+  const total = document.querySelectorAll('.question').length;
+  const data = {
+    project: 'Shop Pro — Ecommerce UX Upgrade',
+    date: new Date().toISOString().slice(0,10),
+    selected_module_name: answers['Q1']?.choice || '(لم يحدد)',
+    selected_module_icon: answers['Q2']?.choice || '(لم يحدد)',
+    answers: answers,
+    summary: {
+      total_questions: total,
+      answered: Object.keys(answers).filter(k=>answers[k].choice || answers[k].note).length,
+    }
+  };
+  const text = JSON.stringify(data, null, 2);
+  // Copy to clipboard
+  navigator.clipboard.writeText(text).then(()=>{
+    alert('تم نسخ الإجابات للحافظة.\n\nالصقها الآن بالمحادثة ورجّعها لي حتى أكمل البناء.');
+  }).catch(()=>{
+    // Fallback: download JSON
+    const blob = new Blob([text], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'shop_pro_answers.json';
+    a.click(); URL.revokeObjectURL(url);
+  });
+}
+
+function clearAll(){
+  if(confirm('تريد تمسح كل الإجابات؟ ما نقدر نسترجعها.')){
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+}
+</script>
+</body>
+</html>
