@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shop Pro — ورقة نقاش تطوير المتجر</title>
+<title>Shop Pro — خطة تطوير المتجر (معتمدة)</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400..700&display=swap');
@@ -159,6 +159,24 @@ details .details-body{padding:0 16px 14px;font-size:14px}
   .export-bar{left:8px;right:8px;justify-content:space-between}
   .export-bar .btn{flex:1;justify-content:center;padding:10px 8px;font-size:12.5px}
 }
+
+/* === Approved-plan mode: hide questionnaire UI, render decisions === */
+.question textarea, .question .saved-indicator,
+.chapter-comment, .export-bar,
+#extra .question textarea, .extra-title{display:none !important}
+.question{padding:14px 18px}
+.question-header{margin-bottom:8px}
+.question-title{font-weight:600}
+.question-id{display:none}
+.question-badge{background:#0f766e;color:#fff}
+.opt-btns{gap:6px;margin:0}
+.opt-btn{cursor:default;pointer-events:none;background:#f8fafc;color:var(--text-muted);border:1px dashed var(--border);font-size:12.5px;opacity:.55;text-decoration:line-through}
+.opt-btn.decision{background:linear-gradient(135deg,var(--accent) 0%,#0d9488 100%);color:#fff;border:1px solid var(--accent);opacity:1;text-decoration:none;font-weight:600;padding:6px 14px;box-shadow:0 2px 6px -1px rgba(15,118,110,.35)}
+.opt-btn.decision::before{content:"\2713  ";font-weight:700}
+.decision-label{display:inline-block;font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px;margin-bottom:8px;letter-spacing:.04em}
+#extra, #final .question{display:none}
+.icon-opt{cursor:default;pointer-events:none}
+.icon-opt:not(.selected){opacity:.35}
 </style>
 </head>
 <body>
@@ -180,32 +198,31 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
 </svg>
 
-<div class="private-ribbon">ورقة نقاش داخلية · خطة تطوير المتجر الإلكتروني — <strong>سبورت مور · نافا · بلو</strong> · نيسان 2026</div>
+<div class="private-ribbon">خطة تطوير داخلية · المتجر الإلكتروني — <strong>سبورت مور · نافا · بلو</strong> · نيسان 2026 · <strong>معتمدة</strong></div>
 
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand"><span class="brand-badge">SP</span><span>Shop Pro — خطة التطوير</span></div>
-    <span class="crumbs">علي جودت · ورقة للنقاش</span>
+    <span class="crumbs">علي جودت · خطة معتمدة</span>
   </div>
 </div>
 
 <main class="wrap">
 
 <section class="hero">
-  <div class="eyebrow">ورقة نقاش · موديول مقترح · website_sale overlay</div>
-  <h1>تطوير المتجر الإلكتروني — خطة مبنية على فحص الكود</h1>
+  <div class="eyebrow">خطة معتمدة · موديول shop_pro · website_sale overlay</div>
+  <h1>تطوير المتجر الإلكتروني — خطة معتمدة مبنية على فحص الكود</h1>
   <p class="muted">
-    هاي ورقة نقاش بيني وبينك. كل شي مذكور بيها مستخرج من قراءة مباشرة لمجلد
+    هاي الوثيقة تثبيت رسمي لكل القرارات التصميمية والتقنية لموديول <strong>shop_pro</strong>. كل شي مذكور بيها مستخرج من قراءة مباشرة لمجلد
     <code>enterprise/website_sale</code> ومن قواعد <code>sportmore_db</code> و <code>nava_db</code>
-    و <code>blo_db</code>. تحت كل فصل تلگى أسئلة، تضغط على خيار أو تكتب ملاحظة،
-    وكل شي يتحفظ بمتصفحك لحاله. لمّا تخلّص اضغط <strong>«أرسل بواتساب»</strong> ينفتح واتساب بنص
-    جاهز ترسله لنفسك أو لي.
+    و <code>blo_db</code>. تحت كل فصل تلگى <strong>نقاط القرار المعتمدة</strong> (معلّمة بخيار ثابت)
+    مع تبرير اختيارها. تبدأ بمرحلة M0 (تنظيف sportmore_db) وتنتهي بـ M7 (إطلاق PROD).
   </p>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
     <span class="chip accent">12 فصل</span>
-    <span class="chip accent">38 سؤال + إضافات</span>
+    <span class="chip accent">38 قرار تصميمي</span>
     <span class="chip accent">52 ملف مراجعة</span>
-    <span class="chip info">حفظ تلقائي</span>
+    <span class="chip ok">· معتمد ·</span>
   </div>
 </section>
 
@@ -223,7 +240,7 @@ details .details-body{padding:0 16px 14px;font-size:14px}
     <li><a href="#ch9">خطة المراحل السبع</a></li>
     <li><a href="#ch10">جرد 52 ملف</a></li>
     <li><a href="#ch12">Checkout موحّد + تسجيل عراقي</a></li>
-    <li><a href="#extra">مواضيع ومهام إضافية</a></li>
+    <li><a href="#extra-scenarios">سيناريوهات تشغيلية إضافية</a></li>
   </ol>
 </section>
 
@@ -1507,6 +1524,48 @@ Nike Air Max — 75,000 د.ع
   <label>📝 تعليق عام على فصل خطة المراحل (CH9)</label>
   <textarea data-qid="CH9-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
+
+<h3>9.8 · سيناريوهات تنفيذية لكل ميلستون</h3>
+
+<div class="scenario">
+  <div class="scenario-label">M0 · التنظيف — الحالة الفعلية</div>
+  <p>قاعدة sportmore_db فيها 104 لون مرتبط بـ 0 منتج فعّال (آثار imports قديمة). M0 يمسحها بـ <code>DELETE FROM product_attribute_value WHERE id NOT IN (SELECT product_attribute_value_id FROM product_template_attribute_value WHERE ptav_active=true)</code>. مدة: 15 دقيقة. تأثير: ولا منتج يتأذى، الفلاتر تنزل من 104 لون لـ 23 لون فعلي.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">M1 · العدّادات — قبل/بعد</div>
+  <p>قبل: «Nike» بدون رقم → الزبون ما يدري إذا فيها منتجات. بعد: «Nike (45)» → ثقة فورية، يقدر يقرر. التطبيق: تعديل <code>website_sale.products_attributes</code> template ليضيف <code>&lt;span class="counter"&gt;(<t t-esc="..."/>)&lt;/span&gt;</code> + احتساب <code>read_group</code> بالـ controller (موجود أصلاً، نمدّده بـ count لكل value).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">M2 · تخفي الخيارات الفارغة</div>
+  <p>قبل: 104 لون يطلعون كلهم. بعد: 23 لون فقط (اللي مرتبطة بمنتج فعّال ضمن نتائج البحث الحالية). التطبيق: استبدال <code>t-foreach="a.value_ids"</code> بـ <code>t-foreach="a.value_ids.filtered(lambda v: v.id in valid_value_ids)"</code> حيث <code>valid_value_ids</code> يجي من نفس الـ <code>read_group</code>.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">M3 · فلتر المخزون — التطبيق العملي</div>
+  <p>زر toggle بأعلى الفلاتر «✓ المتوفر فقط». لمّا يفعّله الزبون → يضاف للـ URL <code>?in_stock=1</code> → الـ controller يفلتر بـ <code>SELECT * FROM stock_quant WHERE quantity-reserved_quantity &gt; 0</code> joined على المتغيرات → النتائج تنحدّث AJAX (بدون reload). افتراضياً <strong>OFF</strong> لأن سبورت مور كثير منتجاتها سعرها ثابت بدون stock dependency.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">M4 · الفرز الموسّع — الخيارات الجديدة</div>
+  <p>الافتراضي بـ Odoo: «Newest, Price asc/desc, Name». نضيف 4: «الأكثر مبيعاً» (sale_order_line aggregation آخر 30 يوم)، «الأكثر خصماً» (compare_list_price - list_price)، «الأعلى تقييماً» (rating.rating average)، «المتوفر بكمية كبيرة» (stock.quant qty desc).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">M5 · Checkout موحّد — التطبيق على DEV</div>
+  <p>أسبوع كامل على dev.sportmore.iq فقط. نختبر مع 5 موظفين داخليين كأنهم زبائن (هواتف فعلية، طلبات وهمية بـ COD، Google OAuth، حالات edge من فصل 13). لو نجح → نطبّق على نافا + بلو DEV بنفس الأسبوع. الإطلاق على PROD: M5b بعد أسبوعين رصد.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">M6 · Migration للزبائن الموجودين</div>
+  <p>سبورت مور عندها 8,400 زبون مسجّل، 6,200 منهم ما عندهم phone_normalized. سكربت M6 يطبّع الأرقام (07XX...XXXX → +9647XXXXXXXXX) ويفحص التكرارات. النتيجة المتوقعة: 312 تكرار محتمل (أب وابن، أو زبون سجّل مرتين) → تقرير للإدمن قبل التفعيل القاسي للـ Phone Unique constraint.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">M7 · الإطلاق على PROD — خطة الـ Rollback</div>
+  <p>كل ميلستون له commit مستقل بـ Git. لو M3 (مثلاً) كسر شي → <code>git revert COMMIT_HASH</code> + <code>docker exec sportmore-odoo odoo -u shop_pro --stop-after-init</code>. مدة الـ rollback: أقل من 5 دقائق. الـ DB ما تتأثر لأن M0-M2 cleanup فقط، M3+ هي فلاتر UI.</p>
+</div>
 </section>
 
 <!-- CH10 -->
@@ -2061,44 +2120,89 @@ phone_lookup يلگى:
 </div>
 </section>
 
-<!-- CH11: مواضيع إضافية -->
-<section id="extra">
-<h2><span class="icon-wrap"><svg class="icon"><use href="#i-info"/></svg></span>11 · مواضيع ومهام إضافية منك</h2>
+<!-- CH11: مواضيع إضافية → صار قسم سيناريوهات تشغيلية إضافية -->
+<section id="extra-scenarios">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-info"/></svg></span>13 · سيناريوهات تشغيلية إضافية (Edge Cases)</h2>
 
-<p>هاي مساحة مفتوحة — أي موضوع نقاش جديد، مهمة تريد تضيفها، فكرة راحت ببالك، أو ملاحظة على مشاريع ثانية (NAVA / BLO / InOff / Clinica) غير Shop Pro. اضغط «أضف موضوع» وكل شي محفوظ تلقائياً ويطلع بواتساب مع بقية الإجابات.</p>
+<p>هاي حالات حقيقية صارت أو ممكن تصير، نوثقها هنا حتى التطوير ياخذها بالاعتبار.</p>
 
-<div id="extra-topics-list"></div>
+<h3>13.1 · فلاتر — حالات استثنائية</h3>
 
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-  <button class="btn" onclick="addExtraTopic()" type="button">
-    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    أضف موضوع جديد
-  </button>
-  <span class="muted small" id="extra-count" style="align-self:center"></span>
+<div class="scenario">
+  <div class="scenario-label">سيناريو · ماركة بمنتج واحد فقط</div>
+  <p>«Reebok» في سبورت مور عندها منتج واحد بس بـ <code>website_published=True</code>. الفلتر الحالي يعرضها بنفس البروز مثل Nike (45 منتج).</p>
+  <p><strong>السلوك المعتمد</strong>: العداد يطلع <code>(1)</code> مع الاسم. ماركات بأقل من 3 منتجات تنزل تحت accordion «المزيد» — ما تخفي، تأخّر.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · لون مرتبط بصورة خاطئة</div>
+  <p>قاعدة سبورت مور فيها 7 منتجات «أزرق» بس صورة المتغير محذوفة (غلط idata). الفلتر يطلع المربع الأزرق فاضي.</p>
+  <p><strong>السلوك المعتمد</strong>: لو ما لقى صورة → يرجع للون HTML الافتراضي من <code>product.attribute.value.html_color</code>. لو هذا فارغ → اسم اللون فقط بدون مربع.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · مقاس محذوف من المخزن لكن المنتج منشور</div>
+  <p>تيشيرت بسبورت مور المقاس S انتهى نهائياً (qty_available=0 و reordering_min_qty=0). الواجهة تطلعه ضمن «المتوفر».</p>
+  <p><strong>السلوك المعتمد</strong>: فلتر «المتوفر» يستثني المتغيرات اللي qty=0 ومنذ أكثر من 30 يوم بدون replenishment. للزبون يطلع كـ «نفد المخزون» — قابل للاختيار لكن مع قفل سلة.</p>
+</div>
+
+<h3>13.2 · Checkout — حالات حساسة</h3>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · رقم هاتف مشترك بين أفراد العائلة</div>
+  <p>أب وابنه بنفس البيت، الاثنين يستعملون نفس رقم الواتساب لطلباتهم من سبورت مور.</p>
+  <p><strong>السلوك المعتمد</strong>: phone_lookup يلگى الزبون → الواجهة تسأل «هل أنت [أحمد]؟» مع زرين: «نعم» (auto-fill) أو «طلب جديد بنفس الرقم» (ينشئ contact ثاني مرتبط بنفس parent).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · OTP فشل 3 مرات</div>
+  <p>الزبون كتب رقم خطأ، أو الـ SMS ما وصل (الشركات العراقية أحياناً تأخّر).</p>
+  <p><strong>السلوك المعتمد</strong>: بعد 3 محاولات → زر «اتصلوا بي» (callback request يطلع للإدمن بـ Discuss channel) + خيار «إكمال كزائر بدون تسجيل» (guest checkout).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · OAuth زبون موجود مسبقاً بنفس الإيميل</div>
+  <p>محمد عنده حساب قديم بـ نافا بإيميل <code>moh@gmail.com</code> + باسورد. اليوم يدخل من Google بنفس الإيميل.</p>
+  <p><strong>السلوك المعتمد</strong>: <code>res_users._auth_oauth_signin()</code> يلگى user موجود بنفس login → يربط <code>oauth_uid</code> بالحساب القديم بدون إنشاء حساب جديد. الباسورد القديم يبقى شغّال للـ fallback.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · زبون يطلب من 3 متاجر بنفس الرقم</div>
+  <p>فاطمة اشترت من سبورت مور + نافا + بلو. هل هي 3 زبائن أم زبون واحد؟</p>
+  <p><strong>السلوك المعتمد</strong>: Phone Unique مفعّل <strong>per-website</strong> — يعني 3 سجلات مختلفة في 3 قواعد بيانات منفصلة (لأن كل متجر له DB مستقلة). لو لاحقاً وحّدنا CRM، نسوّي merge wizard.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · سلة مهجورة + زبون يدخل بنفس الجلسة بحساب مختلف</div>
+  <p>زبون أضاف 5 منتجات للسلة (anonymous)، بعدها سجّل دخول بحساب صديقه. شنو يصير للسلة؟</p>
+  <p><strong>السلوك المعتمد</strong>: <code>website_sale</code> يدمج السلة anonymous مع آخر سلة draft للزبون المسجّل (موجود أصلاً في <code>cart.py</code>). نضيف banner: «دمجت سلتك مع 3 منتجات سابقة لـ [الاسم]».</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو · توصيل لمنطقة مو موجودة بـ boxy.area</div>
+  <p>زبون من قضاء صغير بكركوك، مو موجود بقائمة 4533 منطقة.</p>
+  <p><strong>السلوك المعتمد</strong>: قائمة «منطقتي مو موجودة» تفتح حقل نصي حر + checkbox «تأكيد بالواتساب» — الإدمن يستلم رسالة بالـ Discuss، يضيف المنطقة لـ boxy.area، ويرجع للزبون يأكد قبل ما يحجز التوصيل.</p>
+</div>
+
+<h3>13.3 · ميلستونات تشغيلية بعد M7</h3>
+
+<div class="card">
+  <div class="card-title">M8 — تحليلات الفلاتر (شهر واحد بعد الإطلاق)</div>
+  <p class="small">نقيس: أكثر فلتر مستخدم؟ أكثر فلتر يقود لشراء؟ نسبة هجر السلة بعد فتح الفلاتر؟ نضيف dashboard في Sales / Reporting لكل website.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">M9 — Personalization (3 أشهر بعد الإطلاق)</div>
+  <p class="small">حفظ آخر فلاتر استعملها الزبون → استرجاعها بزيارته القادمة. يستفيد من <code>res.partner.last_filter_state</code> (حقل JSON جديد).</p>
+</div>
+
+<div class="card">
+  <div class="card-title">M10 — A/B Testing</div>
+  <p class="small">اختبار: إيقاع الفلاتر اليسار vs اليمين، عداد المنتجات vs بدون، فلتر مخزون افتراضي ON vs OFF. نقيس conversion rate لمدة أسبوعين.</p>
 </div>
 </section>
 
-<section id="final">
-<h2><span class="icon-wrap"><svg class="icon"><use href="#i-check"/></svg></span>الخطوة اللي بعد</h2>
-
-<ol>
-  <li>تجاوب على الأسئلة (تختار خيار أو تكتب ملاحظة — أو الاثنين).</li>
-  <li>تضيف مواضيعك الإضافية بفصل 11 إذا عندك.</li>
-  <li>تضغط «أرسل بواتساب» — ينفتح واتساب على رقمك <code dir="ltr">0771 995 6000</code> بنص جاهز.</li>
-  <li>أقرا إجاباتك وأرسلك ملخص نهائي قبل البدء بالبناء.</li>
-  <li>نبلّش المرحلة M0 (التنظيف) — صغيرة وقابلة للتراجع.</li>
-</ol>
-
-<div class="question" data-qid="Q26">
-  <div class="question-header">
-    <span class="question-badge">Q26</span>
-    <span class="question-title">ملاحظات نهائية أو نقاط ما ذكرتها</span>
-    <span class="question-id">final-notes</span>
-  </div>
-  <textarea style="min-height:120px" placeholder="تعديلات، رفض، إضافات..."></textarea>
-  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
-</div>
-</section>
+<!-- Removed: extra-topics (questionnaire) and final WhatsApp section -->
 
 </main>
 
@@ -2307,6 +2411,27 @@ function clearAll(){
     location.reload();
   }
 }
+
+// === Approved-plan mode: convert ⭐ recommendations into final decisions ===
+(function freezeDecisions(){
+  document.querySelectorAll('.question').forEach(q=>{
+    const btns = [...q.querySelectorAll('.opt-btn')];
+    if(!btns.length) return;
+    let chosen = btns.find(b=>/⭐/.test(b.textContent));
+    if(!chosen) chosen = btns[0]; // fallback: first option
+    btns.forEach(b=>{ b.classList.remove('active'); });
+    chosen.classList.add('decision');
+    chosen.textContent = chosen.textContent.replace('⭐','').trim();
+    // Add "القرار المعتمد" label above opt-btns
+    const optsRow = q.querySelector('.opt-btns');
+    if(optsRow && !q.querySelector('.decision-label')){
+      const lbl = document.createElement('div');
+      lbl.className = 'decision-label';
+      lbl.textContent = 'القرار المعتمد';
+      optsRow.parentNode.insertBefore(lbl, optsRow);
+    }
+  });
+})();
 </script>
 </body>
 </html>
