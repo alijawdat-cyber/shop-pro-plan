@@ -3853,10 +3853,12 @@ document.querySelectorAll('.open-question textarea[data-qid]').forEach(ta=>{
 document.querySelectorAll('.task-check input[type=checkbox][data-task]').forEach(cb=>{
   const tid = cb.dataset.task;
   const parent = cb.closest('.task-check');
-  if(answers['tasks']?.[tid]){
-    cb.checked = true;
-    parent.classList.add('done');
-  }
+  // Respect HTML-level `checked` default (tasks already completed in source)
+  const defaultDone = cb.hasAttribute('checked');
+  const stored = answers['tasks']?.[tid];
+  const isDone = (stored === undefined) ? defaultDone : !!stored;
+  cb.checked = isDone;
+  parent.classList.toggle('done', isDone);
   cb.addEventListener('change', ()=>{
     answers['tasks'] = answers['tasks'] || {};
     answers['tasks'][tid] = cb.checked;
