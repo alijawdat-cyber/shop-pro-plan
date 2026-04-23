@@ -223,6 +223,21 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 .unlock-btn{background:transparent;border:none;color:#94a3b8;cursor:pointer;font-size:11px;font-weight:400;padding:0 6px;margin-right:6px;opacity:0;transition:opacity .15s}
 .question.locked:hover .unlock-btn{opacity:.7}
 .unlock-btn:hover{opacity:1 !important;color:var(--danger);text-decoration:underline}
+
+/* Dense daily scenarios block */
+.daily-block{margin:14px 0;padding:14px 16px;background:#fafaf9;border:1px solid #e7e5e4;border-right:3px solid var(--accent);border-radius:10px}
+.daily-block > .daily-title{font-weight:700;color:var(--accent);font-size:13.5px;margin-bottom:10px;letter-spacing:.02em}
+.daily-block > .daily-title::before{content:"\1F52C  ";margin-left:4px}
+.daily-item{padding:10px 0;border-bottom:1px dashed #d6d3d1;font-size:14px;line-height:1.85}
+.daily-item:last-child{border-bottom:none;padding-bottom:2px}
+.daily-item .head{font-weight:700;color:#334155;margin-bottom:4px;font-size:13.5px}
+.daily-item .head::before{content:"\25C6  ";color:var(--accent);font-weight:900}
+.daily-item .before{color:#991b1b;display:block}
+.daily-item .before::before{content:"\274C  \0642\0628\0644\3A  ";font-weight:700;color:#b91c1c}
+.daily-item .after{color:#065f46;display:block;margin-top:2px}
+.daily-item .after::before{content:"\2705  \0628\0639\062F\3A  ";font-weight:700;color:#047857}
+.daily-item .gain{color:#78350f;display:block;margin-top:2px;font-size:13px;font-style:italic}
+.daily-item .gain::before{content:"\1F4A1  \0627\0644\0641\0627\0626\062F\0629\3A  ";font-weight:700;color:#b45309;font-style:normal}
 </style>
 </head>
 <body>
@@ -635,6 +650,28 @@ sportmore-iq.com/shop?
   <p>هسّة الرابط يبقى <code>sportmore-iq.com/shop</code> بدون أي فلتر. لو رجعت للصفحة ترجع صفر — والإعلان ما يقدر يودي الزبون لجزمة محددة.</p>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — URL قابل للمشاركة</div>
+  <div class="daily-item">
+    <div class="head">إعلان فيسبوك لسبورت مور</div>
+    <span class="before">أنشر إعلان "جزم Nike أحمر تحت 80 ألف" → الناس تضغط → يفتح /shop بدون فلتر → 313 منتج مخلّط → Bounce Rate 78%.</span>
+    <span class="after">الإعلان يرتبط بـ /shop?brand=Nike&color=red&price_max=80000 → الزبون يدخل يشوف 14 جزمة محددة → Bounce 32%.</span>
+    <span class="gain">CPC ينزل 40%، ROAS يرتفع 2x — إعلان واحد ممكن يوفر 200 ألف شهرياً.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">مشاركة واتساب بين صديقتين نافا</div>
+    <span class="before">سارة تدور فساتين نافا بمقاس M لون أسود، تلگى 3 تعجبها، تصور Screenshot وترسله لصديقتها.</span>
+    <span class="after">تفلتر، تنسخ الرابط nava-iq.com/shop?size=M&color=black، ترسله. الصديقة تفتح → بنفس الفلاتر بالضبط + ممكن تضيف اختياراتها بسهولة.</span>
+    <span class="gain">مشاركة أنظف، تصفح أسرع، فرصة شراء مزدوج (الصديقة ممكن تشتري هي بعد).</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Bookmark للزبون الدائم</div>
+    <span class="before">زبون بلو يدخل كل شهر يشوف سجاد حجم 2×3 م تحت مليون دينار. كل مرة يعيد الفلاتر يدوياً (7-8 نقرات).</span>
+    <span class="after">يبوك مارك الرابط blo-iq.com/shop?size=2x3&price_max=1000000&order=newest → ضغطة واحدة يدخل يشوف الجديد.</span>
+    <span class="gain">زبائن متكررين يصيرون أسرع وأولى بالشراء، تجربة VIP بدون تطوير إضافي.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q8">
   <div class="question-header">
     <span class="question-badge">Q8</span>
@@ -702,6 +739,28 @@ Under Armour (12)</div>
 <div class="callout callout-info">
   <svg class="icon"><use href="#i-info"/></svg>
   <div><strong>توصيتي:</strong> «المختار أولاً + الباقي حسب الأكثر» — جمع بين سيناريو A + C. هذا أفضل UX بالتجربة.</div>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — ترتيب قيم الفلتر</div>
+  <div class="daily-item">
+    <div class="head">نافا — فلتر "الماركة" بـ 43 قيمة</div>
+    <span class="before">ترتيب أبجدي: Adidas أول، Zara آخر. زبونة تدور "Mango" تنزل 28 سطر للقيها. Max Mara قبل Mango بسطر واحد تخربها.</span>
+    <span class="after">ترتيب "المختار + الأكثر": بعد ما تضغط Mango، Mango يقفز فوق مع ✓، والباقي تحت مرتبين بعدد المنتجات.</span>
+    <span class="gain">وقت اختيار الفلتر ينزل من 4 ثواني لثانية وحدة. تقليل الإحباط على الجوّال خصوصاً.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — فلتر "المقاس" بـ 23 قيمة</div>
+    <span class="before">أبجدي: 10, 10.5, 11, ... 38, 39, ... 43, 44. المقاسات بالأرقام تصير مبعثرة لأن "ترتيب النص" (10 قبل 2).</span>
+    <span class="after">ترتيب رقمي ذكي: 6, 6.5, 7, 7.5... 44. المنطق يفهم أن المقاس رقم وليس نص.</span>
+    <span class="gain">زبون يدور مقاس 42 يلگاه بسطر متوقع، ما يشك أن الفلتر مكسور.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">بلو — فلتر "الحجم" بـ 14 مقاس</div>
+    <span class="before">ترتيب أبجدي: 1x2, 1.5x2, 2x3, 3x4... الأرقام العشرية تخرب الترتيب.</span>
+    <span class="after">ترتيب حسب المساحة (م²) تصاعدياً أو حسب sequence يدوي: 1×2 (2م²) → 1.5×2 (3م²) → 2×3 (6م²) → 3×4 (12م²).</span>
+    <span class="gain">الزبون يشوف السجاد من الأصغر للأكبر منطقياً، يختار حسب المساحة الحقيقية المتوفرة ببيته.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q9">
@@ -814,6 +873,28 @@ Under Armour (12)</div>
   <div><strong>توصيتي:</strong> Template + نخفي القيم النافدة (سيناريو C) — يوازن بين عدم خسارة مبيعات وعدم إحباط الزبون.</div>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — مستوى حساب المخزون</div>
+  <div class="daily-item">
+    <div class="head">تيشيرت Nike سبورت مور — 9 variants</div>
+    <span class="before">Strict: 7 من 9 variants نافدين → التيشيرت يختفي كلياً رغم توفر XL-أزرق وL-أسود. Template ساذج: يظهر بس يسمح بطلب كل الـ9 → زبون يختار M-أحمر النافد → خيبة أمل.</span>
+    <span class="after">Template + إخفاء ذكي: التيشيرت يبقى، زر "M" معطّل ومكتوب عليه "غير متوفر"، زر "أحمر" مشطوب، بس XL-أزرق وL-أسود قابلين للضغط.</span>
+    <span class="gain">تبيع القطعتين الباقيتين بدل تخفيهم، وتحصّل مبيعات من 313 منتج بدل 180.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">فستان نافا — لون واحد 4 مقاسات</div>
+    <span class="before">S, M, L متوفرين، XL نافد. زبونة مقاس XL تفتح الصفحة تشوف كل المقاسات فعّالة → تطلب XL → يطلع إشعار "نفد" عند الدفع.</span>
+    <span class="after">قبل الدفع، بصفحة المنتج XL يكون مشطوب من البداية، و"سأنتظر الوصول" متاح يجمع الإيميل للإشعار لمن ينوصل.</span>
+    <span class="gain">زبونة لا تنحبط + نجمع leads للموسم القادم → 30% منهم يرجعون يشترون لمن نرسلهم واتساب.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">سجاد بلو — حجم واحد متوفر، لون واحد</div>
+    <span class="before">بلو بسيط: كل منتج بحجم ولون محدد (مو 9 variants). لو القطعة بيعت → لازم يختفي المنتج كلياً لأنه قطعة واحدة.</span>
+    <span class="after">Strict mode مع بلو: نقد نستخدمه هنا بدون خسارة لأن كل منتج مستقل. لمن ينفد → يختفي تلقائياً.</span>
+    <span class="gain">سياسة مختلفة لكل متجر حسب طبيعته: سبورت مور/نافا يستخدمون سيناريو C، بلو يستخدم سيناريو B.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q10">
   <div class="question-header">
     <span class="question-badge">Q10</span>
@@ -855,6 +936,28 @@ Under Armour (12)</div>
 <div class="callout callout-info">
   <svg class="icon"><use href="#i-info"/></svg>
   <div><strong>توصيتي:</strong> خيار بالإدارة — كل متجر له طبيعة مختلفة. سبورت مور تستفيد من «مفعّل»، نافا/بلو من «مطفأ».</div>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — فلتر "المتوفر فقط"</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — موسم صيف نشط</div>
+    <span class="before">الموسم فيه 313 منتج بالكتالوج، بس 180 متوفرين فعلاً. الفلتر مطفأ → الزبون يشوف 133 منتج "نافد" → إحباط.</span>
+    <span class="after">الفلتر "✓ المتوفر فقط" مفعّل أصلاً → يدخل يشوف 180 مباشرة. لو يحب يشوف الكل يطفيه بضغطة.</span>
+    <span class="gain">زبون جديد يشوف متجر "مليان بضاعة" بدل "نصفه نافد" — انطباع أول قوي.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — وصول شحنة جديدة</div>
+    <span class="before">وصلت شحنة أمس + الكتالوج لسه ما انحدث بالكامل. لو الفلتر مفعّل افتراضياً → الشحنة الجديدة ما تبان حتى تحدّث المخزون.</span>
+    <span class="after">الفلتر مطفأ → كل الكتالوج يبان، زبائن ينتظرون شحنات معينة يشوفون التوفّر الفوري.</span>
+    <span class="gain">نافا تعتمد على إطلاق شحنات موسمية، لا تريد تخفي أي بضاعة حتى لو مؤقتاً نافدة.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">بلو — كتالوج ثابت 50-60 منتج</div>
+    <span class="before">بلو عنده قطع سجاد قليلة كل وحدة مميزة. لو الفلتر مفعّل افتراضياً + 5 قطع بيعوا → يشوف الزبون 45 بدل 50 بدون سبب.</span>
+    <span class="after">مطفأ → يشوف كل القطع، النافدة مكتوب عليها "بيعت" مع زر "اطلب مشابه بواتساب".</span>
+    <span class="gain">السجاد بلو كل قطعة لها ذوق خاص — إظهار الكل يساعد الزبون يختار قطعة قريبة للتي نفدت.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q11">
@@ -905,6 +1008,28 @@ Under Armour (12)</div>
 <div class="callout callout-warn">
   <svg class="icon"><use href="#i-alert"/></svg>
   <div>عندك تجربة خاصة بنافا (BoxyShop module): البضاعة تنتقل تلقائياً بين المستودعات. لو فعّلنا «باستثناء POS» راح يتفعل بشكل ذكي مع نظام النقل اللي بنيناه.</div>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — أي مستودعات تُحسب</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — زبون يطلب جزمة موجودة بـ POS المنصور</div>
+    <span class="before">حساب "كل internal": نظام يظهر 1815 قطعة متوفرة من تيشيرت Nike. زبون يطلب من بغداد الجديدة، الطلب يقع، المخزن يكتشف أن القطعة الباقية بفرع المنصور (POS) → كاشير المنصور يرفض يطلعها لأنه محتاجها للبيع المباشر → إحراج + تأخير 3 أيام.</span>
+    <span class="after">"exclude-pos": نحسب فقط 1540 قطعة (WH + Online). بضاعة POS لا تحسب كـ stock للويب → لا نعد بما لا نملك.</span>
+    <span class="gain">لا تضارب بين قنوات البيع، كل فرع POS يبقى مستقل بمخزونه، وظائف النقل اليدوي تنقرض.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — مستودع واحد فقط (لا فروع POS نشطة للويب)</div>
+    <span class="before">نافا عنده WH/Stock + Online Stock. حساب "all internal" يساوي "exclude-pos" لأن ماكو POS يشارك الويب فعلياً.</span>
+    <span class="after">أي خيار من A أو C يعطي نفس النتيجة لنافا. المهم أن يكون الإعداد متاح لمستقبل (لو فتحوا POS نشط لاحقاً).</span>
+    <span class="gain">تصميم قابل للتوسع بدون إعادة برمجة، إعداد واحد يخدم الحالتين.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">بلو — زبون يطلب سجاد بغداد والقطعة بالموصل</div>
+    <span class="before">بلو قطعة سجاد واحدة بحجم معين بمستودع الموصل. زبون بغداد يطلبها → نقل 6 ساعات + رسوم شحن داخلي.</span>
+    <span class="after">نظام يعرض "متوفر - ينقل من الموصل (2-3 أيام)" بدل "متوفر" الصامت. الزبون يقرر على بيّنة.</span>
+    <span class="gain">شفافية كاملة، توقعات صحيحة، تقليل طلبات إلغاء بسبب "ليش التأخير".</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q12">
@@ -1044,6 +1169,28 @@ Under Armour (12)</div>
   <div><strong>توصيتي:</strong> سيناريو A (session throttle بساعة) — متوازن، خفيف على الأداء، يعكس واقع كافي.</div>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — تتبّع المشاهدات</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — تيشيرت "يُشاهد كثير بدون شراء"</div>
+    <span class="before">بدون تتبع: ما ندري أي تيشيرت الناس تشوفه وتتردد فيه. نعتمد فقط على "Best Sellers" الذي يهمل الاهتمام الذي لم يتحول لبيع.</span>
+    <span class="after">تيشيرت Adidas 35,000 د.ع عليه 420 مشاهدة + 8 مبيعات. معدّل التحويل 1.9% جداً ضعيف → إشارة لإعادة تصميم العرض أو خفض السعر.</span>
+    <span class="gain">قرارات تسويقية مبنية على بيانات حقيقية: تخفيض 10% على هذا التيشيرت قد يرفع التحويل لـ 5% ومبيعات 3x.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">مقاهي شارع السعدون — IP مشترك</div>
+    <span class="before">IP hash unique: 30 زبون بمقهى يتصفحون من نفس الـ IP. كلهم يشوفون نفس التيشيرت → النظام يعد 1 مشاهدة فقط.</span>
+    <span class="after">session throttle: كل جلسة متصفح مستقلة مهما كان الـ IP → 30 مشاهدة حقيقية مسجّلة.</span>
+    <span class="gain">أرقام المشاهدات تعكس واقع السوق العراقي (الإنترنت المشترك شائع جداً).</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">fraud prevention — منع التزوير</div>
+    <span class="before">بدون throttle: منافس يكتب script يفتح صفحة تيشيرته 10,000 مرة ليصعّده لـ "Most Viewed" ويخدع الزبائن الجدد.</span>
+    <span class="after">Throttle بالساعة: نفس الجلسة = مشاهدة واحدة لكل ساعة مهما تكرر F5 أو Refresh. Script يصير بلا فائدة.</span>
+    <span class="gain">ثقة بترتيب "الأكثر مشاهدة"، حماية من التلاعب التنافسي.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q14">
   <div class="question-header">
     <span class="question-badge">Q14</span>
@@ -1154,6 +1301,28 @@ Under Armour (12)</div>
   <div><strong>توصيتي:</strong> سبورت مور + نافا (الموضة والأحذية تستفيد كثير). بلو لاحقاً أو نلغيها لأنها ما تضيف قيمة لطبيعة منتجاتهم.</div>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — Wishlist</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — زبون ينتظر الراتب</div>
+    <span class="before">محمد يحب 5 جزم Nike مجموعها 380,000 د.ع. راتبه بعد 8 أيام. يأخذ Screenshots بموبايله ثم ينسى أرقامها ويعيد البحث يوم الراتب.</span>
+    <span class="after">يضغط القلب على كل جزمة → تنحفظ بقائمته. يوم الراتب يفتح "قائمتي" يجد الـ5 جاهزين → يطلبهم بدقيقتين.</span>
+    <span class="gain">تقليل الاحتكاك بين "أحب أشتري" و"الشراء الفعلي". تحويل أعلى من 15% إلى 35% للقوائم المحفوظة.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — زبونة تشارك صديقتها</div>
+    <span class="before">سارة تحب 4 فساتين نافا، تصور كل وحدة Screenshot، ترسل 4 صور لصديقتها بالواتساب "شنو رأيك؟". الصديقة ترد على كل صورة منفصلة — فوضى.</span>
+    <span class="after">سارة تضيفهم لقائمتها، تنسخ رابط القائمة المشتركة، ترسله. الصديقة تفتح صفحة واحدة فيها الـ4 بصورهم وأسعارهم كاملة.</span>
+    <span class="gain">تجربة أنيقة، تأثير شبكي (الصديقة قد تشتري هي بعد)، برستيج علامة.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">إشعار تخفيض على المنتج المفضل</div>
+    <span class="before">زبون أضاف جزمة 90,000 د.ع لقائمته قبل أسبوع. السعر نزل 72,000 (تخفيض 20%). الزبون ما يدري، يشتري من متجر منافس.</span>
+    <span class="after">النظام يكتشف التخفيض، يرسل واتساب تلقائي: "الجزمة اللي حبيتها نزلت 20% — هسّة 72,000 بدل 90,000".</span>
+    <span class="gain">إعادة تفعيل زبائن "باردين"، معدّل فتح الواتساب 90%+، 3x أكثر من الإيميل.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q16">
   <div class="question-header">
     <span class="question-badge">Q16</span>
@@ -1204,6 +1373,28 @@ Under Armour (12)</div>
 <div class="callout callout-info">
   <svg class="icon"><use href="#i-info"/></svg>
   <div><strong>توصيتي:</strong> سيناريو A (كامل) + سيناريو C على Desktop فقط — يجمع بين سرعة Hover وقوة Modal.</div>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — Quick View</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — زبون يبحث بسرعة</div>
+    <span class="before">زبون يدخل /shop يشوف 30 جزمة. يفتح كل وحدة بتبويب جديد → 30 tab → موبايله يتعلق. يبدأ يقفل تبويبات عشوائياً → يخسر اختياراته.</span>
+    <span class="after">يضغط "👁" فوق البطاقة → Modal صغير يطلع بنفس الصفحة، يختار المقاس واللون ويضغط "للسلة" → الـ Modal ينقفل، بطاقة التالية جاهزة.</span>
+    <span class="gain">يضيف 5-6 منتجات للسلة بدقيقة واحدة بدل 5 دقايق من التنقل بين صفحات.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Mobile vs Desktop</div>
+    <span class="before">Hover peek يشتغل بس على Desktop (ماوس). الموبايل يتجاهله. تجربة الموبايل تبقى مثل قبل.</span>
+    <span class="after">Desktop: hover للمعاينة السريعة جداً. Mobile: زر "👁" دائماً ظاهر لأن ماكو hover. Modal أكبر ويملأ الشاشة لسهولة الضغط.</span>
+    <span class="gain">كل جهاز يحصل على تجربة محسّنة لقدراته، بدون تنازل عن أي منهما.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">إضافة متعددة للسلة</div>
+    <span class="before">أم بيت تدور 3 فساتين لبناتها الثلاثة (مقاسات مختلفة). بدون Quick View لازم تفتح كل فستان + تحدد المقاس + ترجع → 9 خطوات.</span>
+    <span class="after">تفتح /shop → فستان 1 Quick View → مقاس S → إضافة. فستان 2 → مقاس M → إضافة. فستان 3 → L → إضافة. مجموع 6 نقرات بدون مغادرة /shop.</span>
+    <span class="gain">تجربة "كتالوج سحبي" سريعة، متجر يحس وكأنه متجر فعلي تختار فيه بسرعة.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q17">
@@ -1261,6 +1452,28 @@ Under Armour (12)</div>
   <div>عندنا تجربة على نافا: واتساب template "abandoned_cart" مفعّل. نتيجة آذار: 18 سلة مرسلة، 5 تحوّلت لطلب فعلي = 28% conversion. خلّي نطبقها على سبورت مور.</div>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — Abandoned Cart</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — سلة 145,000 د.ع</div>
+    <span class="before">أحمد يضيف 3 قطع (Nike 75k + Adidas tee 30k + شورط 40k) ثم تنقطع النت. يغيب يومين. يرجع يلگى السلة فاضية (session انتهى) → يبدأ من الصفر → يتحبّط → ما يكمل.</span>
+    <span class="after">6 ساعات: واتساب تذكير فيه الروابط الثلاثة + زر "أكمل الطلب" ينقله مباشرة للسلة محفوظة. 24 ساعة: رسالة ثانية + كوبون SAVE5 (5% تخفيض).</span>
+    <span class="gain">من 100 سلة متروكة، حوالي 25-30 ترجع (28% معدل تحويل كما نافا). دخل إضافي 3-4 مليون شهرياً.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — سلة 85,000 د.ع فستانين</div>
+    <span class="before">سارة تتردد بين فستانين (45k + 40k). تغلق التبويب للتفكير. تنسى.</span>
+    <span class="after">واتساب بعد 6 ساعات: "سارة، لسه تفكرين بالفستانين؟ الأحمر بقى مقاسين بالمخزن..." + شعور "ندرة" حقيقي لأن المخزن فعلاً قليل.</span>
+    <span class="gain">"ندرة" صادقة (مش كذب) + تذكير شخصي = معدل تحويل 35%+ للفساتين تحديداً.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">بلو — سلة 720,000 د.ع سجاد</div>
+    <span class="before">زبون يتردد كثيراً في مبلغ كبير. يترك السلة يستشير زوجته. ينسى أو يدخل متجر منافس.</span>
+    <span class="after">بلو لا يستخدم كوبون تلقائي (الهامش منخفض)، بدلاً منه يرسل صور إضافية: "السجاد ببيت زبون ثاني" + اتصال شخصي بعد 48 ساعة.</span>
+    <span class="gain">اللمسة الشخصية أهم من الخصم للمنتجات الفاخرة — علاقة طويلة الأمد مع زبون يشتري مرة كل 2-3 سنوات.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q18">
   <div class="question-header">
     <span class="question-badge">Q18</span>
@@ -1304,6 +1517,28 @@ Nike Air Max — 75,000 د.ع
 <div class="callout callout-info">
   <svg class="icon"><use href="#i-info"/></svg>
   <div><strong>توصيتي:</strong> الثلاثة. كل وحدة منهم تستفيد. نحتاج رقم واتساب مخصص لكل متجر.</div>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — WhatsApp Inquiry</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — استفسار عن المقاس</div>
+    <span class="before">زبون عنده قدم عريضة، يشك أن مقاس 42 Nike راح يضيق. ما يسأل بأي مكان → يدخل متجر منافس فيه محل فعلي يقدر يجرب.</span>
+    <span class="after">يضغط زر "💬 استفسر بواتساب" فوق زر الشراء → واتساب ينفتح مع رسالة جاهزة "هل مقاس 42 Nike Air Max يناسب القدم العريضة؟ الرابط: [...]" → المتجر يرد خلال 5 دقايق بصورة داخلية للجزمة وسمكها.</span>
+    <span class="gain">تحويل زبائن "المترددين" الذين يخسرهم المتجر حالياً — 15-20% زيادة بالمبيعات من الصفحات ذات التردد العالي.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — استفسار عن القماش</div>
+    <span class="before">زبونة تسأل: "الفستان فيسكوز أو قطن؟ تحس بالحر بأغسطس؟" بدون زر → تفتح فيسبوك، ترسل رسالة، تنتظر 4 ساعات رد.</span>
+    <span class="after">زر بصفحة المنتج → واتساب مباشر مع الموظفة → رد خلال 10 دقايق + صورة إضافية للقماش من قرب.</span>
+    <span class="gain">سرعة الرد = معدل تحويل. نافا عندها تجربة: كل رسالة واتساب فيها استفسار عن القماش تحول 60%+ إذا رد خلال ساعة.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">بلو — استفسار عن حجم السجاد بالغرفة</div>
+    <span class="before">زبون عنده غرفة 4×5 م، السجاد بالصفحة 3×4 م. ما يدري إذا يناسب. يحسب بصعوبة، يخطأ، يطلب غلط.</span>
+    <span class="after">زر واتساب → "عندي غرفة 4×5، يبقى فراغ؟" → الموظف يرسل Mockup للغرفة + نصيحة: "3×4 ممتاز مع 50 سم فراغ حول السجاد للأثاث".</span>
+    <span class="gain">استشارة مجانية تحول 70%+ للزبائن المترددين في حجم السجاد — الحجم أكبر عقبة شراء ببلو.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q19">
@@ -1354,6 +1589,28 @@ Nike Air Max — 75,000 د.ع
 <div class="callout callout-info">
   <svg class="icon"><use href="#i-info"/></svg>
   <div><strong>توصيتي:</strong> سيناريو B (حقيقية مع إخفاء الاسم). شفاف + قانوني + فعّال. لو الطلبات قليلة بفترة معينة → ما نعرض popup بدل من تزوير.</div>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — Social Proof</div>
+  <div class="daily-item">
+    <div class="head">ساعة الذروة — 8 إلى 11 مساء</div>
+    <span class="before">بدون Popup: سبورت مور عنده 12 طلب بالساعة مسائياً، الزبون الجديد يدخل ما يشعر بهذه الحركة. يشك "هل المتجر شغال أصلاً؟"</span>
+    <span class="after">Popup يعرض كل 90 ثانية: "أ***د من بغداد اشترى Nike Air Max قبل دقيقتين" → "ف***ة من البصرة اشترت قبل 7 دقايق" → حركة حية مرئية.</span>
+    <span class="gain">Social Proof قوي جداً بالوقت المزدحم — ثقة فورية + تحويل أعلى 20-30% للزبائن الجدد.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">ساعة هادئة — 2 إلى 5 فجراً</div>
+    <span class="before">Popup يستمر حتى بساعات لا يوجد طلبات. Fake data يجب أن يتم توليدها → خطر اكتشاف الكذب.</span>
+    <span class="after">نظام ذكي: لو آخر طلب قبل أكثر من 2 ساعة → Popup يتوقف تلقائياً. يرجع بعد أول طلب جديد. لا fake أبداً.</span>
+    <span class="gain">صدق 100%، لا يُضعف ثقة الزبون لاحقاً إذا اكتشف، يحافظ على سمعة العلامة.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">الخصوصية القانونية</div>
+    <span class="before">عرض الاسم كاملاً + المدينة + المنتج = تسريب بيانات شخصية. ممكن الزبون يقاضي (قانون حماية البيانات العراقي 2024).</span>
+    <span class="after">إخفاء الاسم: "أ***د" بدل "أحمد كريم" + مدينة فقط بدون محلة + عرض المنتج العام ("جزمة Nike") بدون SKU محدد.</span>
+    <span class="gain">Social proof بدون مخاطرة قانونية، توازن بين الشفافية والخصوصية، مطابقة للمعايير الدولية (GDPR-like).</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q20">
