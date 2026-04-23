@@ -146,6 +146,11 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 .btn-whatsapp{background:#25d366;color:#fff;border-color:#25d366}
 .btn-whatsapp:hover{background:#1da851;color:#fff;border-color:#1da851}
 
+.chapter-comment{margin-top:24px;padding:16px;background:linear-gradient(135deg, var(--accent-soft) 0%, #f0fdfa 100%);border:1px solid var(--accent);border-radius:var(--radius-sm)}
+.chapter-comment label{display:block;font-weight:600;color:var(--accent-text);margin-bottom:8px;font-size:14px}
+.chapter-comment textarea{width:100%;min-height:70px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;resize:vertical;background:#fff;color:var(--text);box-sizing:border-box}
+.chapter-comment textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(15,118,110,.1)}
+
 @media(max-width:640px){
   h1{font-size:26px}
   h2{font-size:20px}
@@ -281,6 +286,11 @@ details .details-body{padding:0 16px 14px;font-size:14px}
   <textarea placeholder="وصف أيقونة بديلة..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
 </div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل الاسم والأيقونة (CH1)</label>
+  <textarea data-qid="CH1-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
+</div>
 </section>
 
 <!-- CH2 -->
@@ -323,11 +333,16 @@ details .details-body{padding:0 16px 14px;font-size:14px}
     <button class="opt-btn" onclick="pick(this,'Q3','manual')">يدوي</button>
     <button class="opt-btn" onclick="pick(this,'Q3','auto')">أتمتة عند تغيير السعر</button>
     <button class="opt-btn" onclick="pick(this,'Q3','bulk')">خصم جماعي</button>
-    <button class="opt-btn" onclick="pick(this,'Q3','pricelist')">Price List</button>
+    <button class="opt-btn" onclick="pick(this,'Q3','pricelist')">Price List ⭐</button>
     <button class="opt-btn" onclick="pick(this,'Q3','postpone')">لاحقاً</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل فحص الكود (CH2)</label>
+  <textarea data-qid="CH2-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -429,12 +444,17 @@ details .details-body{padding:0 16px 14px;font-size:14px}
     <span class="question-id">zero-counts</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q6','hide')">نخفيها</button>
+    <button class="opt-btn" onclick="pick(this,'Q6','hide')">نخفيها ⭐</button>
     <button class="opt-btn" onclick="pick(this,'Q6','disable')">نعرضها معطّلة</button>
     <button class="opt-btn" onclick="pick(this,'Q6','admin')">خيار بالإدارة</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل إحصائيات القواعد (CH3)</label>
+  <textarea data-qid="CH3-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -513,6 +533,34 @@ GROUP BY pav.attribute_id, pav.id;</div>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
 </div>
 
+<h3>فكرة Q8 · URL قابل للمشاركة</h3>
+<p>لمّا تفلتر بالمتجر، الرابط بالمتصفح يتغير ويعكس اختياراتك. لو نسخت الرابط وأرسلته لصديق، يفتح عنده <strong>بنفس الفلاتر تماماً</strong>.</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو 1 · «كل شي» (الخيار الأوّل)</div>
+  <p>علي يدخل سبورت مور، يختار Nike + أحمر + أسود + مقاس 42 + سعر أقل من 50 ألف + ترتيب «الأرخص أولاً».</p>
+  <div class="mock">رابط علي يصير:
+sportmore-iq.com/shop?
+  brand=Nike&
+  color=red,black&
+  size=42&
+  price_max=50000&
+  order=price_asc</div>
+  <p>ينسخه ويحطه بالواتساب لصديقه. الصديق يضغط الرابط → يفتح بنفس الفلاتر بالضبط ويشوف نفس المنتجات.</p>
+  <p class="small muted">الفائدة: SEO + مشاركة حقيقية + الإعلانات تحول لفلتر محدد.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو 2 · «الأساسيات فقط»</div>
+  <p>بس brand + category + price تطلع بالرابط. اللون والمقاس والفرز تجارية بالجلسة لكن ما تنحفظ بالرابط.</p>
+  <p class="small muted">الفائدة: روابط أقصر وأنظف، لكن المشاركة أقل دقة.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو 3 · الحالي (والسبب ليش تحتاجو)</div>
+  <p>هسّة الرابط يبقى <code>sportmore-iq.com/shop</code> بدون أي فلتر. لو رجعت للصفحة ترجع صفر — والإعلان ما يقدر يودي الزبون لجزمة محددة.</p>
+</div>
+
 <div class="question" data-qid="Q8">
   <div class="question-header">
     <span class="question-badge">Q8</span>
@@ -520,12 +568,66 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">url-state</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q8','all')">كل شي</button>
+    <button class="opt-btn" onclick="pick(this,'Q8','all')">كل شي (فلاتر + فرز + صفحة)</button>
     <button class="opt-btn" onclick="pick(this,'Q8','main')">الأساسيات فقط</button>
-    <button class="opt-btn" onclick="pick(this,'Q8','hash')">بالـ hash</button>
+    <button class="opt-btn" onclick="pick(this,'Q8','hash')">بالـ hash (إخفاء عن SEO)</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<h3>فكرة Q9 · ترتيب القيم داخل الفلتر</h3>
+<p>لمّا الفلتر يفتح ويعرض ليست (مثلاً 18 ماركة)، بأي ترتيب نعرضها؟ هاي 4 أفكار بأمثلة حقيقية من سبورت مور:</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «الأكثر أولاً» (count desc)</div>
+  <div class="mock">فلتر الماركة:
+  Nike (47)        ← أعلى عدد
+  Adidas (32)
+  Puma (18)
+  Under Armour (12)
+  ...
+  Reebok (3)       ← أقل عدد</div>
+  <p>الفائدة: الزبون يلقى الماركات الشائعة فوق ويختارها بسرعة. العيب: Nike دائماً فوق حتى لو بدلت الترتيب بالإدارة.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «أبجدي» (alpha)</div>
+  <div class="mock">Adidas (32)
+Nike (47)
+Puma (18)
+Reebok (3)
+Under Armour (12)</div>
+  <p>الفائدة: لو الزبون يدور Adidas بالذات، يلقاها بسرعة. العيب: Reebok (بيها 3 منتجات) فوق Under Armour (بيها 12).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «المختار أولاً» (selected-first)</div>
+  <p>لمّا تختار Adidas + Puma، الليست تعاد ترتيب:</p>
+  <div class="mock">☑ Adidas (32)     ← مختار، فوق
+☑ Puma (18)       ← مختار، فوق
+─── الخط الفاصل ───
+☐ Nike (47)
+☐ Under Armour (12)
+☐ Reebok (3)</div>
+  <p>الفائدة: تشوف اختياراتك بلمحة عين بدون ما تدور بالليست. ممتازة للفلاتر الطويلة.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو D · «حسب sequence» (ترتيب يدوي)</div>
+  <p>الإدارة تفتح <code>المبيعات › التهيئة › سمات المنتج</code> → Brand → سحب وإفلات:</p>
+  <div class="mock">ترتيب ثابت حسب رغبة الإدارة:
+  Adidas (32)      ← sequence=10 (راعي)
+  Nike (47)        ← sequence=20
+  Puma (18)        ← sequence=30
+  Under Armour (12)
+  Reebok (3)</div>
+  <p>الفائدة: تحكّم كامل (مفيد لو الماركة الراعية لازم تظهر أول). العيب: تعب صيانة، والأعداد تبقى غير مرئية بالترتيب.</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> «المختار أولاً + الباقي حسب الأكثر» — جمع بين سيناريو A + C. هذا أفضل UX بالتجربة.</div>
 </div>
 
 <div class="question" data-qid="Q9">
@@ -537,11 +639,16 @@ GROUP BY pav.attribute_id, pav.id;</div>
   <div class="opt-btns">
     <button class="opt-btn" onclick="pick(this,'Q9','count')">الأكثر أولاً</button>
     <button class="opt-btn" onclick="pick(this,'Q9','alpha')">أبجدي</button>
-    <button class="opt-btn" onclick="pick(this,'Q9','selected-first')">المختار أولاً</button>
-    <button class="opt-btn" onclick="pick(this,'Q9','admin-seq')">حسب sequence</button>
+    <button class="opt-btn" onclick="pick(this,'Q9','selected-first')">المختار أولاً + الباقي حسب الأكثر</button>
+    <button class="opt-btn" onclick="pick(this,'Q9','admin-seq')">حسب sequence (يدوي)</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل الفلاتر الطبقية (CH4)</label>
+  <textarea data-qid="CH4-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -589,6 +696,50 @@ GROUP BY pav.attribute_id, pav.id;</div>
   بحيث قيم الخصائص اللي ماكو منها variant متوفر تختفي.</div>
 </div>
 
+<h3>فكرة Q10 · شلون نحسب «المنتج متوفر»؟</h3>
+<p>تخيل تيشيرت Nike بسبورت مور عنده 9 متغيرات (3 مقاسات × 3 ألوان). 7 منهم ناقصين بالمخزن، 2 فقط متوفرين. السؤال: شلون نقرر هل التيشيرت كله «متوفر» أو «ناقص»؟</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «Template» (متغير واحد متوفر = المنتج متوفر)</div>
+  <div class="mock">تيشيرت Nike:
+  M-أحمر    × ناقص
+  M-أزرق    × ناقص
+  M-أسود    × ناقص
+  L-أحمر    × ناقص
+  L-أزرق    ✓ متوفر (1 قطعة)
+  L-أسود    × ناقص
+  XL-أحمر   × ناقص
+  XL-أزرق   × ناقص
+  XL-أسود   ✓ متوفر (3 قطع)
+
+  → التيشيرت يظهر بالمتجر</div>
+  <p>الفائدة: ما تضيع مبيعات. لو الزبون يريد L-أزرق راح يلگاه. العيب: لو يدخل ويختار M-أحمر يصير محبط لأن المتغير اللي يريده ناقص.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «Strict» (كل المتغيرات لازم متوفرين)</div>
+  <p>نفس التيشيرت أعلاه — 7 من 9 ناقصين → التيشيرت <strong>يختفي تماماً من /shop</strong>.</p>
+  <p>الفائدة: الزبون يشوف بس البضاعة الكاملة. العيب: تخسر مبيعات كثيرة (7 ألوان قد تكون نافدة وأنت تخفي تيشيرت اللي ممكن تبيع منه XL-أزرق).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «Template + نخفي القيم النافدة» (اقتراحي ⭐)</div>
+  <p>التيشيرت يظهر، وبصفحة المنتج المقاسات/الألوان النافدة <strong>تظهر مشطوبة</strong> أو معطلة:</p>
+  <div class="mock">صفحة التيشيرت:
+  المقاس:  [M معطل]  [L]  [XL]
+  اللون:   [أحمر معطل]  [أزرق]  [أسود معطل لو M أو L]
+
+  بفلتر اللون بصفحة /shop:
+  ✓ أزرق (تيشيرت Nike + 12 منتج آخر)
+  ✗ أحمر (مخفي لأن صفر متوفر)</div>
+  <p>الفائدة: أفضل تجربة. الزبون يفهم بسرعة شنو متوفر فعلاً. مدعومة بـ JOIN مع <code>stock.quant</code>.</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> Template + نخفي القيم النافدة (سيناريو C) — يوازن بين عدم خسارة مبيعات وعدم إحباط الزبون.</div>
+</div>
+
 <div class="question" data-qid="Q10">
   <div class="question-header">
     <span class="question-badge">Q10</span>
@@ -596,27 +747,90 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">stock-granularity</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q10','template')">Template (variant واحد يكفي)</button>
-    <button class="opt-btn" onclick="pick(this,'Q10','strict')">Strict (كل المتغيرات)</button>
-    <button class="opt-btn" onclick="pick(this,'Q10','hide-exhausted')">Template + نخفي القيم النافدة</button>
+    <button class="opt-btn" onclick="pick(this,'Q10','template')">Template (سيناريو A)</button>
+    <button class="opt-btn" onclick="pick(this,'Q10','strict')">Strict (سيناريو B)</button>
+    <button class="opt-btn" onclick="pick(this,'Q10','hide-exhausted')">Template + إخفاء القيم النافدة (C ⭐)</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
 </div>
 
+<h3>فكرة Q11 · فلتر «المتوفر فقط» — مفعّل أصلاً أو اختياري؟</h3>
+<p>السؤال: لمّا الزبون يدخل /shop أول مرة، هل يشوف <strong>فقط</strong> المنتجات المتوفرة، أو يشوف الكل ويفعّل الفلتر بنفسه؟</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «مفعّل افتراضياً» (default-on)</div>
+  <p>الزبون يدخل سبورت مور → يشوف 180 منتج (المتوفرة فقط من أصل 313). الفلتر بالشريط الجانبي «✓ المتوفر فقط» مفعّل من البداية. لو يطفّيه يشوف 313.</p>
+  <p>الفائدة: ما يحبط الزبون بمنتجات نافدة. العيب: يخسر SEO على المنتجات النافدة (Google ما يشوفها).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «مطفأ افتراضياً» (default-off)</div>
+  <p>الزبون يدخل ويشوف الـ 313 كلهم، مع شارة «نافد» على الناقصين. لو يريد يخفيهم يفعّل الفلتر بنفسه.</p>
+  <p>الفائدة: SEO أقوى + الزبون يعرف شنو موجود بالكتالوج. العيب: تجربة أصعب لأن قسم كبير من البضاعة نافد.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «خيار بالإدارة» (admin)</div>
+  <p>كل متجر يقرر بنفسه من <code>الإعدادات › المتجر › Shop Pro</code>:</p>
+  <div class="mock">سبورت مور: ☑ المتوفر فقط افتراضياً (مخزون كبير، يهم العرض النظيف)
+نافا:       ☐ مطفأ (كتالوج صغير، نريد كل شي يبان)
+بلو:        ☐ مطفأ</div>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> خيار بالإدارة — كل متجر له طبيعة مختلفة. سبورت مور تستفيد من «مفعّل»، نافا/بلو من «مطفأ».</div>
+</div>
+
 <div class="question" data-qid="Q11">
   <div class="question-header">
     <span class="question-badge">Q11</span>
-    <span class="question-title">مفعّل افتراضياً أو اختياري؟</span>
+    <span class="question-title">فلتر «المتوفر فقط» — مفعّل افتراضياً؟</span>
     <span class="question-id">stock-default</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q11','default-on')">مفعّل</button>
-    <button class="opt-btn" onclick="pick(this,'Q11','default-off')">مطفأ</button>
-    <button class="opt-btn" onclick="pick(this,'Q11','admin')">خيار بالإدارة</button>
+    <button class="opt-btn" onclick="pick(this,'Q11','default-on')">مفعّل لكل المتاجر</button>
+    <button class="opt-btn" onclick="pick(this,'Q11','default-off')">مطفأ لكل المتاجر</button>
+    <button class="opt-btn" onclick="pick(this,'Q11','admin')">خيار لكل متجر بالإدارة ⭐</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<h3>فكرة Q12 · من أي مستودع نحسب الكميات؟</h3>
+<p>المتجر سبورت مور عنده 4 مستودعات بـ Odoo. لمّا نقول «التيشيرت متوفر» — متوفر بأي مستودع بالضبط؟</p>
+
+<div class="scenario">
+  <div class="scenario-label">الواقع الحالي بسبورت مور (إحصائيات حقيقية)</div>
+  <div class="mock">المستودعات:
+  WH/Stock              ← المخزن الرئيسي (1200 قطعة)
+  Sportmore Mansour     ← فرع POS المنصور (180 قطعة)
+  Sportmore Karrada     ← فرع POS الكرادة (95 قطعة)
+  Online Stock          ← مستودع المتجر (340 قطعة)</div>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «كل internal» (الكل)</div>
+  <p>نجمع 1200 + 180 + 95 + 340 = <strong>1815 قطعة متوفرة</strong>. التيشيرت يظهر متوفر.</p>
+  <p>المشكلة: الزبون يطلب من المتجر، النظام يكتشف إن القطعة بفرع المنصور (POS) ولازم نقل → تأخير + إحراج.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «Online Stock فقط» (web-only)</div>
+  <p>نحسب فقط 340 قطعة من مستودع الويب. لو ناقص بالويب → التيشيرت ما يظهر حتى لو موجود بالفروع.</p>
+  <p>الفائدة: ما يصير التزام لا يقدر يتنفّذ. العيب: تخسر مبيعات لو نسيت تنقل بضاعة من المخزن للويب.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «باستثناء POS» (exclude-pos) ⭐</div>
+  <p>نجمع WH/Stock + Online Stock = 1540 قطعة. نتجاهل بضاعة الفروع لأنها مخصصة للبيع المباشر.</p>
+  <p>الفائدة: توازن — نضمن قطع كافية بدون نأخذ من بضاعة الفروع. لو احتجنا ننقل من المخزن الرئيسي للويب سهل.</p>
+</div>
+
+<div class="callout callout-warn">
+  <svg class="icon"><use href="#i-alert"/></svg>
+  <div>عندك تجربة خاصة بنافا (BoxyShop module): البضاعة تنتقل تلقائياً بين المستودعات. لو فعّلنا «باستثناء POS» راح يتفعل بشكل ذكي مع نظام النقل اللي بنيناه.</div>
 </div>
 
 <div class="question" data-qid="Q12">
@@ -626,12 +840,17 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">stock-locations</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q12','all')">كل internal</button>
-    <button class="opt-btn" onclick="pick(this,'Q12','web-only')">مستودع الويب فقط</button>
-    <button class="opt-btn" onclick="pick(this,'Q12','exclude-pos')">باستثناء POS</button>
+    <button class="opt-btn" onclick="pick(this,'Q12','all')">كل internal (سيناريو A)</button>
+    <button class="opt-btn" onclick="pick(this,'Q12','web-only')">Online Stock فقط (B)</button>
+    <button class="opt-btn" onclick="pick(this,'Q12','exclude-pos')">باستثناء POS (C ⭐)</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل المخزون (CH5)</label>
+  <textarea data-qid="CH5-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -674,21 +893,81 @@ GROUP BY pav.attribute_id, pav.id;</div>
         return sp_orders[key] + ', id desc'
     return super()._get_search_order(post)</div>
 
+<h3>فكرة Q13 · الفرز الافتراضي (مع مرونة Website Builder)</h3>
+<p>لمّا الزبون يدخل المتجر أول مرة (بدون ما يختار فرز) — بأي ترتيب تظهر المنتجات؟ أنت لاحظت نقطة مهمة: <strong>Odoo Website Builder يسمح للإدارة تعدل الفرز الافتراضي من المحرر بدون كود</strong>. لازم نحترم هاي المرونة.</p>
+
+<div class="scenario">
+  <div class="scenario-label">المسار بالمحرر</div>
+  <div class="menu-path"><strong>/shop</strong><span class="sep">›</span>Edit<span class="sep">›</span>Customize<span class="sep">›</span>Sort By<span class="sep">›</span>Default Order</div>
+  <p>الإدارة تفتح صفحة /shop وتضغط Edit → تغير «الفرز الافتراضي» من دروب داون بدون أي برمجة.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">السيناريوات</div>
+  <p><strong>website_sequence (الحالي):</strong> ترتيب يدوي من الإدارة — أفضل لو تحب تتحكم بالترويج (تحط الجزمات الجديدة أول).</p>
+  <p><strong>Best Sellers:</strong> أفضل للثقة والتحويل (الزبون يشوف الأكثر مبيعاً بداية).</p>
+  <p><strong>Trending:</strong> أفضل للتجديد المستمر (الصفحة تتغير باستمرار حسب مبيعات آخر 7 أيام).</p>
+  <p><strong>Newest:</strong> أفضل لو تدخل واردات جديدة بشكل مستمر.</p>
+  <p><strong>per-cat:</strong> بالأحذية «Best Sellers»، بالإكسسوارات «Newest». أعقد لكن أسرع تحويل.</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> نحط الأول Best Sellers لأنه أفضل للبائع، ونبقي Website Builder جاهز تغيره بسرعة إذا غيرت رأيك. لازم نتأكد إن أي خيار فرز جديد نضيفه يظهر بدروب داون Website Builder.</div>
+</div>
+
 <div class="question" data-qid="Q13">
   <div class="question-header">
     <span class="question-badge">Q13</span>
-    <span class="question-title">الفرز الافتراضي</span>
+    <span class="question-title">الفرز الافتراضي (مع دعم Website Builder)</span>
     <span class="question-id">default-sort</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q13','sequence')">website_sequence</button>
-    <button class="opt-btn" onclick="pick(this,'Q13','bestsellers')">Best Sellers</button>
+    <button class="opt-btn" onclick="pick(this,'Q13','sequence')">website_sequence (الحالي)</button>
+    <button class="opt-btn" onclick="pick(this,'Q13','bestsellers')">Best Sellers ⭐</button>
     <button class="opt-btn" onclick="pick(this,'Q13','trending')">Trending</button>
     <button class="opt-btn" onclick="pick(this,'Q13','newest')">Newest</button>
     <button class="opt-btn" onclick="pick(this,'Q13','per-cat')">مختلف لكل فئة</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<h3>فكرة Q14 · شلون نتتبّع «الأكثر مشاهدة»؟</h3>
+<p>عشان نقدر نرتّب «Most Viewed»، لازم نسجّل كل زيارة لصفحة منتج بعدّاد. السؤال: شلون نمنع التزوير؟</p>
+
+<div class="scenario">
+  <div class="scenario-label">المشكلة</div>
+  <p>لو ضغطت F5 على صفحة تيشيرت 100 مرة، العدّاد يصير 100. هذا ما يعكس شعبية حقيقية.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «session throttle» (كل جلسة = مشاهدة واحدة لكل ساعة)</div>
+  <p>أول زيارة لصفحة المنتج بالجلسة → +1. تروح وترجع نفس الجلسة بنفس الساعة → 0. تطلع وترجع بعد ساعة → +1.</p>
+  <div class="mock">المستخدم 1: يفتح التيشيرت 5 مرات بساعة → +1
+المستخدم 2: يفتحه مرة → +1
+المجموع: 2 مشاهدة (مو 6)</div>
+  <p>الفائدة: بسيط، سريع، لا يحفظ بيانات شخصية. العيب: لو نفس الشخص فتح من 3 أجهزة → 3 مشاهدات (طبيعي).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «IP hash unique» (مشاهدات فريدة)</div>
+  <p>نسوي hash للـ IP + user agent ونحفظه 24 ساعة. نفس الشخص بنفس الجهاز → مشاهدة واحدة باليوم كله مهما فتح.</p>
+  <div class="mock">المستخدم 1: 10 مرات بـ 24 ساعة → +1
+المستخدم 2: 3 مرات → +1
+المجموع: 2 (دقّة عالية)</div>
+  <p>الفائدة: أرقام أدق. العيب: في العراق كثير ناس يشتركون بـ IP واحد (شركات، مقاهي) → مشاهدات حقيقية تضيع.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «نلغيه» (skip)</div>
+  <p>ما نحسب مشاهدات أصلاً. نعتمد فقط على Best Sellers (مبيعات) و Trending (مبيعات + إضافة للسلة).</p>
+  <p>الفائدة: ما نسجّل بيانات. أبسط بكثير. العيب: ما نشوف المنتجات اللي يشوفها الناس بدون شراء.</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> سيناريو A (session throttle بساعة) — متوازن، خفيف على الأداء، يعكس واقع كافي.</div>
 </div>
 
 <div class="question" data-qid="Q14">
@@ -698,9 +977,9 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">view-tracking</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q14','session')">عدّاد + session throttle</button>
-    <button class="opt-btn" onclick="pick(this,'Q14','unique')">مشاهدات فريدة (IP hash)</button>
-    <button class="opt-btn" onclick="pick(this,'Q14','skip')">نلغيه</button>
+    <button class="opt-btn" onclick="pick(this,'Q14','session')">session throttle (A ⭐)</button>
+    <button class="opt-btn" onclick="pick(this,'Q14','unique')">IP hash unique (B)</button>
+    <button class="opt-btn" onclick="pick(this,'Q14','skip')">نلغيه (C)</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
@@ -713,13 +992,18 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">newest-field</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q15','create')">create_date</button>
+    <button class="opt-btn" onclick="pick(this,'Q15','create')">create_date ⭐</button>
     <button class="opt-btn" onclick="pick(this,'Q15','arrival')">x_arrival_date يدوي</button>
     <button class="opt-btn" onclick="pick(this,'Q15','publish')">publish_date</button>
     <button class="opt-btn" onclick="pick(this,'Q15','hybrid')">arrival ولو فاضي → create</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل الفرز (CH6)</label>
+  <textarea data-qid="CH6-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -779,6 +1063,23 @@ GROUP BY pav.attribute_id, pav.id;</div>
   ضعيف (ما يطابق «بجامة» مع «بيجاما»). نحتاج تطوير كامل.</p>
 </div>
 
+<h3>فكرة Q16 · Wishlist (قائمة المفضلة) — بأي المتاجر؟</h3>
+<p>زر القلب على بطاقة المنتج. الزبون يضغطه → المنتج يحفظ بقائمته الخاصة لو سجل أو بـ session لو ضيف. لمّا يرجع المتجر يلگى قائمته جاهزة.</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو سبورت مور</div>
+  <p>زبون يدخل المتجر بالمساء، يحب 5 جزمات بس راتبه ما إجى لسة. يضغط القلب على كل وحدة. بعد أسبوع لمّا يرجع، يفتح <strong>«قائمتي»</strong> من شريط التنقل ويلگى الـ 5 جزمات بنفس الترتيب. لو نزل سعر وحدة منهم → يصله إشعار «الجزمة اللي حبيتها صار عليها 20% خصم».</p>
+  <div class="scenario-label">سيناريو نافا</div>
+  <p>زبونة تحب فستانين، تضيفهم للقائمة، تشاركها بواتساب مع صديقتها: «شوفي شنو رأيك بهاي؟» الصديقة تفتح الرابط وتشوفهم.</p>
+  <div class="scenario-label">سيناريو بلو (سجاد)</div>
+  <p>أقل فائدة لأن المنتج باهظ ومرة وحدة (سجاد). الزبون عادة يقرر وقتها، ما يحفظ لاحقاً.</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> سبورت مور + نافا (الموضة والأحذية تستفيد كثير). بلو لاحقاً أو نلغيها لأنها ما تضيف قيمة لطبيعة منتجاتهم.</div>
+</div>
+
 <div class="question" data-qid="Q16">
   <div class="question-header">
     <span class="question-badge">Q16</span>
@@ -787,11 +1088,48 @@ GROUP BY pav.attribute_id, pav.id;</div>
   </div>
   <div class="opt-btns">
     <button class="opt-btn" onclick="pick(this,'Q16','all')">الثلاثة</button>
-    <button class="opt-btn" onclick="pick(this,'Q16','sportmore-nava')">سبورت مور + نافا</button>
+    <button class="opt-btn" onclick="pick(this,'Q16','sportmore-nava')">سبورت مور + نافا ⭐</button>
     <button class="opt-btn" onclick="pick(this,'Q16','skip')">لاحقاً</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<h3>فكرة Q17 · Quick View (المعاينة السريعة)</h3>
+<p>الزبون يكون بصفحة /shop يشوف 30 منتج. لو فتح كل وحدة بصفحة جديدة وضغط رجوع → بطيء جداً. الحل: زر «👁 معاينة سريعة» يفتح modal فوق نفس الصفحة بكل التفاصيل.</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «كامل» (Modal كامل)</div>
+  <p>الزبون يحرّك ماوسه على بطاقة تيشيرت → يطلع زر «👁» على الصورة. يضغطه:</p>
+  <div class="mock">يفتح Modal فوق الصفحة:
+  ┌────────────────────────────────┐
+  │  [صورة كبيرة + كاروسيل]         │
+  │                                │
+  │  Nike Tee · 35,000 د.ع         │
+  │  المقاس: [M] [L] [XL]          │
+  │  اللون: [أحمر] [أزرق] [أسود]    │
+  │  الكمية: [-] 1 [+]              │
+  │                                │
+  │  [أضف للسلة]  [التفاصيل الكاملة]│
+  └────────────────────────────────┘</div>
+  <p>الفائدة: الزبون يگدر يضيف 5 منتجات للسلة بدون ما يغادر صفحة /shop. سرعة شراء عالية جداً.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «مختصر» (Modal بسيط)</div>
+  <p>نفس الفكرة بس بدون اختيار variants — صورة + اسم + سعر + زر «التفاصيل». الزبون لازم يفتح صفحة المنتج لو يريد يشتري.</p>
+  <p>الفائدة: أسرع تنفيذ. العيب: ما يحل المشكلة الأصلية (لازم يفتح كل منتج).</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «Hover peek» (معاينة بالـ hover)</div>
+  <p>بمجرد ما الماوس يقعد على بطاقة المنتج → tooltip صغيرة فوقها تطلع: الصورة الثانية + المقاسات المتوفرة + زر «أضف للسلة» سريع.</p>
+  <p>الفائدة: ما يحتاج كليك. العيب: ما يشتغل على الموبايل (ماكو hover).</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> سيناريو A (كامل) + سيناريو C على Desktop فقط — يجمع بين سرعة Hover وقوة Modal.</div>
 </div>
 
 <div class="question" data-qid="Q17">
@@ -801,13 +1139,52 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">quickview</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q17','full')">كامل (Modal + Variants + Cart)</button>
-    <button class="opt-btn" onclick="pick(this,'Q17','minimal')">مختصر</button>
-    <button class="opt-btn" onclick="pick(this,'Q17','peek')">Hover peek</button>
+    <button class="opt-btn" onclick="pick(this,'Q17','full')">كامل (A ⭐)</button>
+    <button class="opt-btn" onclick="pick(this,'Q17','minimal')">مختصر (B)</button>
+    <button class="opt-btn" onclick="pick(this,'Q17','peek')">Hover peek (C)</button>
+    <button class="opt-btn" onclick="pick(this,'Q17','full+peek')">كامل + Hover peek</button>
     <button class="opt-btn" onclick="pick(this,'Q17','skip')">نلغيه</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<h3>فكرة Q18 · Abandoned Cart (السلّة المتروكة)</h3>
+<p>الزبون يضيف 3 منتجات للسلة ويترك المتجر بدون شراء. Odoo يحفظ السلة بـ <code>sale.order</code> بحالة draft. السؤال: شلون نرجّعه؟</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو واقعي</div>
+  <p>الزبون أحمد أضاف جزمة Nike + تيشيرت + شورط بسبورت مور = 145,000 د.ع. غادر المتجر بدون ما يكمل. لدينا رقم واتساب وإيميل من حسابه.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «واتساب فقط» (wa-only) ⭐</div>
+  <p>بعد <strong>6 ساعات</strong> من ترك السلة، الـ Cron يرسل واتساب:</p>
+  <div class="mock">"هلا أحمد 👋
+نسيت 3 منتجات بسلتك بسبورت مور:
+• Nike Air Max — 75,000
+• تيشيرت Adidas — 30,000
+• شورط رياضي — 40,000
+
+المجموع: 145,000 د.ع
+ادخل اكمل الطلب: [رابط]"</div>
+  <p>بعد 24 ساعة → رسالة ثانية مع <strong>كوبون 5% خصم</strong>: "كود SAVE5 صالح لـ 24 ساعة"</p>
+  <p>الفائدة: العراق يستخدم واتساب أكثر من الإيميل بكثير. نسبة فتح > 90%.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «واتساب + إيميل»</div>
+  <p>الـ 6 ساعات → إيميل. الـ 24 ساعة → واتساب + كوبون. يغطي الزبائن اللي ما يفتحون واتساب من غريب.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «SMS»</div>
+  <p>عبر مزود SMS عراقي. أعلى تكلفة (~50 د.ع لكل رسالة) ونسبة فتح أقل من واتساب. ما أنصح بيه.</p>
+</div>
+
+<div class="callout callout-warn">
+  <svg class="icon"><use href="#i-alert"/></svg>
+  <div>عندنا تجربة على نافا: واتساب template "abandoned_cart" مفعّل. نتيجة آذار: 18 سلة مرسلة، 5 تحوّلت لطلب فعلي = 28% conversion. خلّي نطبقها على سبورت مور.</div>
 </div>
 
 <div class="question" data-qid="Q18">
@@ -817,13 +1194,42 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">abandoned</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q18','wa-only')">واتساب فقط</button>
-    <button class="opt-btn" onclick="pick(this,'Q18','wa-email')">واتساب + إيميل</button>
-    <button class="opt-btn" onclick="pick(this,'Q18','sms')">SMS</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','wa-only')">واتساب فقط (A ⭐)</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','wa-email')">واتساب + إيميل (B)</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','sms')">SMS (C)</button>
     <button class="opt-btn" onclick="pick(this,'Q18','skip')">نلغيه</button>
   </div>
-  <textarea placeholder="التوقيت (6 ساعات / 24 / 72)؟ كوبون؟"></textarea>
+  <textarea placeholder="التوقيت المقترح: 6 ساعات → 24 ساعة + كوبون 5%. وافق أو غيّر."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<h3>فكرة Q19 · زر WhatsApp Inquiry بصفحة المنتج</h3>
+<p>زر «استفسر عبر واتساب» بصفحة المنتج. الزبون يضغطه → ينفتح واتساب على رقم المتجر بنص جاهز فيه اسم المنتج ورابطه.</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو واقعي</div>
+  <p>زبون يفتح جزمة Nike Air Max بسبورت مور. شك بشي → يضغط زر <strong>«استفسر بواتساب»</strong>:</p>
+  <div class="mock">ينفتح واتساب على رقم سبورت مور (07XX XXX XXXX):
+
+"السلام عليكم،
+أبي أستفسر عن:
+Nike Air Max — 75,000 د.ع
+الرابط: sportmore-iq.com/product/123
+
+سؤالي: هل المقاس 42 متوفر باللون الأسود؟"</div>
+  <p>المتجر يرد بسرعة → بيع مضمون. الزبائن اللي ما يثقون بالشراء أونلاين بدون كلام يصيرون زبائن.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو الفائدة لكل متجر</div>
+  <p><strong>سبورت مور:</strong> هواي زبائن يحبون يتأكدون من المقاس قبل الشراء → فائدة عالية.</p>
+  <p><strong>نافا:</strong> ملابس نسائية، الزبونة تحب تسأل عن القماش/المقاس → فائدة عالية جداً.</p>
+  <p><strong>بلو:</strong> سجاد باهظ، الزبون يحتاج تأكيد قبل صرف 500,000+ د.ع → فائدة عالية.</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> الثلاثة. كل وحدة منهم تستفيد. نحتاج رقم واتساب مخصص لكل متجر.</div>
 </div>
 
 <div class="question" data-qid="Q19">
@@ -835,10 +1241,45 @@ GROUP BY pav.attribute_id, pav.id;</div>
   <div class="opt-btns">
     <button class="opt-btn" onclick="pick(this,'Q19','sportmore')">سبورت مور فقط</button>
     <button class="opt-btn" onclick="pick(this,'Q19','sm-nava')">سبورت مور + نافا</button>
-    <button class="opt-btn" onclick="pick(this,'Q19','all')">الثلاثة</button>
+    <button class="opt-btn" onclick="pick(this,'Q19','all')">الثلاثة ⭐</button>
   </div>
-  <textarea placeholder="أرقام: SportMore=? NAVA=? BLO=?"></textarea>
+  <textarea placeholder="أرقام واتساب: SportMore=؟ NAVA=؟ BLO=؟"></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<h3>فكرة Q20 · إشعار «أحمد من بغداد اشترى قبل 5 دقايق»</h3>
+<p>Popup صغير ينطلع بزاوية الشاشة كل دقيقتين تقريباً يقول «فلان من بغداد اشترى Nike Air Max قبل 5 دقايق». يخلق إحساس «المتجر شغال وفعّال».</p>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو A · «حقيقية بالكامل» (real)</div>
+  <p>نأخذ آخر طلب فعلي، نعرض اسم الزبون كامل + المدينة + المنتج + الوقت.</p>
+  <p>المشكلة: <strong>تسريب بيانات</strong> — نعرض اسم الزبون لكل العالم. غير قانوني وغير أخلاقي.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو B · «حقيقية مع إخفاء الاسم» (anon) ⭐</div>
+  <p>طلب حقيقي بس نخفي الاسم:</p>
+  <div class="mock">"أ***د من بغداد اشترى Nike Air Max قبل 5 دقايق"
+"ف***ة من البصرة اشترت تيشيرت Adidas قبل 12 دقيقة"
+"م***م من الموصل اشترى شورط رياضي قبل 18 دقيقة"</div>
+  <p>الفائدة: حقيقي 100% + يحترم الخصوصية. الزبون يثق لأن يشوف نشاط فعلي.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو C · «مولّدة» (fake)</div>
+  <p>نسوي قائمة أسماء عراقية + مدن + منتجات وندوّر عشوائياً.</p>
+  <p>الفائدة: يشتغل حتى لو ماكو طلبات. العيب: <strong>كذبة</strong>. لو الزبون اكتشف يخسر الثقة كلياً.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">سيناريو D · «نلغيها»</div>
+  <p>ما نعرض شي. تركيز على المنتجات بس.</p>
+  <p>الفائدة: تجربة نظيفة. العيب: نخسر دفع نفسي قوي للشراء (Social Proof).</p>
+</div>
+
+<div class="callout callout-info">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div><strong>توصيتي:</strong> سيناريو B (حقيقية مع إخفاء الاسم). شفاف + قانوني + فعّال. لو الطلبات قليلة بفترة معينة → ما نعرض popup بدل من تزوير.</div>
 </div>
 
 <div class="question" data-qid="Q20">
@@ -848,13 +1289,18 @@ GROUP BY pav.attribute_id, pav.id;</div>
     <span class="question-id">social-proof</span>
   </div>
   <div class="opt-btns">
-    <button class="opt-btn" onclick="pick(this,'Q20','real')">حقيقية</button>
-    <button class="opt-btn" onclick="pick(this,'Q20','anon')">حقيقية مع إخفاء الاسم</button>
-    <button class="opt-btn" onclick="pick(this,'Q20','fake')">مولّدة</button>
-    <button class="opt-btn" onclick="pick(this,'Q20','skip')">نلغيها</button>
+    <button class="opt-btn" onclick="pick(this,'Q20','real')">حقيقية كاملة (A)</button>
+    <button class="opt-btn" onclick="pick(this,'Q20','anon')">حقيقية + إخفاء الاسم (B ⭐)</button>
+    <button class="opt-btn" onclick="pick(this,'Q20','fake')">مولّدة (C)</button>
+    <button class="opt-btn" onclick="pick(this,'Q20','skip')">نلغيها (D)</button>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل الميزات (CH7)</label>
+  <textarea data-qid="CH7-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -912,6 +1358,11 @@ GROUP BY pav.attribute_id, pav.id;</div>
   </div>
   <textarea placeholder="مثال: SP-1, SP-2, SP-3, SP-6, SP-8 بدون SP-7"></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل السنيپنات (CH8)</label>
+  <textarea data-qid="CH8-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -1049,6 +1500,11 @@ GROUP BY pav.attribute_id, pav.id;</div>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل خطة المراحل (CH9)</label>
+  <textarea data-qid="CH9-notes" placeholder="أي ملاحظة على الفصل كامل..."></textarea>
 </div>
 </section>
 
@@ -1230,6 +1686,17 @@ document.querySelectorAll('.question').forEach(q=>{
   }
 });
 
+// Wire chapter-level comment textareas (data-qid="CHx-notes")
+document.querySelectorAll('.chapter-comment textarea[data-qid]').forEach(ta=>{
+  const qid = ta.dataset.qid;
+  if(answers[qid]?.note) ta.value = answers[qid].note;
+  ta.addEventListener('input', ()=>{
+    answers[qid] = answers[qid] || {};
+    answers[qid].note = ta.value;
+    saveAnswers(answers);
+  });
+});
+
 if(answers['Q2']?.choice){
   document.querySelectorAll('.icon-opt').forEach(i=>{
     if(i.dataset.icon === answers['Q2'].choice){
@@ -1265,6 +1732,15 @@ function buildAnswersText(){
     if(a.note)   lines.push(`• ملاحظة: ${a.note}`);
     lines.push('');
   });
+  // Chapter-level comments
+  const chapterNotes = Object.keys(answers).filter(k=>/^CH\d+-notes$/.test(k) && answers[k].note);
+  if(chapterNotes.length){
+    lines.push('*— تعليقات على الفصول —*', '');
+    chapterNotes.sort().forEach(k=>{
+      lines.push(`*${k.replace('-notes','')}* — ${answers[k].note}`);
+      lines.push('');
+    });
+  }
   const extras = (answers.extra_topics||[]).filter(t=>t.title || t.note);
   if(extras.length){
     lines.push('*— مواضيع إضافية —*', '');
