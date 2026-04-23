@@ -178,17 +178,23 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 .question textarea{margin-top:6px}
 .question textarea::placeholder{color:#94a3b8;font-style:italic}
 
-/* Section-level annotation (new feature) */
-.annotate-btn{position:absolute;top:10px;left:10px;width:30px;height:30px;border-radius:50%;background:var(--bg-elev);border:1px solid var(--border);color:var(--accent);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:14px;box-shadow:var(--shadow-sm);transition:transform .15s}
-.annotate-btn:hover{transform:scale(1.1);border-color:var(--accent)}
-.annotate-btn.has-note{background:var(--accent);color:#fff}
-section[id]{position:relative}
-.section-note{margin:14px 0;padding:14px 16px;background:#fffbeb;border:1px solid #fde68a;border-right:3px solid #f59e0b;border-radius:10px;display:block}
-.section-note.show{display:block}
-.section-note.collapsed{display:none}
-.section-note label{display:block;font-weight:600;color:#92400e;margin-bottom:6px;font-size:13px}
-.section-note textarea{width:100%;min-height:70px;padding:10px 12px;border:1px solid #fcd34d;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical;background:#fff;color:var(--text);box-sizing:border-box}
-.section-note textarea:focus{outline:none;border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.15)}
+/* === Text-selection annotations (Google Docs style) === */
+.sel-popup{position:absolute;z-index:200;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 6px 18px -2px rgba(15,23,42,.35);display:none;gap:6px;align-items:center}
+.sel-popup.show{display:inline-flex}
+.sel-popup:hover{background:#0d9488;transform:translateY(-1px)}
+.text-highlight{background:#fef08a;border-bottom:2px solid #eab308;padding:1px 2px;border-radius:3px;cursor:pointer;position:relative}
+.text-highlight.active{background:#fde047;border-bottom-color:#ca8a04}
+.inline-note{margin:10px 0;padding:12px 14px;background:#fffbeb;border:1px solid #fde68a;border-right:4px solid #f59e0b;border-radius:10px;position:relative}
+.inline-note .quote{font-size:13px;color:#78350f;background:#fef3c7;padding:6px 10px;border-radius:6px;margin-bottom:8px;font-style:italic;border-right:2px solid #f59e0b}
+.inline-note .quote::before{content:"\201C";font-size:18px;margin-left:3px}
+.inline-note .quote::after{content:"\201D";font-size:18px;margin-right:3px}
+.inline-note textarea{width:100%;min-height:60px;padding:8px 10px;border:1px solid #fcd34d;border-radius:6px;font-family:inherit;font-size:14px;resize:vertical;background:#fff;color:var(--text);box-sizing:border-box}
+.inline-note textarea:focus{outline:none;border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.15)}
+.inline-note .note-del{position:absolute;top:8px;left:10px;background:transparent;border:none;color:#b45309;cursor:pointer;font-size:18px;line-height:1;padding:2px 6px}
+.inline-note .note-del:hover{color:var(--danger)}
+.notes-help{position:fixed;top:74px;left:16px;z-index:90;background:var(--accent);color:#fff;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:var(--shadow);max-width:260px;line-height:1.5}
+.notes-help .close{background:transparent;border:none;color:#fff;cursor:pointer;margin-right:8px;font-size:16px}
+@media(max-width:640px){.notes-help{display:none}}
 </style>
 </head>
 <body>
@@ -2465,45 +2471,178 @@ function clearAll(){
   });
 })();
 
-// === Section-level annotations (any section in the page) ===
-(function addSectionAnnotations(){
-  document.querySelectorAll('main > section[id]').forEach(sec=>{
-    const sid = sec.id;
-    const noteKey = 'SEC-' + sid;
+// === Text-selection annotations (Google Docs style) ===
+(function textSelectionAnnotations(){
+  // Storage: answers.text_notes = [{id, quote, note, sid, ts}]
+  if(!Array.isArray(answers.text_notes)) answers.text_notes = [];
 
-    // Annotation box (visible by default)
-    const box = document.createElement('div');
-    box.className = 'section-note';
-    const title = sec.querySelector('h2')?.textContent.trim().slice(0,60) || sid;
-    box.innerHTML = `
-      <label>📌 تعليقك على: ${title}</label>
-      <textarea data-sec="${noteKey}" placeholder="اكتب ملاحظتك على هذا القسم — اقتباس من النص، اعتراض، إضافة، أو سؤال..."></textarea>
-    `;
-    // Insert at top of section (after h2)
-    const h2 = sec.querySelector('h2');
-    if(h2) h2.after(box); else sec.prepend(box);
+  // Help banner (dismissible)
+  if(!localStorage.getItem('sp_help_dismissed')){
+    const help = document.createElement('div');
+    help.className = 'notes-help';
+    help.innerHTML = `<button class="close" title="إغلاق">✕</button>💡 <strong>حدّد أي نص</strong> في الصفحة، راح يطلعلك زر «علّق» — اضغطه عشان تضيف تعليق على ذاك النص بالضبط.`;
+    document.body.appendChild(help);
+    help.querySelector('.close').onclick = ()=>{ help.remove(); localStorage.setItem('sp_help_dismissed','1'); };
+  }
 
-    const ta = box.querySelector('textarea');
-    if(answers[noteKey]?.note){
-      ta.value = answers[noteKey].note;
+  // Floating popup button
+  const popup = document.createElement('button');
+  popup.className = 'sel-popup';
+  popup.innerHTML = '💬 علّق على المحدّد';
+  document.body.appendChild(popup);
+
+  let currentRange = null;
+
+  function hidePopup(){ popup.classList.remove('show'); currentRange = null; }
+
+  function getContainerSection(node){
+    while(node && node !== document.body){
+      if(node.nodeType===1){
+        if(node.tagName==='SECTION' && node.id) return node.id;
+        if(node.classList && node.classList.contains('question') && node.id) return node.id;
+      }
+      node = node.parentNode;
     }
+    return 'doc';
+  }
+
+  document.addEventListener('mouseup', (e)=>{
+    // Don't trigger if clicking the popup itself or inside inline-note
+    if(e.target.closest('.sel-popup') || e.target.closest('.inline-note') || e.target.closest('textarea') || e.target.closest('input')) return;
+    setTimeout(()=>{
+      const sel = window.getSelection();
+      const text = sel.toString().trim();
+      if(!text || text.length < 3){ hidePopup(); return; }
+      const range = sel.getRangeAt(0);
+      // Exclude if selection is inside an inline-note, textarea, or export-bar
+      const anc = range.commonAncestorContainer;
+      const ancEl = anc.nodeType===1 ? anc : anc.parentElement;
+      if(ancEl.closest('.inline-note,.export-bar,textarea,input,.sel-popup,.notes-help')){ hidePopup(); return; }
+      currentRange = range.cloneRange();
+      const rect = range.getBoundingClientRect();
+      popup.style.top = (window.scrollY + rect.top - 44) + 'px';
+      popup.style.left = (window.scrollX + rect.left + rect.width/2 - 70) + 'px';
+      popup.classList.add('show');
+    }, 10);
+  });
+
+  document.addEventListener('mousedown', (e)=>{
+    if(!e.target.closest('.sel-popup')) hidePopup();
+  });
+
+  popup.addEventListener('click', (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    if(!currentRange) return;
+    const quote = currentRange.toString().trim();
+    if(!quote) return;
+
+    // Wrap selection in <mark class="text-highlight">
+    const nid = 'n' + Date.now() + Math.floor(Math.random()*1000);
+    const mark = document.createElement('mark');
+    mark.className = 'text-highlight';
+    mark.dataset.nid = nid;
+    try {
+      currentRange.surroundContents(mark);
+    } catch(err) {
+      // Fallback: selection spans multiple elements, use extractContents
+      const frag = currentRange.extractContents();
+      mark.appendChild(frag);
+      currentRange.insertNode(mark);
+    }
+
+    // Determine containing section
+    const sid = getContainerSection(mark);
+
+    // Find nearest block-level ancestor to insert note after
+    let host = mark.parentElement;
+    while(host && !['P','LI','DIV','BLOCKQUOTE','TD','TH','H2','H3','H4'].includes(host.tagName)) host = host.parentElement;
+    if(!host) host = mark.parentElement;
+
+    // Build inline-note
+    const record = {id:nid, quote, note:'', sid, ts:Date.now()};
+    answers.text_notes.push(record);
+    saveAnswers(answers);
+
+    renderInlineNote(host, record, mark);
+
+    hidePopup();
+    window.getSelection().removeAllRanges();
+  });
+
+  function renderInlineNote(host, record, mark){
+    const box = document.createElement('div');
+    box.className = 'inline-note';
+    box.dataset.nid = record.id;
+    box.innerHTML = `
+      <button class="note-del" title="حذف التعليق">✕</button>
+      <div class="quote">${record.quote.replace(/</g,'&lt;')}</div>
+      <textarea placeholder="💬 اكتب تعليقك على النص المحدّد..."></textarea>
+    `;
+    const ta = box.querySelector('textarea');
+    ta.value = record.note || '';
     ta.addEventListener('input', ()=>{
-      answers[noteKey] = answers[noteKey] || {};
-      answers[noteKey].note = ta.value;
+      record.note = ta.value;
       saveAnswers(answers);
     });
-  });
+    box.querySelector('.note-del').addEventListener('click', ()=>{
+      if(!confirm('حذف هذا التعليق؟')) return;
+      // Unwrap highlight
+      if(mark && mark.parentNode){
+        const parent = mark.parentNode;
+        while(mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+        parent.removeChild(mark);
+      }
+      // Remove from answers
+      const idx = answers.text_notes.findIndex(r=>r.id===record.id);
+      if(idx>=0) answers.text_notes.splice(idx,1);
+      saveAnswers(answers);
+      box.remove();
+    });
+    // Insert after host element
+    host.after(box);
+  }
+
+  // Restore highlights & notes on page load (text-search based)
+  function restoreNotes(){
+    if(!answers.text_notes || !answers.text_notes.length) return;
+    answers.text_notes.forEach(record=>{
+      // Find the quote in document via TreeWalker
+      const walker = document.createTreeWalker(document.querySelector('main')||document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: (n)=>{
+          if(n.parentElement?.closest('.inline-note,.export-bar,script,style,textarea,.sel-popup,.notes-help')) return NodeFilter.FILTER_REJECT;
+          return n.nodeValue.includes(record.quote) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+        }
+      });
+      const node = walker.nextNode();
+      if(!node) return; // quote not found (content changed)
+      const idx = node.nodeValue.indexOf(record.quote);
+      const range = document.createRange();
+      range.setStart(node, idx);
+      range.setEnd(node, idx + record.quote.length);
+      const mark = document.createElement('mark');
+      mark.className = 'text-highlight';
+      mark.dataset.nid = record.id;
+      try { range.surroundContents(mark); } catch(e){ return; }
+      let host = mark.parentElement;
+      while(host && !['P','LI','DIV','BLOCKQUOTE','TD','TH','H2','H3','H4'].includes(host.tagName)) host = host.parentElement;
+      if(!host) host = mark.parentElement;
+      renderInlineNote(host, record, mark);
+    });
+  }
+  restoreNotes();
 })();
 
-// Extend buildAnswersText to include section notes
+// Extend buildAnswersText to include text-selection notes
 const _origBuild = buildAnswersText;
 buildAnswersText = function(){
   let txt = _origBuild();
-  const secNotes = Object.keys(answers).filter(k=>k.startsWith('SEC-') && answers[k].note);
-  if(secNotes.length){
-    txt += '\n*— تعليقات على الأقسام —*\n\n';
-    secNotes.sort().forEach(k=>{
-      txt += `*${k.replace('SEC-','#')}* — ${answers[k].note}\n\n`;
+  const tn = Array.isArray(answers.text_notes) ? answers.text_notes.filter(r=>r.note) : [];
+  if(tn.length){
+    txt += '\n*— تعليقات على نصوص محدّدة —*\n\n';
+    tn.forEach((r,i)=>{
+      txt += `*${i+1}.* [${r.sid}]\n`;
+      txt += `> "${r.quote.slice(0,120)}${r.quote.length>120?'...':''}"\n`;
+      txt += `💬 ${r.note}\n\n`;
     });
   }
   return txt;
