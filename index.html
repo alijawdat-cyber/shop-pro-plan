@@ -206,21 +206,23 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 /* === Lock-as-decision button === */
 .lock-btn{display:inline-flex;align-items:center;gap:6px;background:#f1f5f9;color:var(--accent);border:1.5px dashed var(--accent);border-radius:8px;padding:6px 12px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
 .lock-btn:hover{background:var(--accent-soft);border-style:solid}
-.question.locked{background:#f0fdf4;border:1px solid #86efac;border-right:4px solid #10b981;padding:16px 20px}
+.question.locked{background:transparent;border:none;box-shadow:none;padding:4px 0;margin:10px 0}
 .question.locked .question-id,
 .question.locked .question-badge,
 .question.locked .opt-btns,
 .question.locked .desc,
 .question.locked textarea,
 .question.locked .decision-label,
-.question.locked .lock-btn{display:none !important}
-.question.locked h3{color:#065f46;font-size:15px;font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px}
-.question.locked h3::before{content:"\2713";color:#10b981;font-weight:800;font-size:16px}
-.locked-doc{font-size:14.5px;color:#1e293b;line-height:1.75}
+.question.locked .lock-btn,
+.question.locked h3{display:none !important}
+.locked-doc{font-size:15px;color:var(--text);line-height:1.85;margin:0;padding:0}
+.locked-doc .topic{font-weight:700;color:var(--text)}
+.locked-doc .topic::before{content:"\2022  ";color:var(--accent);font-weight:900;margin-left:4px}
 .locked-doc .value{color:#065f46;font-weight:600}
-.locked-doc .detail{color:#334155;margin-top:4px}
-.unlock-btn{float:left;background:transparent;border:none;color:#059669;cursor:pointer;font-size:12px;font-weight:500;padding:2px 4px;opacity:.6}
-.unlock-btn:hover{opacity:1;color:var(--danger);text-decoration:underline}
+.locked-doc .detail{color:var(--text)}
+.unlock-btn{background:transparent;border:none;color:#94a3b8;cursor:pointer;font-size:11px;font-weight:400;padding:0 6px;margin-right:6px;opacity:0;transition:opacity .15s}
+.question.locked:hover .unlock-btn{opacity:.7}
+.unlock-btn:hover{opacity:1 !important;color:var(--danger);text-decoration:underline}
 </style>
 </head>
 <body>
@@ -2574,10 +2576,14 @@ function clearAll(){
       else choiceLabel = data.choice;
     }
 
+    // Get topic title from h3 (the question title)
+    const topic = q.querySelector('h3')?.textContent?.trim() || '';
+
     // Build inline documentation paragraph
     const doc = document.createElement('div');
     doc.className = 'locked-doc';
     let html = '';
+    if(topic) html += `<span class="topic">${topic}:</span> `;
     if(choiceLabel){
       html += `<span class="value">${choiceLabel}</span>`;
     }
@@ -2585,7 +2591,7 @@ function clearAll(){
       const noteTxt = data.note.replace(/</g,'&lt;').replace(/\n/g,'<br>');
       html += (choiceLabel ? ' — ' : '') + `<span class="detail">${noteTxt}</span>`;
     }
-    html += `<button class="unlock-btn" title="فكّ التثبيت وعدّل">🔓 تعديل</button>`;
+    html += `<button class="unlock-btn" title="فكّ التثبيت وعدّل">تعديل</button>`;
     doc.innerHTML = html;
     doc.querySelector('.unlock-btn').onclick = ()=>{
       if(!confirm('تفتح هذا البند للتعديل؟')) return;
