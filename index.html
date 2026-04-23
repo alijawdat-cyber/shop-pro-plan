@@ -412,6 +412,28 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 <p><code>compare_list_price</code> جاهز تقنياً ومربوط بـ <code>combination_info</code>. بس ولا منتج
 واحد عنده قيمة بالمشاريع الثلاثة. يعني السعر المشطوب جاهز، يحتاج بس حملة إدخال.</p>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — إدارة التخفيضات</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — موسم الصيف 564 منتج بتخفيض</div>
+    <span class="before">يدوي: المحاسبة تفتح كل منتج وتحدّث lst_price يدوياً. 564 منتج × 30 ثانية = 4 ساعات و40 دقيقة عمل. أخطاء كثيرة (نسي صفر، حط 5,000 بدل 50,000). لو رحت تلغي التخفيض لازم نفس العمل المرعب مرة ثانية.</span>
+    <span class="after">Pricelist "تخفيضات عامة" (id=4 الموجودة عندنا): 564 سطر بـ percentage 35-55%. ضغطة واحدة تنطفي = الأسعار ترجع ASLI تلقائياً. التيشيرت يظهر 75,000 د.ع مع شطبة على 150,000 (Strikethrough الموجود بـ POS).</span>
+    <span class="gain">من 4 ساعات لخمس دقائق، صفر أخطاء، الأسعار الأصلية محفوظة، البصمة العامة تتحدّث بشكل متناسق على /shop و POS سوية.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — تخفيض حصري على ماركة Mango فقط</div>
+    <span class="before">يدوي: نختار 47 فستان Mango ونعدّل كل وحد. لو وصلت شحنة Mango جديدة بعد أسبوع، السعر الجديد كامل (ما ينطبق عليه التخفيض).</span>
+    <span class="after">Pricelist بقاعدة domain: "category=Dress AND brand=Mango" خصم 30%. أي منتج جديد يدخل الكتالوج بهذي المواصفات → التخفيض ينطبق تلقائياً.</span>
+    <span class="gain">قواعد تشغل تلقائياً، لا حاجة لمتابعة يومية. الشحنات الجديدة تستفيد فوراً.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">بلو — السجادة 720,000 لمدة أسبوع فقط</div>
+    <span class="before">يدوي + نسيان: تخفض السعر لـ 600,000 لأسبوع، تنسى ترجعه. بعد شهر تكتشف أنك تبيع بـ 600 مع إنه راجع 720.</span>
+    <span class="after">Pricelist بـ date_start و date_end. تنتهي الفترة → السعر يرجع تلقائياً. + Ribbon "-17%" يظهر طوال الفترة.</span>
+    <span class="gain">تنفيذ مؤقت بدون متابعة بشرية، حماية من الخسائر بسبب النسيان.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q3">
   <div class="question-header">
     <span class="question-badge">Q3</span>
@@ -494,6 +516,28 @@ details .details-body{padding:0 16px 14px;font-size:14px}
   بـ Category + material.</div>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — الخصائص الشبحية بنافا</div>
+  <div class="daily-item">
+    <div class="head">المشكلة الفعلية</div>
+    <span class="before">قاعدة nava_db فيها 8 خصائص شبحية بدون visibility (color, brand, size, gender, material, pattern, manufacturer, age group) أنشأها موديول nava_meta_feed تلقائياً عشان فيد Facebook Catalog. لو فعّلنا الفلاتر بدون معالجة → الزبون يشوف فلتر فاضي بـ 0 منتج → يعتقد المتجر مكسور.</span>
+    <span class="after">نمسحها (delete): مخاطرة لأن nava_meta_feed يستخدمها → كل تحديث بالفيد يفشل. أو نخفيها (visibility=hidden): الفلاتر تتجاهلها بالواجهة، الموديول يستمر يستخدمها للفيد.</span>
+    <span class="gain">الخيار الآمن: visibility=hidden + توثيق. مدة التطبيق 5 دقائق، مخاطر صفر، nava_meta_feed يستمر يشتغل.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — خاصية اللون (الحقيقية)</div>
+    <span class="before">عند نافا attribute Color id=564 فيها 78 قيمة (نقول لها قائمة الألوان الحقيقية). الخاصية الشبحية الثانية "color" بدون id محدد فاضية. لو ما خفّيناها، الزبون يشوف فلترين "اللون" أحدهم فاضي.</span>
+    <span class="after">نضع شرط بالـ controller: visibility != False AND value_count > 0. الخصائص الشبحية تختفي تلقائياً لأنها بـ visibility NULL.</span>
+    <span class="gain">فلتر واحد نظيف لكل خاصية حقيقية، تجربة مستخدم متماسكة بدون تكرار محيّر.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — "أسود" بهمزة vs "اسود" بدون</div>
+    <span class="before">نافا تستخدم "أسود" بهمزة. لو nava_meta_feed أنشأ "اسود" بدون همزة كقيمة شبحية → فلتر اللون يعرض الاثنين كقيمتين مختلفتين. الزبون يضغط "اسود" يلگى 0 منتج.</span>
+    <span class="after">SQL UPDATE يدمج القيمتين أو نحذف "اسود" بدون همزة بعد نقل أي منتج مرتبط. + توثيق: نافا تستخدم همزة دائماً.</span>
+    <span class="gain">قائمة ألوان موحّدة، لا قيم مكررة محيّرة، نتائج متسقة لكل بحث.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q4">
   <div class="question-header">
     <span class="question-badge">Q4</span>
@@ -510,6 +554,28 @@ details .details-body{padding:0 16px 14px;font-size:14px}
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — القوائم الطويلة</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — فلتر اللون بـ 104 قيمة</div>
+    <span class="before">عرض كل الـ 104 لون = شريط جانبي طوله 2,800 بكسل. الزبون يدخل صفحة سبورت مور بشاشة 700 بكسل → يشوف بس 25 لون. الـ 79 الباقي محتاج scroll. كثير ينسحبون.</span>
+    <span class="after">أعلى 10 ألوان (حسب عدد المنتجات) ظاهرة + زر "عرض الكل" → ينفتح modal فيه القائمة كاملة + خانة بحث. اللون "أحمر" يكون ضمن الأعلى، "بنفسجي" مخفي حتى يضغط الزر.</span>
+    <span class="gain">شريط جانبي قصير ومنظم، الفلاتر الأكثر استخداماً ظاهرة، ولا يمنع الفلاتر النادرة (موجودة بنقرة).</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — فلتر القماش بـ 114 قيمة</div>
+    <span class="before">قائمة Fabric: قطن، حرير، كتّان، صوف، فيسكوز، شيفون، تول... 114 قماش، الزبونة تدور "فيسكوز" تنزل 30 سطر → تجلكها.</span>
+    <span class="after">قائمة كاملة بحجم محدود (max-height 280px) + خانة بحث في القمة. تكتب "في" → يبقى فيسكوز و فينيل فقط.</span>
+    <span class="gain">بحث فوري داخل الفلتر، تجربة Google-like، 114 قيمة تصير قابلة للوصول بثانية.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — فلتر الماركة بـ 18 قيمة (نظيف)</div>
+    <span class="before">لو طبّقنا قاعدة "أعلى 10" على فلتر الماركة (18 قيمة فقط)، 8 ماركات تختفي بدون سبب. Reebok و Vans مهمات بس قليلات المنتج.</span>
+    <span class="after">قاعدة هجينة: لو القيم > 25 → عرض أعلى 10 + زر. لو 25 أو أقل → عرض الكل. هذا يخدم الفلاتر الصغيرة (Brand 18) والكبيرة (Color 104) بسياسة واحدة.</span>
+    <span class="gain">منطق ذكي يتكيف مع طبيعة كل فلتر، لا حاجة لتفعيل/تعطيل يدوي لكل خاصية.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q5">
   <div class="question-header">
     <span class="question-badge">Q5</span>
@@ -524,6 +590,28 @@ details .details-body{padding:0 16px 14px;font-size:14px}
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — القيم الصفرية</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — اختيار Nike، Vans يصير 0</div>
+    <span class="before">الزبون يضغط "Nike". الفلتر يحدّث: Nike (45)، Vans (0)، Adidas (0)، Puma (0). ما يفهم ليش الـ 0 موجود → يحس الواجهة معطلة.</span>
+    <span class="after">نخفي القيم الصفرية تلقائياً. الفلتر يصير: Nike (45) فقط. واضح ونظيف.</span>
+    <span class="gain">الواجهة تعكس الواقع بدلاً من إظهار خيارات بلا فائدة. أقل ضوضاء بصرية، قرارات أسرع.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">حالة استثنائية — اختيار جزء من نفس الخاصية</div>
+    <span class="before">داخل خاصية "اللون": الزبون اختار "أحمر" (12 منتج). لو خفّينا القيم الصفرية كل الألوان الباقية تختفي → ما يقدر يضيف "أزرق" للاختيار.</span>
+    <span class="after">قاعدة طبقية: نخفي الصفرية في الخصائص الأخرى (Brand, Size...) لكن نُبقيها داخل نفس الخاصية المختارة (Color) حتى يقدر يجمع.</span>
+    <span class="gain">جمع متعدد القيم يبقى ممكن ("أحمر + أزرق")، بينما الخصائص غير ذات الصلة تختفي.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">خيار بالإدارة — تحكم دقيق</div>
+    <span class="before">سياسة موحّدة لكل المتاجر قد لا تناسب نافا (تحب تظهر كل الألوان للأناقة) و سبورت مور (يحب يخفي).</span>
+    <span class="after">إعداد بـ Settings: "إخفاء القيم الصفرية" Boolean. كل متجر يقرر. الافتراضي: نعم.</span>
+    <span class="gain">مرونة دون تعقيد، كل متجر يضبط حسب طبيعة كتالوجه وفلسفته.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q6">
@@ -606,6 +694,28 @@ GROUP BY pav.attribute_id, pav.id;</div>
   <li>Debounce 200ms لو ضغط 3 فلاتر بسرعة.</li>
   <li><code>history.pushState</code> — الرابط يتحدث بدون reload.</li>
 </ol>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — تطبيق الفلتر</div>
+  <div class="daily-item">
+    <div class="head">Desktop — الزبون يستكشف بحرية</div>
+    <span class="before">زر "تطبيق": الزبون يحدد 4 فلاتر، يضغط الزر. لو ما عجبه يلغي ويعيد. كل اختيار يحتاج تأكيد. تجربة بطيئة على Desktop حيث السرعة المتوقعة عالية.</span>
+    <span class="after">فوري: كل ضغطة تطبّق فوراً مع AJAX. Skeleton loading لـ 200ms ثم النتائج. الزبون يحس بالتفاعل الحي. يضيف Nike → فوراً 45 منتج. يضيف أحمر → فوراً 12 منتج.</span>
+    <span class="gain">تجربة "feels alive" مثل Amazon. اكتشاف أسرع، استكشاف أعمق، احتمال شراء أعلى.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Mobile — اتصال بطيء</div>
+    <span class="before">فوري على موبايل: زبون بشبكة 3G ضعيفة يحدد 5 فلاتر بتتابع → 5 طلبات شبكة منفصلة → كل وحدة تنتظر السابقة → 8 ثواني انتظار + skeleton مزعج.</span>
+    <span class="after">زر "تطبيق" على Mobile: الزبون يحدد كل اختياراته على راحته، يضغط "تطبيق" مرة وحدة → طلب واحد → استجابة واحدة. أسرع وأهدأ.</span>
+    <span class="gain">الموبايل يستفيد من إدارة شبكة دقيقة، خاصة على الشبكات العراقية المتذبذبة.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Hybrid — أفضل العالمين</div>
+    <span class="before">سياسة موحّدة (فوري لكل الأجهزة) تخسر زبائن Mobile. سياسة موحّدة (زر لكل الأجهزة) تخسر زبائن Desktop.</span>
+    <span class="after">CSS @media query: على شاشة > 768px → فوري. على ≤ 768px → زر "تطبيق" ثابت في الأسفل + counter "3 فلاتر مختارة".</span>
+    <span class="gain">كل جهاز يحصل على التجربة الأمثل لقدراته، بدون سياسة واحدة تضر فئة من المستخدمين.</span>
+  </div>
+</div>
 
 <div class="question" data-qid="Q7">
   <div class="question-header">
@@ -1115,6 +1225,28 @@ Under Armour (12)</div>
   <div><strong>توصيتي:</strong> نحط الأول Best Sellers لأنه أفضل للبائع، ونبقي Website Builder جاهز تغيره بسرعة إذا غيرت رأيك. لازم نتأكد إن أي خيار فرز جديد نضيفه يظهر بدروب داون Website Builder.</div>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — الفرز الافتراضي</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — موسم الأفراح</div>
+    <span class="before">website_sequence يدوي: الفريق يحط جاكت 200,000 د.ع بأول سطر، بعد شهرين باع 5 فقط، بينما تيشيرت 35,000 (موجود بالسطر 47) باع 380. الزبون يدخل ويشوف الجاكت أولاً → ما يعجبه → يطلع.</span>
+    <span class="after">Best Sellers تلقائي حسب مبيعات 30 يوم: التيشيرت 35,000 يطلع أول، الجاكت ينزل لمكانه الطبيعي. الزبون يلگى بسرعة المنتج الرائج → معدل التحويل يرتفع.</span>
+    <span class="gain">القرارات تستند للمبيعات الفعلية لا الحدس البشري. مدير الكتالوج يتفرغ لمهام أهم.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — اللانش الجديد</div>
+    <span class="before">Best Sellers ثابت دائماً: شحنة 60 فستان مانجو جديدة وصلت، ما باعت ولا واحد بعد، تضل بآخر الصفحة بسبب 0 مبيعات → الزبائن ما يكتشفونها → ما تباع → حلقة مغلقة.</span>
+    <span class="after">Trending hybrid: 70% Best Sellers + 30% Newest. الفساتين الجديدة تظهر بنسبة من المتصدرين، تكتشف، تباع، الترتيب يستوي طبيعياً.</span>
+    <span class="gain">حلقة الإطلاق محلولة، الكتالوج الجديد يتنفس، الزبائن الدائمين يشوفون كل أسبوع شي جديد.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Website Builder — تحكم لكل صفحة</div>
+    <span class="before">سياسة موحدة (Best Sellers لكل الموقع): صفحة "الإكسسوارات" مبيعاتها قليلة جداً، الـ Best Sellers يطلع نفس 8 منتجات لـ 6 شهور.</span>
+    <span class="after">Default = Best Sellers، لكن Website Builder dropdown يسمح للمدير يغير لـ Newest على صفحة الإكسسوارات فقط بضغطة. باقي الموقع يبقى Best Sellers.</span>
+    <span class="gain">مرونة لكل فئة، استراتيجية مختلفة حسب طبيعة المنتج (موضة سريعة vs منتجات ثابتة).</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q13">
   <div class="question-header">
     <span class="question-badge">Q13</span>
@@ -1204,6 +1336,28 @@ Under Armour (12)</div>
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — حقل "الأحدث"</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — استيراد دفعة 800 منتج</div>
+    <span class="before">create_date: استوردنا 800 منتج بـ CSV واحد بنفس اللحظة. كلهم create_date = "20260301 14:23". فرز Newest يحطهم بنفس الترتيب الأبجدي → فوضى. الزبون يشوف 800 منتج "جديد" ولا يدري أيهم وصل اليوم وأيهم صار له 3 أشهر بالمستودع.</span>
+    <span class="after">x_arrival_date يدوي: المخزن يحدث الحقل عند وصول كل شحنة فعلياً. Newest يفرز حسب وصول البضاعة للمتجر، لا حسب إنشاء السجل بالنظام.</span>
+    <span class="gain">"الأحدث" يعكس الوصول الحقيقي، الزبائن الدائمين يثقون بالقسم لاكتشاف الجديد.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — منتج موجود من أشهر بـ Draft</div>
+    <span class="before">create_date فقط: فستان أنشأناه بـ Draft من 6 أشهر، نشرناه اليوم. Newest حسب create_date يحطه بآخر القائمة → ما يكتشفه الزبائن.</span>
+    <span class="after">publish_date: نتتبع متى نُشر فعلياً للجمهور. الفستان المنشور اليوم يطلع بأول Newest حتى لو create_date قديم.</span>
+    <span class="gain">الترتيب يعكس متى يصير المنتج متاح للشراء، لا متى أنشأناه إدارياً. النشر يصير حدث ملحوظ.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">حل هجين — الأمان أولاً</div>
+    <span class="before">x_arrival_date فقط: لو نسي أحد الموظفين يحدث الحقل لمنتج جديد → النظام يعتبره قديم → ما يطلع بـ Newest → بيع ضائع.</span>
+    <span class="after">Hybrid: COALESCE(x_arrival_date, create_date). لو الحقل اليدوي موجود → نستخدمه. لو فاضي → نرجع لـ create_date كـ fallback. ولا منتج يضيع.</span>
+    <span class="gain">دقة عالية مع شبكة أمان للأخطاء البشرية. الفريق يتعلم تدريجياً يحدث الحقل، النظام لا يفشل.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q15">
@@ -1666,6 +1820,28 @@ Nike Air Max — 75,000 د.ع
 <p class="small muted">كل سنيپت عنده <code>s_</code> prefix حسب عرف Odoo 19. الـ options تكون بـ
 <code>static/src/website_builder/</code>.</p>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — توقيت بناء السنيپنات</div>
+  <div class="daily-item">
+    <div class="head">من البداية</div>
+    <span class="before">نبني السنيپنات قبل ما نتأكد من المنطق: SP-3 "بطاقة منتج" بنيناه بـ M0، اكتشفنا بـ M2 إن نحتاج Strikethrough للسعر القديم → رجعنا عدلنا SP-3 من جذوره → فقدنا 4 ساعات.</span>
+    <span class="after">المنطق أولاً (M1-M6) ثم السنيپنات (M7): كل ما نحتاجه بـ Snippets يصير معروف ومستقر. SP-3 يُبنى مرة واحدة بكل المتطلبات (Strikethrough + Ribbon + Quick View).</span>
+    <span class="gain">صفر إعادة عمل، كل سنيپت ينتج بشكل نظيف من أول مرة، سرعة تطوير أعلى بـ M7.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">الأساسية أولاً (هجين)</div>
+    <span class="before">إذا انتظرنا M7 بالكامل، الإدارة ما تشوف نتيجة بصرية إلا بعد شهرين → خطر فقدان الحماس والميزانية.</span>
+    <span class="after">SP-1 (Hero) و SP-2 (Featured Products) نبنيهم بـ M1 ليُشعروا الإدارة بتقدم بصري ملموس، باقي السنيپنات نأجلها لـ M7 بعد استقرار المنطق.</span>
+    <span class="gain">توازن بين سرعة العرض المرئي للإدارة وسلامة التصميم النهائي. المعنويات تبقى عالية.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">SP-7 (الأكثر مشاهدة) — حالة خاصة</div>
+    <span class="before">نبني SP-7 بـ M0 بدون نظام تتبع المشاهدات → السنيپت يعرض بيانات وهمية أو فارغة → لا قيمة.</span>
+    <span class="after">SP-7 يُؤجل لـ M3 بعد بناء x_view_count + Cron التتبع. عند بنائه، يعرض بيانات حقيقية فوراً.</span>
+    <span class="gain">كل سنيپت يُولد عند جاهزية بياناته، لا قبل ولا بعد. تجنب السنيپنات الميتة.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q21">
   <div class="question-header">
     <span class="question-badge">Q21</span>
@@ -1816,6 +1992,28 @@ Nike Air Max — 75,000 د.ع
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — مكان الإعدادات</div>
+  <div class="daily-item">
+    <div class="head">ضمن eCommerce Settings</div>
+    <span class="before">ضمن eCommerce: الزبون الإداري يفتح Settings → eCommerce → يحتاج يبحث بين 47 خيار موجود ليلقى إعدادات shop_pro الـ 8. تجربة مكتظة.</span>
+    <span class="after">تبويب مستقل "Shop Pro": كل إعدادات الفلاتر والفرز والسنيپنات بمكان واحد منظم. اختصار: Settings → Shop Pro → Filters / Sorting / Snippets / Performance.</span>
+    <span class="gain">منظومة واضحة ومكتشفة بسرعة، ولا حاجة للبحث، التوثيق يصير أسهل ("روح Settings → Shop Pro → Filters").</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">لكل website (Multi-Website)</div>
+    <span class="before">إعدادات global: نافا تحب "إخفاء الصفر = نعم"، سبورت مور تحب "إخفاء الصفر = لا". إعداد global يجبر سياسة موحدة → أحدهما يخسر.</span>
+    <span class="after">website_id على res.config.settings: المدير يختار "النطاق: نافا" أو "سبورت مور" قبل تعديل. كل متجر له إعداداته الخاصة المحفوظة.</span>
+    <span class="gain">حرية تشغيلية كاملة لكل متجر، نفس قاعدة البيانات لكن سلوك مختلف، طبيعي لـ Multi-Website Odoo.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">السيناريو الأمثل — هجين</div>
+    <span class="before">إما تبويب مستقل بدون per-website، أو per-website بدون تبويب → كل خيار ينقصه شي.</span>
+    <span class="after">تبويب مستقل "Shop Pro" + كل إعداد عنده website_id حيث يستلزم. المعمارية: Settings → Shop Pro → اختر website من dropdown → عدّل.</span>
+    <span class="gain">أفضل تنظيم + أفضل مرونة. توثيق موحد، تطبيق متعدد المتاجر بدون تكرار.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q25">
@@ -2251,6 +2449,28 @@ phone_lookup يلگى:
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — الإيميل بـ Checkout</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — زبون بدون إيميل</div>
+    <span class="before">إلزامي: الزبون حدد تيشيرت 75,000 د.ع، وصل checkout → "الإيميل مطلوب". ما يستخدم إيميل، يكتب fake@fake.com → الطلب يصير لكن لا يصله تأكيد، مستحيل نتواصل لو فيه مشكلة → بيع ضائع أو شكوى.</span>
+    <span class="after">اختياري: حقل الإيميل بدون نجمة حمراء. الزبون يكمل بـ "الاسم + الهاتف" فقط → الطلب يتم. الإشعارات تروح واتساب على رقمه. لو فيه إيميل (يحبه) يكتبه ويستلم نسخة.</span>
+    <span class="gain">معدل التحويل يرتفع +15% بإزالة عقبة الإيميل. الطلب يكتمل بدون إجبار.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا — ربط إيميل لاحقاً</div>
+    <span class="before">إذا تركنا الإيميل اختياري دائماً، الزبائن الجدد ما يكتبونه أبداً → ما نقدر نسوي email marketing، Customer Lifetime Value يطيح.</span>
+    <span class="after">اختياري + نشجّع: نص خفيف "أضف إيميل للحصول على عروض حصرية + 5% خصم على الطلب القادم". الزبون يقرر بدون إجبار، نسبة من 30-40% يكتبونه طوعاً.</span>
+    <span class="gain">قاعدة بيانات إيميلات تنمو طوعياً، الزبون يحس بالقيمة لا الإلزام.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Google OAuth — أفضل تجربة</div>
+    <span class="before">زبون سجّل بـ Google → الإيميل موجود تلقائياً بحسابه، لكن الـ checkout يطلبه مرة ثانية → تكرار مزعج.</span>
+    <span class="after">إجباري إلا لو سجّل بكوكل: لو user.email موجود من OAuth → الحقل يختفي. لو فاضي → يصير اختياري. ذكاء سياقي.</span>
+    <span class="gain">تجربة بلا تكرار، استفادة كاملة من بيانات OAuth، الزبون يحس النظام يعرفه.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q28">
   <div class="question-header">
     <span class="question-badge">Q28</span>
@@ -2265,6 +2485,28 @@ phone_lookup يلگى:
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — رقم الهاتف Unique</div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — تكرار طبيعي</div>
+    <span class="before">لا قيود (الوضع الحالي): الأم تشتري لـ 3 أولاد بنفس رقمها بـ 3 طلبات منفصلة → 3 partners منفصلين بنفس الرقم → فوضى بقاعدة البيانات. لو اتصلنا الرقم لا نعرف أي طلب.</span>
+    <span class="after">SQL Constraint لكل website: نفس الرقم بنفس المتجر = شخص واحد، الطلبات تتجمع تحته. الأم تشتري 3 طلبات → كلها تحت partner واحد، تاريخ موحد، VIP score دقيق.</span>
+    <span class="gain">قاعدة بيانات نظيفة، تحليلات صحيحة، خدمة عملاء أسهل ("شفت طلباتك السابقة").</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">نافا + سبورت مور — زبون مشترك</div>
+    <span class="before">SQL Constraint global (كل المتاجر): زبون يشتري من نافا فستان لزوجته، يشتري من سبورت مور تيشيرت لنفسه → نفس الرقم → النظام يرفض الشراء الثاني → بيع ضائع.</span>
+    <span class="after">SQL Constraint per-website: نفس الرقم مسموح بالمتاجر المختلفة (نافا partner منفصل عن سبورت مور partner) لكن داخل نفس المتجر = unique. Multi-Website صحيح.</span>
+    <span class="gain">كل متجر يحفظ علاقته الخاصة مع الزبون، قواعد البيانات مستقلة، التحليلات منفصلة لكل brand.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Soft Warn — تجربة لطيفة</div>
+    <span class="before">SQL Constraint قاسٍ: الزبون يحاول يكمل طلب → "خطأ: الرقم موجود". ما يدري شيسوي. يطلع.</span>
+    <span class="after">Soft warn: "هذا الرقم لديه حساب موجود، هل تريد تسجيل الدخول؟ [دخول] [إنشاء جديد بنفس الرقم]". الخيار الثاني ينشئ partner جديد ويربطه بالـ existing عبر phone_search_extra.</span>
+    <span class="gain">تجربة مرنة لا قاسية، الزبون يفهم السياق ويختار، لا تتعارض مع حالات شرعية (زوج وزوجة بنفس الموبايل).</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q29">
@@ -2363,6 +2605,28 @@ phone_lookup يلگى:
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
 </div>
 
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — مصدر بيانات المنطقة</div>
+  <div class="daily-item">
+    <div class="head">boxy.area — 4533 منطقة موحّدة</div>
+    <span class="before">يدوي يكتبها الزبون: زبون يكتب "حي الجامعة"، آخر يكتب "حي جامعة"، ثالث يكتب "Hay Al-Jamaa". الناقل (الوسيط) يستلم عناوين متفاوتة → يضيع، يتأخر التسليم.</span>
+    <span class="after">boxy.area بـ 4533 منطقة معتمدة (مدققة من فريق Boxy): الزبون يبحث "الجامعة" → autocomplete يقترح 12 منطقة، يختار "الكرخ - حي الجامعة". مرتبطة بـ ZIP code + GPS coords + الناقل الموصى. الناقل يستلم عنوان موحد لا لبس فيه.</span>
+    <span class="gain">عناوين دقيقة، توصيل أسرع، شكاوى التأخر تنخفض 60%+، تحليلات جغرافية ممكنة (أي حي يطلب أكثر؟).</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">waseet.region فقط — محدود</div>
+    <span class="before">waseet.region: 6229 منطقة لكن خاصة بالوسيط، أسماء مختلفة عن المعتمد لدى Boxy. لو غيرنا الناقل لـ Boxy → كل العناوين القديمة تصير غير قابلة للقراءة.</span>
+    <span class="after">dual: واجهة boxy.area للزبون (موحدة)، ربط داخلي حسب الناقل المختار (boxy_area_id ↔ waseet_region_id ↔ ZBX_zone). تغيير الناقل لا يكسر العناوين.</span>
+    <span class="gain">حرية تغيير الناقل بدون فقدان البيانات، الزبون يشوف واجهة واحدة، النظام يتولى الترجمة.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">المعمارية — Boxy = canonical source</div>
+    <span class="before">كل ناقل بقاعدة بيانات منفصلة: 3 جداول مناطق منفصلة، أي تحديث يتم بـ 3 أمكنة، تناقضات لا تنتهي.</span>
+    <span class="after">boxy.area هو الـ canonical source. waseet.region و delivery_zbx.zone جداول ربط (mapping tables) فقط. Boxy يحدّث → الكل يتبع.</span>
+    <span class="gain">مصدر حقيقة واحد، تحديثات بسيطة، توسع للناقلين الجدد بإضافة جدول ربط فقط.</span>
+  </div>
+</div>
+
 <div class="question" data-qid="Q35">
   <div class="question-header">
     <span class="question-badge">Q35</span>
@@ -2393,6 +2657,28 @@ phone_lookup يلگى:
   </div>
   <textarea placeholder="..."></textarea>
   <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="daily-block">
+  <div class="daily-title">حالات واقعية يومية — قناة الإشعارات</div>
+  <div class="daily-item">
+    <div class="head">نافا — تأكيد الطلب</div>
+    <span class="before">إيميل (الحالي): زبونة طلبت فستان مانجو 95,000 د.ع، التأكيد راح للإيميل، ما تفتح إيميلها يومياً → تتصل تسأل بعد 3 ساعات "وين طلبي؟". خدمة العملاء تكرر تأكيد لـ 30+ زبون يومياً.</span>
+    <span class="after">واتساب أساسي + إيميل احتياطي: التأكيد يصل واتساب فوراً (تنبيه + رسالة كاملة + رابط تتبع). إذا الواتساب فشل (الرقم بدون واتساب) → fallback إيميل تلقائي. زبونة تشوف التأكيد بثوانٍ، صفر مكالمات.</span>
+    <span class="gain">معدل تحويل +28% (مدوّن بالنافا)، شكاوى "وين طلبي" نزلت لصفر، خدمة العملاء تركز على المهم.</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">سبورت مور — تحديث الشحن</div>
+    <span class="before">SMS: تكلفة 30 د.ع لكل رسالة × 380 طلب يومياً = 11,400 د.ع/يوم = 342,000 د.ع/شهر. SMS محدود 160 حرف، لا يحتوي رابط تتبع، لا صورة.</span>
+    <span class="after">واتساب: مجاني عبر WhatsApp Business API (24-hour customer service window). رسائل غنية: "طلبك بطريقه مع المندوب 🛵 [زر تتبع]". الزبون يضغط الزر يشوف موقع المندوب live.</span>
+    <span class="gain">توفير 342,000 د.ع/شهر، تجربة أغنى بكثير، تفاعل ثنائي ممكن (زبون يرد بسؤال).</span>
+  </div>
+  <div class="daily-item">
+    <div class="head">Marketing — حملات</div>
+    <span class="before">واتساب فقط للتسويق: مخالف لشروط Meta (24-hour window للـ customer service فقط، أي رسالة تسويقية خارج النافذة تحتاج template معتمد). الحساب يتعرض للحظر.</span>
+    <span class="after">قسم القنوات بالاستخدام: الواتساب للترانزاكشنز (تأكيد + شحن + استلام). الإيميل للتسويق (عروض + newsletter + abandoned cart). كل قناة تخدم غرضها الأنسب.</span>
+    <span class="gain">امتثال كامل لشروط Meta، حماية الحساب، استخدام أمثل للقنوات حسب طبيعتها.</span>
+  </div>
 </div>
 
 <div class="question" data-qid="Q37">
