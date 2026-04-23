@@ -202,8 +202,8 @@ details .details-body{padding:0 16px 14px;font-size:14px}
     جاهز ترسله لنفسك أو لي.
   </p>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
-    <span class="chip accent">11 فصل</span>
-    <span class="chip accent">26 سؤال + إضافات</span>
+    <span class="chip accent">12 فصل</span>
+    <span class="chip accent">38 سؤال + إضافات</span>
     <span class="chip accent">52 ملف مراجعة</span>
     <span class="chip info">حفظ تلقائي</span>
   </div>
@@ -222,6 +222,7 @@ details .details-body{padding:0 16px 14px;font-size:14px}
     <li><a href="#ch8">السناپنات والبلوكات</a></li>
     <li><a href="#ch9">خطة المراحل السبع</a></li>
     <li><a href="#ch10">جرد 52 ملف</a></li>
+    <li><a href="#ch12">Checkout موحّد + تسجيل عراقي</a></li>
     <li><a href="#extra">مواضيع ومهام إضافية</a></li>
   </ol>
 </section>
@@ -1584,6 +1585,482 @@ Nike Air Max — 75,000 د.ع
 </section>
 
 <!-- Final -->
+<!-- CH12: تطوير Checkout + Auth العراقي الموحد -->
+<section id="ch12">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-cart"/></svg></span>12 · Checkout موحّد + تسجيل عراقي ذكي</h2>
+
+<p>هاي أكبر نقطة تخسير مبيعات بالمتاجر العراقية. حلّلت عميق <strong>40+ ملف</strong> من Odoo 19 (website_sale, auth_signup, auth_oauth, web/home, portal, base) ومن مودولاتنا الجاهزة (delivery_waseet, boxy, inoff). هاي تقرير الواقع + الخطة.</p>
+
+<h3>12.1 · لماذا العراقي يضيف للسلة وما يكمل؟</h3>
+
+<div class="callout callout-danger">
+  <svg class="icon"><use href="#i-alert"/></svg>
+  <div><strong>التشخيص الواقعي (من بيانات نافا + سبورت مور):</strong> أكثر من 60% من السلال تنترك بمرحلة Checkout. السبب الجذري ثلاثة أبواب منفصلة:</div>
+</div>
+
+<ol>
+  <li><strong>Odoo فيه 3 فلوهات منفصلة</strong>: تسجيل (<code>/web/signup</code>) + دخول (<code>/web/login</code>) + Checkout (<code>/shop/checkout</code>) — كل واحد بصفحة منفصلة وسلوك مختلف.</li>
+  <li><strong>الإيميل إجباري</strong> بكل مكان — والعراقي ما عنده إيميل، أو ما حافظه، أو يضوّج من إدخاله.</li>
+  <li><strong>رقم الهاتف ليس Unique</strong> — Odoo افتراضياً ما يفرض إن كل زبون له رقم خاص. لو دخل نفس الرقم 5 مرات يصير 5 زبائن مختلفين.</li>
+  <li><strong>Google OAuth منفصل عن Checkout</strong> — لو دخل بكوكل يروح <code>/web</code> لا للـ checkout. والبيانات المسحوبة من كوكل ما تنحقن بفورم العنوان تلقائياً.</li>
+  <li><strong>العنوان فيه 8 حقول</strong> (street, street2, city, zip, state, country, name, phone) — غالبية البلدان تحتاجها، العراق ما يحتاج zip ولا street2 ولا حتى city منفصلة عن المنطقة.</li>
+</ol>
+
+<h3>12.2 · شنو موجود فعلاً وشنو ما زال مفقود</h3>
+
+<h4>✅ الجاهز (نبني عليه)</h4>
+<div class="card">
+  <div class="card-title">delivery_waseet — Checkout عراقي بصفحة واحدة</div>
+  <p class="small">Template <code>delivery_waseet.iraq_checkout</code> موجود وشغال على نافا + سبورت مور. 3 خطوات بـ accordion: العنوان → التوصيل → التأكيد. حذف الحقول غير المهمة (zip, street, city). AJAX endpoints جاهزة (<code>/shop/iraq/save_address</code>, <code>/shop/iraq/confirm_cod</code>).</p>
+  <p class="small muted">المسار: <code>jawdat-hub/shared/delivery_waseet/views/iraq_checkout.xml</code> + <code>controllers/checkout_api.py</code></p>
+</div>
+
+<div class="card">
+  <div class="card-title">phone_lookup — البحث برقم الهاتف</div>
+  <p class="small">Endpoint <code>/shop/address/phone_lookup</code> (JSON-RPC) شغال على Portal + Checkout. يطبّع الرقم العراقي (07XXXXXXXXX) ويرجع بيانات الزبون لو موجود → الواجهة تعبّي الفورم تلقائياً مع تظليل أخضر.</p>
+  <p class="small muted">المسار: <code>jawdat-hub/enterprise/portal/controllers/portal.py</code> السطور 640-750</p>
+</div>
+
+<div class="card">
+  <div class="card-title">boxy.area — تصنيف المناطق العراقية الموحّد</div>
+  <p class="small">4,533 منطقة موزعة على 18 محافظة عراقية. مدمجة مع waseet.region. الواجهة تستعمل <code>delivery_area_id</code> ثم checkout_api يحفظ بالحقلين معاً.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">res_users.signup() — كشف التكرار بالهاتف</div>
+  <p class="small">المنطق موجود يبحث على <code>partner</code> برقم الهاتف قبل ما ينشئ زبون جديد. لكن ما يستعمل بـ checkout flow.</p>
+</div>
+
+<h4>❌ المفقود (نبنيه)</h4>
+<ul>
+  <li><strong>صفحة دخول واحدة</strong> تقبل هاتف أو إيميل + باسورد + زر «تسجيل بكوكل».</li>
+  <li><strong>جسر Checkout ↔ Auth</strong> — حفظ العنوان ينشئ الحساب تلقائياً ويسجّل الدخول بنفس الجلسة.</li>
+  <li><strong>OTP اختياري</strong> — رمز SMS لتأكيد رقم الهاتف للزبون الجديد.</li>
+  <li><strong>OAuth → Checkout مباشر</strong> — بعد كوكل يرجع لنفس checkout بنفس السلة، ويعبّي الاسم + الإيميل + الصورة من حسابه.</li>
+  <li><strong>Phone Unique constraint</strong> — لكل website، أو تحذير دمج عند التكرار.</li>
+  <li><strong>Cart Association</strong> — لمّا phone_lookup يلگى زبون، السلة الحالية تربط بحسابه فوراً.</li>
+</ul>
+
+<h3>12.3 · سيناريوهات قبل/بعد</h3>
+
+<div class="scenario">
+  <div class="scenario-label">🔴 السيناريو الحالي (المشكلة الكبرى)</div>
+  <p><strong>أحمد، 32 سنة، بغداد</strong> — يدخل سبورت مور أول مرة، يحب 3 جزمات يضيفها للسلة، يضغط «إتمام الشراء»:</p>
+  <div class="mock">شاشة 1: /shop/cart
+  → يضغط «Checkout»
+
+شاشة 2: /web/login (مفاجأة!)
+  → "Email Address" + "Password"
+  → ما عنده حساب → يضغط "Sign Up"
+
+شاشة 3: /web/signup
+  → الاسم + الإيميل (إجباري!) + باسورد + تأكيد باسورد
+  → أحمد ما عنده إيميل، يحاول يحط هواي@gmail.com عشوائي
+  → خطأ: الإيميل مستخدم
+  → يضوّج ويترك المتجر ❌
+
+النتيجة: سلة مهجورة، زبون ضائع، 3 جزمات عاد ما تباع.</div>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">🟢 السيناريو المقترح (Unified Single-Window)</div>
+  <p><strong>أحمد نفسه</strong> — يدخل، يحب 3 جزمات، يضغط «إتمام الشراء»:</p>
+  <div class="mock">شاشة واحدة: /shop/checkout
+
+  ┌─────────────────────────────────────────────┐
+  │ مرحبا 👋 جاهز نوصل طلبك                    │
+  │                                             │
+  │ رقم هاتفك: [07_______]    [📱 ادخل]        │
+  │                                             │
+  │ ─────────── أو ───────────                  │
+  │                                             │
+  │ [🔵 تسجيل بكوكل]    [📧 لدي حساب]          │
+  └─────────────────────────────────────────────┘
+
+أحمد يدخل: 07719956000 → يضغط Tab
+  ↓
+phone_lookup يبحث:
+  ✗ ما عنده حساب → يطلع نموذج كامل بنفس الصفحة:
+
+  ┌─────────────────────────────────────────────┐
+  │ هاتفك: 07719956000 ✓                       │
+  │ اسمك: [أحمد علي________________]            │
+  │ المحافظة: [بغداد ▼]                         │
+  │ المنطقة: [الكرادة ▼]                        │
+  │ علامة مميزة (اختياري): [قرب جامع_____]     │
+  │ إيميل (اختياري): [_______________]         │
+  │                                             │
+  │ ☑ أنشئ لي حساب لتتبع طلباتي               │
+  │                                             │
+  │ [✓ احفظ وكمّل]                              │
+  └─────────────────────────────────────────────┘
+  ↓
+يحفظ → ينشئ زبون + حساب + يسجّل دخول بنفس الجلسة
+  ↓
+يكمّل: التوصيل → الدفع → تم 🎉</div>
+  <p class="small muted">من 3 شاشات وإحباط، صار شاشة واحدة وثقة. تجربة طبيعية للعراقي.</p>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">🟢 السيناريو 2 — زبون قديم يرجع</div>
+  <p><strong>فاطمة</strong> — اشترت قبل شهر. ترجع تشتري:</p>
+  <div class="mock">/shop/checkout
+  هاتفك: 07712345678 → Tab
+  ↓
+phone_lookup يلگى:
+  ✓ "أهلاً فاطمة! آخر طلب لك بتاريخ 15 آذار"
+  ↓
+الفورم تتعبأ تلقائياً (مع تظليل أخضر للحقول المُسترجعة):
+  • الاسم: فاطمة محمد ✓
+  • المحافظة: البصرة ✓
+  • المنطقة: العشار ✓
+  • العنوان: قرب الكورنيش ✓
+  ↓
+بس تضغط «احفظ وكمّل» → التوصيل → الدفع
+الكل بثوانٍ.</div>
+</div>
+
+<div class="scenario">
+  <div class="scenario-label">🟢 السيناريو 3 — تسجيل بكوكل</div>
+  <p><strong>محمد</strong> — يضغط «تسجيل بكوكل»:</p>
+  <div class="mock">يفتح Google Popup
+  ↓
+يختار حسابه: mohammed@gmail.com
+  ↓
+يرجع تلقائياً للـ checkout بنفس السلة:
+
+  ┌─────────────────────────────────────────────┐
+  │ تم التسجيل من Google ✓                      │
+  │                                             │
+  │ [صورة من Google]                            │
+  │ الاسم: [محمد جاسم] ← قابل للتعديل          │
+  │ الإيميل: mohammed@gmail.com 🔒 (من Google) │
+  │                                             │
+  │ ❗ نحتاج رقم هاتفك للتوصيل:                │
+  │ هاتف: [07_______] (إجباري)                 │
+  │ المحافظة: [▼]                               │
+  │ المنطقة: [▼]                                │
+  │                                             │
+  │ [✓ احفظ وكمّل]                              │
+  └─────────────────────────────────────────────┘</div>
+  <p class="small muted">الإيميل والاسم والصورة محقونة من Google. الهاتف فقط إجباري لأنه ضروري للتوصيل ولا يجي من Google.</p>
+</div>
+
+<h3>12.4 · الفلو الموحّد المقترح (Diagram)</h3>
+
+<div class="mock" dir="ltr">/shop/checkout (no login required)
+│
+├── STEP 1: PHONE GATE (NEW)
+│   ├── Input: 07XX or +964
+│   ├── Phone Lookup (debounced 800ms)
+│   │
+│   ├── Branch A: RETURNING CUSTOMER
+│   │   ├── Show: "أهلاً [Name]"
+│   │   ├── Prefill: Name, Province, Area, Email
+│   │   └── Skip OTP, jump to address review
+│   │
+│   ├── Branch B: NEW CUSTOMER + Phone valid
+│   │   ├── Optional OTP (per-website setting)
+│   │   ├── Show: Empty form (phone locked)
+│   │   └── On save: Create partner + auto-login
+│   │
+│   └── Branch C: OAuth (Google)
+│       ├── Popup → Google login
+│       ├── Pull: name, email, picture
+│       ├── Return to /shop/checkout?oauth=1
+│       └── Show: Form with Google data injected
+│             (email locked, name editable, phone required)
+│
+├── STEP 2: ADDRESS (Existing, Iraq-simplified)
+│   ├── Required: name, phone, province, delivery_area
+│   ├── Optional: email, landmark/note
+│   └── Auto-save on blur (AJAX)
+│
+├── STEP 3: DELIVERY METHOD
+│   ├── Show: Carriers based on province (Waseet, Boxy)
+│   ├── Auto-rate on area change
+│   └── Show fee dynamically
+│
+├── STEP 4: REVIEW + COUPON (NEW: coupon field)
+│   ├── Items list
+│   ├── Coupon code input
+│   ├── Total breakdown
+│   └── ☐ "Create account to track" (auto-checked)
+│
+└── STEP 5: PAYMENT
+    ├── COD → instant confirm
+    ├── Card → gateway redirect
+    └── Success → email + auto-login + tracking page</div>
+
+<h3>12.5 · تفاصيل تقنية</h3>
+
+<div class="card">
+  <div class="card-title">رقم الهاتف العراقي — قواعد التطبيع والـ Validation</div>
+  <p class="small">Regex مقترح: <code>^(?:00964|\+964|0)?(7[3-9])\d{8}$</code></p>
+  <p class="small">يقبل:</p>
+  <div class="mock">07719956000      ✓ (الصيغة العراقية الشائعة)
++9647719956000   ✓ (دولي)
+009647719956000  ✓ (دولي بدون +)
+7719956000       ✓ (بدون صفر بادئ)
+
+7619956000       ✗ (76 غير موجود)
+07219956000      ✗ (72 غير موجود)
+0771995600       ✗ (ناقص رقم)
+07719956000123   ✗ (زيادة)</div>
+  <p class="small muted">الشركات: 077=زين · 075=آسياسيل · 078=كورك · 079=أوماني · 074=إيكيتل (نادر) · 073=احتياطي</p>
+</div>
+
+<div class="card">
+  <div class="card-title">العنوان المبسّط للعراقي</div>
+  <p class="small">الـ portal الافتراضي يطلب: name, email, phone, street, street2, city, zip, country, state = 9 حقول.</p>
+  <p class="small">المقترح للعراقي: name, phone, governorate, area, landmark = 5 حقول فقط (email اختياري).</p>
+  <div class="mock">القياسي (Odoo):              العراقي المبسّط:
+  - الاسم *                    - الاسم *
+  - الإيميل *                  - الهاتف *  (Unique!)
+  - الهاتف                     - المحافظة *
+  - الشارع *                   - المنطقة * (من boxy.area)
+  - شارع 2                     - علامة (اختياري)
+  - المدينة *                  - الإيميل (اختياري)
+  - الرمز البريدي *
+  - الدولة *
+  - المحافظة</div>
+</div>
+
+<div class="card">
+  <div class="card-title">Phone Unique — استراتيجية التطبيق</div>
+  <p class="small">SQL constraint قاسي راح يكسر حالات شرعية (شركات، عوائل تشترك برقم). البديل:</p>
+  <ol class="small">
+    <li><strong>Soft uniqueness</strong> — Index على <code>(website_id, phone_normalized)</code> مع cleanup للتكرارات الموجودة.</li>
+    <li><strong>Merge wizard</strong> — لو اكتُشف تكرار، الإدمن يدمج يدوياً من قائمة Contacts.</li>
+    <li><strong>Customer-facing warning</strong> — لو حاول زبون يسجّل بنفس الرقم، يطلعله «هاي الرقم مسجّل، تريد تسجّل دخول؟».</li>
+  </ol>
+</div>
+
+<div class="card">
+  <div class="card-title">Google OAuth — التدفق الكامل</div>
+  <ol class="small">
+    <li>زر «تسجيل بكوكل» يفتح: <code>/auth_oauth/signin?p=GOOGLE_PROVIDER_ID&amp;redirect=/shop/checkout</code></li>
+    <li>بعد نجاح كوكل: <code>res_users._auth_oauth_signin()</code> يبحث عن user → إذا غير موجود ينشئه بـ <code>oauth_uid</code></li>
+    <li>الزبون يرجع لـ <code>/shop/checkout?oauth_just_signed=1</code> ومعه partner_id جاهز</li>
+    <li>الفورم تتعبّأ من <code>res.partner</code> (الاسم + الإيميل + الصورة من Google)</li>
+    <li>الإيميل <code>readonly</code>، الاسم قابل للتعديل، الهاتف مطلوب</li>
+  </ol>
+</div>
+
+<h3>12.6 · المخاطر والمحاذير</h3>
+<div class="callout callout-warn">
+  <svg class="icon"><use href="#i-alert"/></svg>
+  <div><strong>مخاطر تنفيذية:</strong>
+    <ul class="small" style="margin:8px 0 0">
+      <li>مزود SMS عراقي للـ OTP — ما متوفر مباشرة بـ Odoo. نحتاج تكامل مع شركة محلية (مثل Asiacell SMS Gateway).</li>
+      <li>الإيميل اختياري يكسر بعض إشعارات Odoo الافتراضية (مثل تأكيد الطلب، استرجاع الباسورد). نحتاج fallback لواتساب.</li>
+      <li>OAuth يحتاج Cloudflare/SSL سليم وإعداد Google Console مع redirect URI لكل دومين (sportmore-iq.com, nava-iq.com, blo-iq.com).</li>
+      <li>Phone unique بأكثر من website ممكن يخلق تعارضات (نفس الزبون يشتري من سبورت مور ونافا برقم واحد).</li>
+    </ul>
+  </div>
+</div>
+
+<h3>12.7 · أسئلتك (12 سؤال)</h3>
+
+<div class="question" data-qid="Q27">
+  <div class="question-header">
+    <span class="question-badge">Q27</span>
+    <span class="question-title">الموديول الجديد — اسم تقني</span>
+    <span class="question-id">unified-module</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q27','iraq_checkout_pro')">iraq_checkout_pro</button>
+    <button class="opt-btn" onclick="pick(this,'Q27','shop_pro_auth')">shop_pro_auth (يدمج مع shop_pro)</button>
+    <button class="opt-btn" onclick="pick(this,'Q27','website_unified_iraq')">website_unified_iraq</button>
+    <button class="opt-btn" onclick="pick(this,'Q27','auth_iraq_phone')">auth_iraq_phone</button>
+    <button class="opt-btn" onclick="pick(this,'Q27','extend_waseet')">نمدد delivery_waseet الموجود ⭐</button>
+  </div>
+  <textarea placeholder="اسم بديل أو سبب اختيارك..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q28">
+  <div class="question-header">
+    <span class="question-badge">Q28</span>
+    <span class="question-title">الإيميل بصفحة Checkout</span>
+    <span class="question-id">email-required</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q28','optional')">اختياري دائماً ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q28','optional-suggest')">اختياري + نشجّع إدخاله</button>
+    <button class="opt-btn" onclick="pick(this,'Q28','required-no-google')">إجباري إلا لو سجّل بكوكل</button>
+    <button class="opt-btn" onclick="pick(this,'Q28','required')">إجباري دائماً (لا أنصح)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q29">
+  <div class="question-header">
+    <span class="question-badge">Q29</span>
+    <span class="question-title">رقم الهاتف Unique</span>
+    <span class="question-id">phone-unique</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q29','hard-per-website')">SQL Constraint لكل website ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q29','soft-warn')">Soft (تحذير + اقتراح دمج)</button>
+    <button class="opt-btn" onclick="pick(this,'Q29','hard-global')">SQL Constraint global (كل المتاجر)</button>
+    <button class="opt-btn" onclick="pick(this,'Q29','none')">لا قيود (الوضع الحالي)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q30">
+  <div class="question-header">
+    <span class="question-badge">Q30</span>
+    <span class="question-title">تسجيل الدخول — أي حقل نقبله؟</span>
+    <span class="question-id">login-field</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q30','phone-only')">هاتف فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q30','email-only')">إيميل فقط (الحالي)</button>
+    <button class="opt-btn" onclick="pick(this,'Q30','both')">هاتف أو إيميل ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q30','phone-otp')">هاتف + OTP بدون باسورد</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q31">
+  <div class="question-header">
+    <span class="question-badge">Q31</span>
+    <span class="question-title">OTP بـ SMS — هل نفعّله؟</span>
+    <span class="question-id">otp</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q31','always')">دائماً للزبون الجديد</button>
+    <button class="opt-btn" onclick="pick(this,'Q31','optional')">اختياري للزبون</button>
+    <button class="opt-btn" onclick="pick(this,'Q31','admin-toggle')">خيار بإعدادات كل متجر ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q31','skip')">نتركه (تكلفة عالية)</button>
+  </div>
+  <textarea placeholder="مزود SMS مفضّل؟ (Asiacell / Earthlink / غيرها)"></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q32">
+  <div class="question-header">
+    <span class="question-badge">Q32</span>
+    <span class="question-title">إنشاء الحساب — متى؟</span>
+    <span class="question-id">account-creation</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q32','auto-on-save')">تلقائي عند حفظ العنوان ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q32','checkbox')">Checkbox اختياري بالـ checkout</button>
+    <button class="opt-btn" onclick="pick(this,'Q32','after-order')">بعد إكمال الطلب فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q32','guest-only')">guest فقط (لا نشاء حسابات)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q33">
+  <div class="question-header">
+    <span class="question-badge">Q33</span>
+    <span class="question-title">Google OAuth</span>
+    <span class="question-id">google-oauth</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q33','all')">الثلاثة + ربط بـ checkout ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q33','sportmore-nava')">سبورت مور + نافا فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q33','login-only')">للدخول فقط (لا checkout)</button>
+    <button class="opt-btn" onclick="pick(this,'Q33','skip')">نلغيه</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q34">
+  <div class="question-header">
+    <span class="question-badge">Q34</span>
+    <span class="question-title">الحقول الإجبارية بالعنوان العراقي</span>
+    <span class="question-id">address-required</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q34','minimal')">اسم + هاتف + محافظة + منطقة ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q34','plus-landmark')">الأعلى + علامة مميزة إجبارية</button>
+    <button class="opt-btn" onclick="pick(this,'Q34','plus-email')">الأعلى + إيميل إجباري</button>
+    <button class="opt-btn" onclick="pick(this,'Q34','custom')">مخصص (اكتب بالملاحظات)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q35">
+  <div class="question-header">
+    <span class="question-badge">Q35</span>
+    <span class="question-title">المنطقة (Delivery Area) — مصدر البيانات</span>
+    <span class="question-id">area-source</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q35','boxy')">boxy.area (4533 منطقة موحّدة) ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q35','waseet')">waseet.region فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q35','manual')">يدوي يكتبها الزبون</button>
+    <button class="opt-btn" onclick="pick(this,'Q35','dual')">dual (الواجهة boxy + الخلفية حسب الناقل)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q36">
+  <div class="question-header">
+    <span class="question-badge">Q36</span>
+    <span class="question-title">خانة كوبون الخصم بـ checkout</span>
+    <span class="question-id">coupon-checkout</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q36','step4')">نضيفها بخطوة المراجعة ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q36','collapsible')">collapsible "عندي كوبون"</button>
+    <button class="opt-btn" onclick="pick(this,'Q36','cart-only')">بصفحة السلة فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q36','skip')">لا نضيفها</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q37">
+  <div class="question-header">
+    <span class="question-badge">Q37</span>
+    <span class="question-title">إشعارات الزبون — القناة الرئيسية</span>
+    <span class="question-id">notif-channel</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q37','wa')">واتساب أساسي + إيميل احتياطي ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q37','wa-only')">واتساب فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q37','sms')">SMS</button>
+    <button class="opt-btn" onclick="pick(this,'Q37','email')">إيميل (الحالي)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="question" data-qid="Q38">
+  <div class="question-header">
+    <span class="question-badge">Q38</span>
+    <span class="question-title">المتاجر اللي نطبّق بيها أولاً</span>
+    <span class="question-id">unified-pilot</span>
+  </div>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q38','sportmore')">سبورت مور أولاً (DEV ثم PROD)</button>
+    <button class="opt-btn" onclick="pick(this,'Q38','nava')">نافا أولاً</button>
+    <button class="opt-btn" onclick="pick(this,'Q38','all-dev')">الثلاثة على DEV بالتوازي ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q38','postpone')">نأجّل لـ M8 (بعد فلاتر)</button>
+  </div>
+  <textarea placeholder="..."></textarea>
+  <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+</div>
+
+<div class="chapter-comment">
+  <label>📝 تعليق عام على فصل Checkout الموحّد (CH12)</label>
+  <textarea data-qid="CH12-notes" placeholder="أي ملاحظة على الفصل كامل، اقتراحات إضافية، حقول جديدة، أو تعديلات على الفلو..."></textarea>
+</div>
+</section>
+
 <!-- CH11: مواضيع إضافية -->
 <section id="extra">
 <h2><span class="icon-wrap"><svg class="icon"><use href="#i-info"/></svg></span>11 · مواضيع ومهام إضافية منك</h2>
