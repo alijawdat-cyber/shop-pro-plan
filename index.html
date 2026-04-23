@@ -238,6 +238,49 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 .daily-item .after::before{content:"\2705  \0628\0639\062F\3A  ";font-weight:700;color:#047857}
 .daily-item .gain{color:#78350f;display:block;margin-top:2px;font-size:13px;font-style:italic}
 .daily-item .gain::before{content:"\1F4A1  \0627\0644\0641\0627\0626\062F\0629\3A  ";font-weight:700;color:#b45309;font-style:normal}
+
+/* CH0 — Execution plan blocks */
+.locked-decision{margin:8px 0;padding:10px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-right:4px solid #10b981;border-radius:8px;display:flex;align-items:flex-start;gap:10px;font-size:14px}
+.locked-decision .lk-badge{background:#10b981;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800;white-space:nowrap;flex-shrink:0}
+.locked-decision .lk-text strong{color:#065f46}
+.locked-decision .lk-text .val{background:#d1fae5;padding:1px 6px;border-radius:4px;margin:0 2px;font-weight:700;color:#065f46}
+.exec-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+.exec-table th{background:#064e3b;color:#fff;padding:8px 10px;text-align:right;font-weight:700}
+.exec-table td{padding:8px 10px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+.exec-table tr:nth-child(even) td{background:#f9fafb}
+.exec-table .ch{white-space:nowrap;color:#0f766e;font-weight:700}
+.exec-table .dec{font-weight:700;color:#065f46}
+.task-check{margin:6px 0;padding:10px 12px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;display:flex;align-items:flex-start;gap:10px;font-size:14px;cursor:pointer;transition:background .15s}
+.task-check:hover{background:#f9fafb}
+.task-check input[type=checkbox]{margin-top:3px;width:18px;height:18px;accent-color:#0f766e;cursor:pointer;flex-shrink:0}
+.task-check.done{background:#f0fdf4;border-color:#86efac}
+.task-check.done .t-title{text-decoration:line-through;color:#6b7280}
+.task-check .t-body{flex:1}
+.task-check .t-title{font-weight:700;color:#111827;margin-bottom:3px}
+.task-check .t-desc{font-size:13px;color:#4b5563;line-height:1.7}
+.task-check .t-meta{font-size:11.5px;color:#6b7280;margin-top:4px;display:flex;gap:10px;flex-wrap:wrap}
+.task-check .t-meta .tag{background:#f3f4f6;padding:1px 7px;border-radius:4px;font-weight:600}
+.task-check .t-meta .tag.sql{background:#fef3c7;color:#78350f}
+.task-check .t-meta .tag.py{background:#dbeafe;color:#1e3a8a}
+.task-check .t-meta .tag.xml{background:#fce7f3;color:#831843}
+.task-check .t-meta .tag.db{background:#e0e7ff;color:#3730a3}
+.milestone-header{background:linear-gradient(90deg,#0f766e 0%,#047857 100%);color:#fff;padding:10px 16px;border-radius:8px;margin:18px 0 10px;font-weight:800;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.milestone-header .ms-count{background:rgba(255,255,255,.2);padding:3px 10px;border-radius:6px;font-size:12px}
+.sql-box{background:#0f172a;color:#a5f3fc;padding:12px 16px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.75;overflow-x:auto;margin:10px 0;direction:ltr;text-align:left;white-space:pre-wrap}
+.sql-box .cm{color:#64748b}
+.sql-box .kw{color:#f472b6;font-weight:700}
+.sql-box .str{color:#facc15}
+.evidence-card{background:#fff7ed;border:1px solid #fed7aa;border-right:4px solid #ea580c;border-radius:10px;padding:14px 16px;margin:12px 0}
+.evidence-card .ev-title{font-weight:800;color:#9a3412;margin-bottom:8px;font-size:14.5px}
+.evidence-card .ev-row{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px;margin:6px 0;padding:6px 0;border-bottom:1px dashed #fed7aa}
+.evidence-card .ev-row:last-child{border-bottom:none}
+.evidence-card .ev-row .ev-label{color:#7c2d12;font-weight:700;min-width:120px}
+.evidence-card .ev-row .ev-val{color:#1f2937;font-weight:600}
+.evidence-card .ev-row .ev-val.bad{color:#b91c1c}
+.evidence-card .ev-row .ev-val.good{color:#065f46}
+.open-question{background:#fef9c3;border:2px dashed #ca8a04;border-radius:10px;padding:14px 16px;margin:16px 0}
+.open-question .oq-title{font-weight:800;color:#854d0e;margin-bottom:8px;font-size:15px}
+.open-question .oq-title::before{content:"\2753  ";margin-left:4px}
 </style>
 </head>
 <body>
@@ -300,6 +343,7 @@ details .details-body{padding:0 16px 14px;font-size:14px}
 <section class="toc">
   <h3 style="margin-top:0">الفهرس</h3>
   <ol>
+    <li><a href="#ch0"><strong>القرارات المعتمدة + خطة تنفيذية (جديد)</strong></a></li>
     <li><a href="#ch1">اسم الموديول والأيقونة</a></li>
     <li><a href="#ch2">شنو لقيت بالكود</a></li>
     <li><a href="#ch3">إحصائيات القواعد الثلاث</a></li>
@@ -315,9 +359,762 @@ details .details-body{padding:0 16px 14px;font-size:14px}
   </ol>
 </section>
 
+<!-- CH0: القرارات المعتمدة + خطة تنفيذية -->
+<section id="ch0">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-check"/></svg></span>0 · القرارات المعتمدة + الخطة التنفيذية</h2>
+
+<p>هذا القسم يلخّص <strong>30 قرار مُثبّت</strong> (مع علامة <span style="background:#10b981;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800">معتمد</span>) + <strong>3 نقاط مفتوحة للنقاش</strong> فقط. بعدها تحقيق فعلي من قاعدة الإنتاج بأرقام دقيقة، ثم خطة عمل بـ checkboxes قابلة للتأشير.</p>
+
+<h3>0.1 · جدول القرارات الثابتة (30 قرار)</h3>
+
+<div class="table-wrap">
+<table class="exec-table">
+  <thead>
+    <tr>
+      <th>الفصل</th>
+      <th>القرار</th>
+      <th>المعتمد</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="ch">CH1</td><td class="dec">اسم الموديول</td><td><code>shop_pro</code></td></tr>
+    <tr><td class="ch">CH1</td><td class="dec">أيقونة الموديول</td><td>عربة (cart)</td></tr>
+    <tr><td class="ch">CH2</td><td class="dec">استراتيجية التخفيضات</td><td>Pricelist (سبورت مور عنده id=4 "قائمة تخفيضات عامة" بـ 564 rule — يظهر الشطب فعلياً. نافا وبلو بلا قائمة تخفيضات عامة → نسوي لهم)</td></tr>
+    <tr><td class="ch">CH2</td><td class="dec">compare_list_price</td><td><strong>ملغى</strong> — نعتمد على Pricelists فقط</td></tr>
+    <tr><td class="ch">CH3</td><td class="dec">الخصائص الشبحية نافا</td><td>نحذفها نهائياً من قاعدة البيانات (8 خصائص، آمنة 100%)</td></tr>
+    <tr><td class="ch">CH3</td><td class="dec">المنتجات غير المربوطة بفئات</td><td>نربطها (8 كرافتات كوشاريل + شوز نافا بلا public_category)</td></tr>
+    <tr><td class="ch">CH4</td><td class="dec">القوائم الطويلة (Color/Fabric/Brand)</td><td>عرض 20 قيمة + زر "عرض الكل" (يفتح modal بالقائمة الكاملة)</td></tr>
+    <tr><td class="ch">CH4</td><td class="dec">القيم الصفرية</td><td>نخفيها تلقائياً</td></tr>
+    <tr><td class="ch">CH4</td><td class="dec">تطبيق الفلتر</td><td>فوري بـ AJAX (ولا زر "تطبيق") — فقط زر واحد "إزالة الفلاتر"</td></tr>
+    <tr><td class="ch">CH4</td><td class="dec">URL قابل للمشاركة</td><td><strong>ملغى</strong></td></tr>
+    <tr><td class="ch">CH4</td><td class="dec">ترتيب القيم داخل الفلتر</td><td>كل الخيارات كـ <strong>Website Builder options</strong> (editor sidebar)</td></tr>
+    <tr><td class="ch">CH5</td><td class="dec">مستوى حساب المخزون</td><td>على مستوى المتغير (variant). شطب القياس/اللون النافد مع معاينة التأثير بـ Website Builder</td></tr>
+    <tr><td class="ch">CH5</td><td class="dec">فلتر "المتوفر فقط"</td><td>خيار بـ Website Builder (قابل للتفعيل لكل متجر)</td></tr>
+    <tr><td class="ch">CH5</td><td class="dec">المستودعات</td><td>مستودع واحد فقط (فرع واحد) — لا multi-warehouse</td></tr>
+    <tr><td class="ch">CH6</td><td class="dec">الفرز الافتراضي</td><td>Best Sellers — كل شي عبر Website Builder dropdown</td></tr>
+    <tr><td class="ch">CH6</td><td class="dec">حقل "الأحدث"</td><td><code>create_date</code></td></tr>
+    <tr><td class="ch">CH7</td><td class="dec">Wishlist</td><td>الثلاثة (مربوط بحساب البوابة — login required)</td></tr>
+    <tr><td class="ch">CH7</td><td class="dec">Quick View</td><td>كامل + long-press على الموبايل للمعاينة</td></tr>
+    <tr><td class="ch">CH7</td><td class="dec">WhatsApp Inquiry بصفحة المنتج</td><td>الثلاثة (نافا عندها Cart Reminder template id=43 جاهز — نستفيد منه)</td></tr>
+    <tr><td class="ch">CH7</td><td class="dec">إشعار "أحمد من بغداد اشترى"</td><td>حقيقية كاملة — اسم أول فقط (أحمد من بغداد، لا أحمد الجبوري) — لا تسريب بيانات</td></tr>
+    <tr><td class="ch">CH8</td><td class="dec">استراتيجية السنيپنات</td><td>تعديل/توسيع السنيپنات الموجودة بـ Odoo Website Builder — ما نبني من الصفر</td></tr>
+    <tr><td class="ch">CH9</td><td class="dec">بيئة التطوير</td><td>DEV أولاً (الثلاثة بالتوازي على DEV) ثم PROD</td></tr>
+    <tr><td class="ch">CH9</td><td class="dec">مكان الإعدادات</td><td>كل الإعدادات عبر Website Builder (options على snippets + blocks)</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">اسم موديول Checkout</td><td><code>shop_pro_auth</code> (يُدمج مع shop_pro — منطق موحّد)</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">الإيميل بـ Checkout</td><td>اختياري دائماً</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">Unique phone</td><td>SQL Constraint per-website</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">تسجيل الدخول</td><td>هاتف أو إيميل</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">OTP بـ SMS</td><td>ملغى (تكلفة عالية)</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">إنشاء الحساب</td><td>تلقائي عند حفظ العنوان</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">Google OAuth</td><td>الثلاثة + ربط بـ checkout</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">الحقول الإجبارية بالعنوان</td><td>اسم + هاتف + محافظة + منطقة</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">مصدر بيانات المنطقة</td><td><code>boxy.area</code> (4533 منطقة موحّدة)</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">كوبون الخصم</td><td>بخطوة المراجعة</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">قناة الإشعارات</td><td>واتساب أساسي + إيميل احتياطي</td></tr>
+    <tr><td class="ch">CH12</td><td class="dec">بيئة التجريب الموحّد</td><td>الثلاثة على DEV بالتوازي</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>0.2 · التحقيق الفعلي من قاعدة الإنتاج</h3>
+<p class="muted">الأرقام التالية مستخرجة مباشرة من <code>nava_db</code>، <code>sportmore_db</code>، <code>blo_db</code> بتاريخ 24 نيسان 2026.</p>
+
+<div class="evidence-card">
+  <div class="ev-title">نافا — الخصائص الشبحية (آمنة للحذف 100%)</div>
+  <div class="ev-row"><span class="ev-label">الـ IDs:</span><span class="ev-val bad">585, 586, 587, 588, 589, 590, 591, 592</span></div>
+  <div class="ev-row"><span class="ev-label">الأسماء:</span><span class="ev-val">color · gender · material · pattern · manufacturer · brand · size · age group</span></div>
+  <div class="ev-row"><span class="ev-label">visibility:</span><span class="ev-val bad">NULL (لا "visible" ولا "hidden")</span></div>
+  <div class="ev-row"><span class="ev-label">قيم مرتبطة (values):</span><span class="ev-val good">0</span></div>
+  <div class="ev-row"><span class="ev-label">templates مرتبطة:</span><span class="ev-val good">0</span></div>
+  <div class="ev-row"><span class="ev-label">product_template_attribute_value:</span><span class="ev-val good">0 (ولا ربط واحد)</span></div>
+  <div class="ev-row"><span class="ev-label">nava_meta_feed يستخدمها؟</span><span class="ev-val good">كلا — feed_controller.py يستخدم hardcoded 'male' و 'adult' و Style attribute (id=570)</span></div>
+  <div class="ev-row"><span class="ev-label">الخلاصة:</span><span class="ev-val good">حذف نهائي آمن — ولا شي راح يتكسر</span></div>
+</div>
+
+<div class="evidence-card">
+  <div class="ev-title">نافا — الخصائص الحقيقية (نحتفظ بها كلها)</div>
+  <div class="ev-row"><span class="ev-label">id=564 Color:</span><span class="ev-val">79 قيمة · 980 template مرتبط · visibility=visible · display=color</span></div>
+  <div class="ev-row"><span class="ev-label">id=565 Size:</span><span class="ev-val">32 قيمة · 976 template · display=pills</span></div>
+  <div class="ev-row"><span class="ev-label">id=566 Category:</span><span class="ev-val">33 قيمة · 980 template · display=radio</span></div>
+  <div class="ev-row"><span class="ev-label">id=567 Season:</span><span class="ev-val">4 قيم · 941 template · display=radio</span></div>
+  <div class="ev-row"><span class="ev-label">id=568 Brand:</span><span class="ev-val">93 قيمة · 977 template · display=radio</span></div>
+  <div class="ev-row"><span class="ev-label">id=569 Fabric:</span><span class="ev-val">114 قيمة · 962 template · display=radio</span></div>
+  <div class="ev-row"><span class="ev-label">id=570 Style:</span><span class="ev-val">63 قيمة · 928 template · display=radio</span></div>
+</div>
+
+<div class="evidence-card">
+  <div class="ev-title">نافا — المنتجات المنشورة بلا public_category (8 منتجات)</div>
+  <div class="ev-row"><span class="ev-label">id=4840:</span><span class="ev-val">ربطة عنق كوشاريل حرير مورد رجالي — Cocharel Floral Silk Tie Men</span></div>
+  <div class="ev-row"><span class="ev-label">id=4841:</span><span class="ev-val">كرافتة كوشاريل منسوج مورد منقط رجالي</span></div>
+  <div class="ev-row"><span class="ev-label">id=4842:</span><span class="ev-val">كرافتة كوشاريل حرير بارز رجالي</span></div>
+  <div class="ev-row"><span class="ev-label">id=4843:</span><span class="ev-val">ربطة عنق كوشاريل حرير مقلم رجالي</span></div>
+  <div class="ev-row"><span class="ev-label">id=4844:</span><span class="ev-val">كرافتة كوشاريل حرير مقلم رجالي</span></div>
+  <div class="ev-row"><span class="ev-label">id=4847:</span><span class="ev-val">كرافتة كوشاريل حرير نقشة هندسية رجالي</span></div>
+  <div class="ev-row"><span class="ev-label">id=4854:</span><span class="ev-val">كرافتة كوشاريل جاكار منقوش رجالي</span></div>
+  <div class="ev-row"><span class="ev-label">id=4885:</span><span class="ev-val bad">Nava Shoe 9702 — بدون اسم عربي (يحتاج إدخال يدوي)</span></div>
+  <div class="ev-row"><span class="ev-label">POS categories:</span><span class="ev-val good">كلهم مربوطين بـ POS category (التنظيف يخص /shop فقط)</span></div>
+  <div class="ev-row"><span class="ev-label">الحل:</span><span class="ev-val">إنشاء public_category "إكسسوارات" (أو "Ties / Shoes") وربطهم بها</span></div>
+</div>
+
+<div class="evidence-card">
+  <div class="ev-title">Pricelists الحالية بالثلاث متاجر</div>
+  <div class="ev-row"><span class="ev-label">سبورت مور:</span><span class="ev-val good">id=4 "قائمة تخفيضات عامة" فعّالة بـ 564 rule — تعمل + Strikethrough يظهر بـ POS و /shop</span></div>
+  <div class="ev-row"><span class="ev-label">سبورت مور:</span><span class="ev-val">id=6 العائلة · id=7 الأصدقاء · id=8 خصم 40%</span></div>
+  <div class="ev-row"><span class="ev-label">نافا:</span><span class="ev-val bad">id=3 العائلة (1 rule) · id=4 الأصدقاء (1 rule) — لا قائمة تخفيضات عامة فعّالة</span></div>
+  <div class="ev-row"><span class="ev-label">نافا (معطّلة):</span><span class="ev-val">id=5 تخفيض 25% · id=6 تخفيض 30% · id=7 تخفيض 35% · id=8 تخفيض 50% · id=9 عرض VIP</span></div>
+  <div class="ev-row"><span class="ev-label">بلو:</span><span class="ev-val bad">4 قوائم لكن بلا قائمة تخفيضات عامة — 2 قوائم بلا rules أصلاً</span></div>
+  <div class="ev-row"><span class="ev-label">التوصية:</span><span class="ev-val">نسوي لنافا وبلو قائمة "قائمة تخفيضات عامة" على نمط سبورت مور (مع Strikethrough فعلي)</span></div>
+</div>
+
+<div class="evidence-card">
+  <div class="ev-title">نافا — WhatsApp Templates (جاهزة ومعتمدة من Meta)</div>
+  <div class="ev-row"><span class="ev-label">id=43 Cart Reminder:</span><span class="ev-val good">approved · ar · نستخدمه للسلة المتروكة مباشرة</span></div>
+  <div class="ev-row"><span class="ev-label">id=44 Exclusive Offer:</span><span class="ev-val good">approved · ar · للعروض الحصرية</span></div>
+  <div class="ev-row"><span class="ev-label">id=41 Winback:</span><span class="ev-val good">approved · ar · لإرجاع الزبون الغائب</span></div>
+  <div class="ev-row"><span class="ev-label">id=36 Order Confirmed:</span><span class="ev-val good">approved · ar · تأكيد الطلب</span></div>
+  <div class="ev-row"><span class="ev-label">id=37 POS Receipt + id=49 POS Invoice:</span><span class="ev-val good">كلها approved</span></div>
+  <div class="ev-row"><span class="ev-label">الخلاصة:</span><span class="ev-val good">نافا جاهزة تشغيلياً للـ WA — نحتاج فقط Cron يطلق Cart Reminder. سبورت مور وبلو يحتاجون نفس القوالب يُعتمدون من Meta</span></div>
+</div>
+
+<h3>0.3 · خطة تنظيف قاعدة الإنتاج — SQL آمن</h3>
+
+<p>هاي الخطة يوجد لها خاصية <strong>آمنة 100%</strong> لأن كل SQL محسوب بدقة مع <code>WHERE</code> clauses دقيقة تمنع حذف أي شي مستخدم فعلياً. نفذ على DEV أولاً، تحقّق، ثم انقل لـ PROD.</p>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m0-backup">
+  <div class="t-body">
+    <div class="t-title">M0.1 — نسخة احتياطية كاملة لنافا قبل أي حذف</div>
+    <div class="t-desc">على VPS 40، نأخذ dump كامل <code>nava_db</code> ونخزنه بـ B2. لو أي شي انكسر نرجع بثانية.</div>
+    <div class="t-meta"><span class="tag db">PROD · nava_db</span><span class="tag sql">pg_dump</span></div>
+  </div>
+</div>
+
+<div class="sql-box"><span class="cm">-- على VPS 40</span>
+<span class="kw">docker exec</span> nava-db pg_dump -U odoo -Fc nava_db &gt; /tmp/nava_pre_cleanup_$(date +%Y%m%d).dump
+<span class="kw">rclone copy</span> /tmp/nava_pre_cleanup_*.dump b2:jawdat-backups/nava/pre-cleanup/</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m0-ghost-attrs">
+  <div class="t-body">
+    <div class="t-title">M0.2 — حذف 8 خصائص شبحية من نافا (آمن 100%)</div>
+    <div class="t-desc">الـ IDs: 585, 586, 587, 588, 589, 590, 591, 592. تحققنا: 0 قيم، 0 templates، nava_meta_feed ما يستخدمها. الحذف ما راح يكسر أي شي.</div>
+    <div class="t-meta"><span class="tag db">PROD · nava_db</span><span class="tag sql">DELETE CASCADE</span></div>
+  </div>
+</div>
+
+<div class="sql-box"><span class="cm">-- (1) تحقق أخير قبل الحذف (يجب أن يرجع 0)</span>
+<span class="kw">SELECT</span> COUNT(*) <span class="kw">FROM</span> product_template_attribute_value 
+<span class="kw">WHERE</span> attribute_id <span class="kw">IN</span> (585,586,587,588,589,590,591,592);
+<span class="cm">-- = 0 → آمن</span>
+
+<span class="cm">-- (2) حذف الخصائص الشبحية</span>
+<span class="kw">DELETE FROM</span> product_attribute_value <span class="kw">WHERE</span> attribute_id <span class="kw">IN</span> (585,586,587,588,589,590,591,592);
+<span class="kw">DELETE FROM</span> product_attribute <span class="kw">WHERE</span> id <span class="kw">IN</span> (585,586,587,588,589,590,591,592);
+
+<span class="cm">-- (3) تحقق بعد الحذف</span>
+<span class="kw">SELECT</span> id, name-&gt;&gt;<span class="str">'ar_001'</span> <span class="kw">FROM</span> product_attribute <span class="kw">ORDER BY</span> id;
+<span class="cm">-- يجب أن يظهر فقط 564-570 (الحقيقية السبعة)</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m0-link-ties">
+  <div class="t-body">
+    <div class="t-title">M0.3 — ربط كرافتات كوشاريل (8 منتجات) بـ public_category</div>
+    <div class="t-desc">نسوي public_category "إكسسوارات رجالية" وتحته "كرافتات" و "أحذية". نربط المنتجات (4840-4847, 4854, 4885) بالفئة المناسبة.</div>
+    <div class="t-meta"><span class="tag db">PROD · nava_db</span><span class="tag sql">INSERT</span></div>
+  </div>
+</div>
+
+<div class="sql-box"><span class="cm">-- (1) إنشاء الفئات عبر Odoo ORM (من UI: المتجر ‹ المنتجات ‹ الفئات العامة)</span>
+<span class="cm">-- سمها "إكسسوارات رجالية" → "كرافتات"، "أحذية"</span>
+
+<span class="cm">-- (2) ربط الكرافتات (بعد معرفة ID الفئة الجديدة، نفترضه = X)</span>
+<span class="kw">INSERT INTO</span> product_public_category_product_template_rel (product_template_id, product_public_category_id)
+<span class="kw">VALUES</span> 
+  (4840, X), (4841, X), (4842, X), (4843, X),
+  (4844, X), (4847, X), (4854, X);
+
+<span class="cm">-- (3) ربط Nava Shoe 9702 بفئة "أحذية" (ID = Y)</span>
+<span class="kw">INSERT INTO</span> product_public_category_product_template_rel (product_template_id, product_public_category_id)
+<span class="kw">VALUES</span> (4885, Y);
+
+<span class="cm">-- (4) تحديث اسم Nava Shoe 9702 بالعربي (مفقود حالياً)</span>
+<span class="kw">UPDATE</span> product_template 
+<span class="kw">SET</span> name = name || <span class="str">'{"ar_001": "حذاء نافا 9702"}'</span>::jsonb 
+<span class="kw">WHERE</span> id = 4885;</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m0-pricelist-nava-blo">
+  <div class="t-body">
+    <div class="t-title">M0.4 — إنشاء "قائمة تخفيضات عامة" لنافا وبلو (على نمط سبورت مور)</div>
+    <div class="t-desc">نافا وبلو ما عدها قائمة عامة. نتعلم من سبورت مور (id=4, 564 rule) ونبني مشابهة. كل قائمة بـ rules محدّدة حسب الفئة/الماركة.</div>
+    <div class="t-meta"><span class="tag db">PROD · nava_db · blo_db</span><span class="tag xml">UI</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m0-verify">
+  <div class="t-body">
+    <div class="t-title">M0.5 — التحقق النهائي + اختبار صفحة /shop</div>
+    <div class="t-desc">نفتح /shop على نافا، نتأكد: (أ) فلتر الخصائص ما يعرض "color" و "gender" الشبحية، (ب) الكرافتات ظاهرة تحت فئة "إكسسوارات"، (ج) Shoe 9702 له اسم عربي، (د) الأسعار المخصصة تظهر مع شطبة.</div>
+    <div class="t-meta"><span class="tag db">PROD · browser test</span></div>
+  </div>
+</div>
+
+<h3>0.4 · خطة المراحل السبع — مهام بـ checkboxes</h3>
+
+<div class="milestone-header">M1 · Faceted Filters الأساسية <span class="ms-count">6 مهام</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m1-controller">
+  <div class="t-body">
+    <div class="t-title">Override website_sale.WebsiteSale.shop()</div>
+    <div class="t-desc">نعمل inherit على <code>WebsiteSale</code> بـ <code>shop_pro/controllers/shop.py</code>. نضيف منطق حساب <code>facet_values</code> (dict بـ attribute_id → list of values مع counts) ونمرّر للقالب.</div>
+    <div class="t-meta"><span class="tag py">shop_pro/controllers/shop.py</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m1-ajax-endpoint">
+  <div class="t-body">
+    <div class="t-title">Endpoint AJAX لتحديث الفلاتر فوراً</div>
+    <div class="t-desc"><code>/shop/facets/update</code> type='jsonrpc' يرجع HTML قسم المنتجات + الفلاتر محدّثة بدون reload صفحة. نستخدم OWL component يستمع لتغيّرات الـ checkbox.</div>
+    <div class="t-meta"><span class="tag py">shop_pro/controllers/facets.py</span><span class="tag">jsonrpc</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m1-owl-sidebar">
+  <div class="t-body">
+    <div class="t-title">OWL component للـ sidebar الجانبي</div>
+    <div class="t-desc"><code>ShopFacets</code> component يعرض كل خاصية مع (أ) عرض 20 قيمة أولى، (ب) زر "عرض الكل" يفتح modal، (ج) إخفاء تلقائي للقيم الصفرية، (د) تطبيق فوري للـ AJAX call، (هـ) زر وحيد "إزالة الفلاتر".</div>
+    <div class="t-meta"><span class="tag">shop_facets.js</span><span class="tag">OWL</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m1-builder-options">
+  <div class="t-body">
+    <div class="t-title">Website Builder options للفلاتر</div>
+    <div class="t-desc">نسجّل options على snippet "Products Grid" الموجود بـ website_sale: (أ) "إخفاء القيم الصفرية" (bool)، (ب) "عدد القيم المعروضة قبل 'عرض الكل'" (number 10/20/30)، (ج) "ترتيب القيم" (alphabetical/by count/custom)، (د) "خاصيات مرئية" (m2m).</div>
+    <div class="t-meta"><span class="tag xml">views/snippet_options.xml</span><span class="tag">website_builder</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m1-url-state-removed">
+  <div class="t-body">
+    <div class="t-title">حالة URL — لا نحتفظ بالفلاتر (قرار: URL sharing ملغى)</div>
+    <div class="t-desc">كل التنقل يبقى داخلي بـ AJAX فقط. لا نحدّث <code>window.history.pushState</code>. الـ URL يبقى <code>/shop</code> نظيف.</div>
+    <div class="t-meta"><span class="tag">decision: no share</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m1-test-sportmore">
+  <div class="t-body">
+    <div class="t-title">اختبار على سبورت مور DEV</div>
+    <div class="t-desc">نختبر: فلاتر Color/Size/Brand تعمل فوراً، العدّادات دقيقة، modal "عرض الكل" يفتح، زر إزالة الفلاتر يشتغل.</div>
+    <div class="t-meta"><span class="tag db">DEV · sportmore_db</span></div>
+  </div>
+</div>
+
+<div class="milestone-header">M2 · فلتر المخزون + On Sale <span class="ms-count">5 مهام</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m2-stock-join">
+  <div class="t-body">
+    <div class="t-title">JOIN مع stock.quant على مستوى المتغير</div>
+    <div class="t-desc">نضيف حقل computed <code>x_is_available_variant</code> على <code>product.product</code> (احسب من <code>stock_quant.quantity - reserved_quantity &gt; 0</code>). Cron كل 30 دقيقة يحدّث الحقل.</div>
+    <div class="t-meta"><span class="tag py">shop_pro/models/product_product.py</span><span class="tag db">cron 30min</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m2-variant-strikeout">
+  <div class="t-body">
+    <div class="t-title">شطب المتغير النافد بصفحة المنتج</div>
+    <div class="t-desc">على صفحة المنتج، المتغير النافد (لون أحمر مثلاً) يظهر <strong>مشطوب</strong> لكن قابل للنقر (يعرض "نافد حالياً"). Website Builder option: "إخفاء المتغير النافد" (إعداد منفصل عن الشطب).</div>
+    <div class="t-meta"><span class="tag xml">views/product_template.xml</span><span class="tag">website_builder</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m2-available-filter">
+  <div class="t-body">
+    <div class="t-title">فلتر "المتوفر فقط" — خيار Website Builder</div>
+    <div class="t-desc">option على snippet Products Grid: "إظهار فلتر المتوفر فقط" + "تفعيل افتراضي" (bool). لكل متجر سياسة مختلفة.</div>
+    <div class="t-meta"><span class="tag xml">snippet_options.xml</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m2-discount-pct">
+  <div class="t-body">
+    <div class="t-title">حقل x_discount_pct محسوب من Pricelist</div>
+    <div class="t-desc"><code>x_discount_pct</code> = (lst_price - pricelist_price) / lst_price × 100. إذا &gt; 0 → Ribbon "-X%" يظهر + فلتر "On Sale" يشمله. نستفيد من سبورت مور pricelist id=4 (564 rule جاهزة).</div>
+    <div class="t-meta"><span class="tag py">models/product_template.py</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m2-test-nava">
+  <div class="t-body">
+    <div class="t-title">اختبار على نافا DEV (بعد إنشاء pricelist تخفيضات عامة)</div>
+    <div class="t-desc">نتأكد Strikethrough يظهر، فلتر "On Sale" يشتغل، فلتر "المتوفر فقط" يختفي قيمه الصفرية.</div>
+    <div class="t-meta"><span class="tag db">DEV · nava_db</span></div>
+  </div>
+</div>
+
+<div class="milestone-header">M3 · الفرز الموسّع <span class="ms-count">5 مهام</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m3-sales-30d">
+  <div class="t-body">
+    <div class="t-title">x_sales_30d (مبيعات آخر 30 يوم)</div>
+    <div class="t-desc">حقل computed على <code>product.template</code> يجمع sale_order_line.product_uom_qty من آخر 30 يوم (state='done' أو 'sale'). Cron يومي يحدّث.</div>
+    <div class="t-meta"><span class="tag py">models/product_template.py</span><span class="tag db">cron daily</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m3-view-count">
+  <div class="t-body">
+    <div class="t-title">x_view_count مع session throttle (مشاهدة/ساعة)</div>
+    <div class="t-desc">كل زيارة لصفحة منتج + session ما شافه آخر ساعة → +1. نخزن بـ jsonb على session أو table مخصص. يمنع التزوير (F5 refresh) + يشمل المقاهي (IP مشترك).</div>
+    <div class="t-meta"><span class="tag py">controllers/product.py</span><span class="tag">session throttle</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m3-trending">
+  <div class="t-body">
+    <div class="t-title">x_trending_score (هجين: 70% مبيعات + 30% أحدث)</div>
+    <div class="t-desc">معادلة: <code>(x_sales_30d × 0.7) + (1 / max(1, DAYS_SINCE_CREATE) × 0.3)</code>. المنتجات الجديدة تحصل على boost، المبيعات تبقى المعيار الأول.</div>
+    <div class="t-meta"><span class="tag py">models/product_template.py</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m3-sort-dropdown">
+  <div class="t-body">
+    <div class="t-title">Dropdown فرز + website_sale.sort_by</div>
+    <div class="t-desc">نسجل خيارات جديدة: Best Sellers (x_sales_30d)، Most Viewed (x_view_count)، Trending (x_trending_score)، Newest (create_date). Website Builder dropdown على Products Grid snippet يتيح اختيار الترتيب الافتراضي لكل صفحة.</div>
+    <div class="t-meta"><span class="tag xml">views/snippets.xml</span><span class="tag">website_builder</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m3-indexes">
+  <div class="t-body">
+    <div class="t-title">Postgres indexes على x_sales_30d, x_trending_score</div>
+    <div class="t-desc"><code>CREATE INDEX idx_pt_sales_30d ON product_template(x_sales_30d DESC) WHERE active=true;</code> — يسرّع الفرز 10x.</div>
+    <div class="t-meta"><span class="tag sql">INDEX</span></div>
+  </div>
+</div>
+
+<div class="milestone-header">M4 · البحث الذكي <span class="ms-count">4 مهام</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m4-autocomplete">
+  <div class="t-body">
+    <div class="t-title">Override search_modal.js — autocomplete بصور</div>
+    <div class="t-desc">النتائج تعرض: صورة المنتج + الاسم + السعر + Ribbon لو On Sale. يبحث بـ name + description + attribute values.</div>
+    <div class="t-meta"><span class="tag">search_modal.js</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m4-synonyms">
+  <div class="t-body">
+    <div class="t-title">مرادفات عربية (بجامة/بيجاما/منامة، قميص/شميز)</div>
+    <div class="t-desc">جدول <code>shop_pro.search_synonym</code> (source → target). Admin UI لإدارتها. البحث عن "بجامة" يلگي "بيجاما" و "منامة" أيضاً.</div>
+    <div class="t-meta"><span class="tag py">models/search_synonym.py</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m4-trigram">
+  <div class="t-body">
+    <div class="t-title">Postgres pg_trgm للبحث الضبابي</div>
+    <div class="t-desc"><code>CREATE EXTENSION pg_trgm; CREATE INDEX ON product_template USING gin (name gin_trgm_ops);</code> — يجد "اديداس" لمن يكتب "adidas" أو العكس.</div>
+    <div class="t-meta"><span class="tag sql">pg_trgm GIN</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m4-recent-searches">
+  <div class="t-body">
+    <div class="t-title">Recent searches محلياً</div>
+    <div class="t-desc">localStorage بآخر 5 بحوث. بعد ما يفتح الزبون modal البحث خالياً → يشوف قائمة "بحوثك الأخيرة".</div>
+    <div class="t-meta"><span class="tag">localStorage</span></div>
+  </div>
+</div>
+
+<div class="milestone-header">M5 · Quick View + Zoom + Social Proof <span class="ms-count">5 مهام</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m5-quickview">
+  <div class="t-body">
+    <div class="t-title">ProductQuickView component (كامل)</div>
+    <div class="t-desc">Modal يفتح: صور + اختيار variant + زر "أضف للسلة" + زر "عرض التفاصيل". يشتغل بـ OWL فوق عناصر grid.</div>
+    <div class="t-meta"><span class="tag">quick_view.js</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m5-longpress-mobile">
+  <div class="t-body">
+    <div class="t-title">Long-press على الموبايل (500ms) يفتح Quick View</div>
+    <div class="t-desc">touchstart/touchend handler: لو الضغط أطول من 500ms ولا حركة → يفتح Quick View. تجربة iOS/Android طبيعية.</div>
+    <div class="t-meta"><span class="tag">mobile · touch</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m5-image-zoom">
+  <div class="t-body">
+    <div class="t-title">ImageZoom بصفحة المنتج (hover على desktop، pinch على mobile)</div>
+    <div class="t-desc">على desktop: hover يظهر عدسة مكبّرة جنب الصورة. على mobile: pinch gesture يكبّر داخل المودال.</div>
+    <div class="t-meta"><span class="tag">product_zoom.js</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m5-social-proof">
+  <div class="t-body">
+    <div class="t-title">إشعار "أحمد من بغداد اشترى قبل 5 دقايق" — بيانات حقيقية</div>
+    <div class="t-desc">Cron يقرأ sale_order الأخيرة (state=sale، آخر 24 ساعة). يعرض: <strong>الاسم الأول فقط</strong> + المدينة من العنوان + اسم المنتج + كم دقيقة/ساعة. Website Builder option: "تفعيل Social Proof" + "المدة (دقائق)".</div>
+    <div class="t-meta"><span class="tag py">controllers/social_proof.py</span><span class="tag">privacy: first name only</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m5-wishlist">
+  <div class="t-body">
+    <div class="t-title">Wishlist مربوط بحساب البوابة (3 متاجر)</div>
+    <div class="t-desc">نفعّل موديول <code>website_sale_wishlist</code> الموجود + نعدّله: الزر يظهر للـ guest ويطلب تسجيل دخول، للـ logged-in يحفظ فوراً. صفحة <code>/my/wishlist</code> تعرض القائمة.</div>
+    <div class="t-meta"><span class="tag">website_sale_wishlist</span></div>
+  </div>
+</div>
+
+<div class="milestone-header">M6 · Abandoned Cart + WhatsApp <span class="ms-count">5 مهام</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m6-cron-abandoned">
+  <div class="t-body">
+    <div class="t-title">Cron يدور على السلال المتروكة</div>
+    <div class="t-desc">كل ساعة: يفحص sale_order بـ state='draft' + write_date &gt; 6h + partner_id.phone موجود. يرسل WA Cart Reminder (نافا template id=43 جاهز، سبورت مور/بلو يحتاجون اعتماد Meta).</div>
+    <div class="t-meta"><span class="tag py">cron hourly</span><span class="tag">WA</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m6-wa-template-sm">
+  <div class="t-body">
+    <div class="t-title">إعداد WA Cart Reminder لسبورت مور + بلو</div>
+    <div class="t-desc">نستنسخ template نافا (43) إلى سبورت مور وبلو، نرفعها لـ Meta، ننتظر الاعتماد (1-2 يوم).</div>
+    <div class="t-meta"><span class="tag">WhatsApp Business API</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m6-coupon-auto">
+  <div class="t-body">
+    <div class="t-title">كوبون تلقائي 5% بالرسالة</div>
+    <div class="t-desc">عند إرسال Cart Reminder، ننشئ كوبون خاص (use_once=True, expiry=48h) ونمرّره بالرسالة. لو الزبون أكمل الطلب بـ 48 ساعة → خصم 5% تلقائي.</div>
+    <div class="t-meta"><span class="tag py">loyalty</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m6-email-fallback">
+  <div class="t-body">
+    <div class="t-title">Email fallback إذا الهاتف بلا واتساب</div>
+    <div class="t-desc">بعد محاولة WA، لو فشلت (رقم بدون واتساب) → نرسل إيميل بنفس المحتوى. نافا mail_template موجود، نتأكد منه.</div>
+    <div class="t-meta"><span class="tag">mail_template</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m6-inquiry-wa-button">
+  <div class="t-body">
+    <div class="t-title">زر WhatsApp Inquiry بصفحة المنتج (3 متاجر)</div>
+    <div class="t-desc">زر ثابت أسفل صورة المنتج: "استفسر عبر واتساب 💬". يفتح wa.me/NUMBER?text=URL-encoded-product-link. الرقم يأتي من website.whatsapp_inquiry_number (website builder setting per site).</div>
+    <div class="t-meta"><span class="tag xml">product_template.xml</span></div>
+  </div>
+</div>
+
+<div class="milestone-header">M7 · Website Builder integration + Snippet options <span class="ms-count">6 مهام</span></div>
+
+<p class="muted">القرار المعتمد: ما نبني snippets من الصفر. نعدّل على snippets الموجودة بـ website_sale + نضيف options على الـ builder sidebar.</p>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m7-products-grid-options">
+  <div class="t-body">
+    <div class="t-title">Extend snippet Products Grid options</div>
+    <div class="t-desc">options جديدة على snippet الموجود: (أ) "فلتر المتوفر" bool، (ب) "افتراضي مفعّل" bool، (ج) "عدد القيم قبل 'عرض الكل'" (10/20/30)، (د) "الترتيب الافتراضي" dropdown، (هـ) "إخفاء متغير نافد" bool.</div>
+    <div class="t-meta"><span class="tag xml">snippet_options.xml</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m7-product-card-options">
+  <div class="t-body">
+    <div class="t-title">Extend snippet Product Card options</div>
+    <div class="t-desc">(أ) "تفعيل Quick View" bool، (ب) "تفعيل Zoom" bool، (ج) "long-press على الموبايل" bool، (د) "Ribbon style" (classic/corner/bold).</div>
+    <div class="t-meta"><span class="tag xml">snippet_options.xml</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m7-social-proof-snippet">
+  <div class="t-body">
+    <div class="t-title">Extend snippet Header/Footer — Social Proof</div>
+    <div class="t-desc">option: "إشعار المشتريات الحية" bool + "المدة بالدقائق" (default 5). يظهر popup خفيف زاوية الشاشة.</div>
+    <div class="t-meta"><span class="tag xml">snippet_options.xml</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m7-checkout-snippet">
+  <div class="t-body">
+    <div class="t-title">Extend Checkout template options (shop_pro_auth)</div>
+    <div class="t-desc">(أ) "إيميل اختياري" bool، (ب) "تسجيل تلقائي عند حفظ العنوان" bool، (ج) "Google OAuth" bool، (د) "كوبون بخطوة المراجعة" bool.</div>
+    <div class="t-meta"><span class="tag xml">shop_pro_auth/snippet_options.xml</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m7-preview-effect">
+  <div class="t-body">
+    <div class="t-title">معاينة التأثير داخل Website Builder</div>
+    <div class="t-desc">كل option عنده visual feedback فوري بالـ editor: يغيّر → صفحة المعاينة تتحدّث بدون reload. نستخدم <code>data-invisible</code> وmo3algah بـ OWL reactive.</div>
+    <div class="t-meta"><span class="tag">website_builder reactivity</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m7-documentation">
+  <div class="t-body">
+    <div class="t-title">توثيق استخدام options لكل متجر</div>
+    <div class="t-desc">صفحة داخلية <code>/docs/shop-pro-admin</code> تشرح شلون المدير يفتح Website Builder ويعدّل كل option. مع screenshots لكل خاصية.</div>
+    <div class="t-meta"><span class="tag">docs</span></div>
+  </div>
+</div>
+
+<div class="milestone-header">M8 · shop_pro_auth (Checkout الموحّد) <span class="ms-count">7 مهام</span></div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m8-phone-unique">
+  <div class="t-body">
+    <div class="t-title">SQL Constraint: phone unique per-website</div>
+    <div class="t-desc">نضيف <code>UNIQUE (phone, website_id)</code> على res.partner. ما يمنع نفس الزبون يسجل بـ 3 متاجر بنفس الرقم، لكن يمنع تكرار بنفس المتجر.</div>
+    <div class="t-meta"><span class="tag sql">ALTER TABLE</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m8-login-both">
+  <div class="t-body">
+    <div class="t-title">Login بهاتف أو إيميل</div>
+    <div class="t-desc">Override auth controller: نبحث في res.users.login أو res.users.partner_id.phone. لو تطابق → نعطيه session.</div>
+    <div class="t-meta"><span class="tag py">auth_controller.py</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m8-auto-create">
+  <div class="t-body">
+    <div class="t-title">إنشاء الحساب تلقائياً عند حفظ العنوان</div>
+    <div class="t-desc">بعد ملء العنوان + هاتف + تأكيد الطلب → نتحقق لو res.partner موجود بنفس الهاتف، لو لا → ننشئ res.users جديد مع password عشوائي + نرسله عبر WA. الزبون يقدر يعيد تعيين الباسورد لاحقاً.</div>
+    <div class="t-meta"><span class="tag py">sale_order.py</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m8-google-oauth">
+  <div class="t-body">
+    <div class="t-title">Google OAuth على 3 متاجر</div>
+    <div class="t-desc">OAuth module الموجود بـ Odoo + إعدادات 3 client_id منفصلة (per website). عند النقر "Sign in with Google" → يعطي email + name → نبني res.partner + res.users + نربطه بـ checkout.</div>
+    <div class="t-meta"><span class="tag xml">auth_oauth</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m8-boxy-area">
+  <div class="t-body">
+    <div class="t-title">dropdown المنطقة من boxy.area (4533 منطقة)</div>
+    <div class="t-desc">نستبدل حقل "المدينة" الحالي بـ Many2one → boxy.area (محافظة → منطقة → ZIP تلقائي). Autocomplete يبحث عربي وإنجليزي.</div>
+    <div class="t-meta"><span class="tag py">res_partner.py</span><span class="tag db">boxy.area</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m8-coupon-checkout">
+  <div class="t-body">
+    <div class="t-title">خانة كوبون بخطوة المراجعة</div>
+    <div class="t-desc">نضيف حقل نصي collapsible "عندي كوبون" (افتراضياً مطوي). الضغط يفتحه + زر "تطبيق". AJAX call يتحقق + يحدّث الإجمالي.</div>
+    <div class="t-meta"><span class="tag xml">checkout.xml</span></div>
+  </div>
+</div>
+
+<div class="task-check">
+  <input type="checkbox" data-task="m8-merge-with-shop-pro">
+  <div class="t-body">
+    <div class="t-title">دمج shop_pro_auth كجزء من shop_pro (منطق موحّد)</div>
+    <div class="t-desc">نسوي submodule داخلي بـ shop_pro/modules/auth/. كل الـ controllers و models بملف واحد. ما نخلي موديول منفصل لتجنّب التشعّب.</div>
+    <div class="t-meta"><span class="tag">architecture</span></div>
+  </div>
+</div>
+
+<h3>0.5 · النقاط المفتوحة للنقاش (3 فقط)</h3>
+
+<div class="open-question">
+  <div class="oq-title">Q-OPEN-1 · Most Viewed — طريقة التتبع</div>
+  <p>طلبت توضيح أكثر بالأمثلة. خليني أفصّل 3 سيناريوهات بأرقام حقيقية:</p>
+  
+  <div class="daily-block">
+    <div class="daily-title">حالات واقعية مفصّلة — تتبّع المشاهدات</div>
+    <div class="daily-item">
+      <div class="head">السيناريو A · Session throttle (ساعة واحدة) ⭐ توصيتي</div>
+      <span class="before">ولا تتبع: نعتمد بس Best Sellers. تيشيرت أدياس 35,000 د.ع معروض بنافا، يشوفه 420 زبون بأسبوع بس 8 مشتريات. ما ندري هذا الاهتمام العالي بدون شراء — نظل نحط نفس التصميم ونحسبه "ضعيف المبيعات".</span>
+      <span class="after">Session throttle: كل جلسة (session_id) يحصل +1 بالساعة. زبون يفتح الصفحة 10 مرات بساعة → +1 فقط. يطلع ويرجع بعد ساعتين → +1 جديد. نافا تشوف: تيشيرت 35 = 420 مشاهدة، 8 مبيعات، معدل تحويل 1.9% → إشارة تسعيرية: نزّل لـ 28,000 د.ع → تحويل 5% → 21 بيع بدلاً من 8.</span>
+      <span class="gain">قرار تسعيري مبني على بيانات، 163% زيادة بالمبيعات. تجنّب "المنتجات المعلّقة" (high views, zero sales).</span>
+    </div>
+    <div class="daily-item">
+      <div class="head">السيناريو B · IP hash unique</div>
+      <span class="before">نحسب IP + User Agent كـ hash فريد يومياً. الإيجاب: دقّة عالية، شخص واحد = مشاهدة واحدة/يوم مهما فتح. السلبية الكبيرة: مقاهي شارع السعدون فيها 30 زبون يتصفحون بـ Wi-Fi مشترك → كلهم يظهرون كـ IP واحد → مشاهدة واحدة بدل 30.</span>
+      <span class="after">أرقام دقيقة بس ما تعكس السوق العراقي. المقاهي + شركات الإنترنت المشتركة (Earthlink SMEs) تفقد 60% من المشاهدات الحقيقية.</span>
+      <span class="gain">مناسب لدول بـ إنترنت فردي (أوروبا/أمريكا)، غير مناسب للعراق حيث Wi-Fi مشترك شائع جداً.</span>
+    </div>
+    <div class="daily-item">
+      <div class="head">السيناريو C · نلغي التتبع كامل</div>
+      <span class="before">ما نحسب مشاهدات. نعتمد بس على Best Sellers (مبيعات فعلية) و Trending (مبيعات + إضافة سلة). الإيجاب: أبسط نظام، ما نخزن بيانات، خصوصية كاملة.</span>
+      <span class="after">ندمج Trending = 50% Best Sellers + 50% Cart Adds. المنتج اللي يدخل السلة بدون شراء يحصل على إشارة "اهتمام". يغطي 80% من فائدة Most Viewed بدون تعقيد.</span>
+      <span class="gain">مبسّط، خصوصي، يعتمد على سلوك فعلي (add-to-cart) بدل مشاهدة سلبية. عيب: لا يغطي "شوفت التصميم بس ما عجبني السعر".</span>
+    </div>
+  </div>
+  <p><strong>توصيتي:</strong> السيناريو A (session throttle ساعة). السيناريو C بديل معقول لو تحب البساطة.</p>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q14','session')">A · session throttle ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q14','unique')">B · IP hash unique</button>
+    <button class="opt-btn" onclick="pick(this,'Q14','skip')">C · إلغاء التتبع</button>
+  </div>
+  <textarea placeholder="رأيك..." data-qid="Q14-open"></textarea>
+</div>
+
+<div class="open-question">
+  <div class="oq-title">Q-OPEN-2 · Abandoned Cart — قناة التواصل + التوقيت</div>
+  <p>معلومة مهمة من DB: <strong>نافا عندها بالفعل 3 WA templates approved</strong>: id=43 Cart Reminder · id=44 Exclusive Offer · id=41 Winback. السؤال: التوقيت + القناة + العرض.</p>
+  
+  <div class="daily-block">
+    <div class="daily-title">حالات واقعية مفصّلة — السلّة المتروكة</div>
+    <div class="daily-item">
+      <div class="head">السيناريو A · واتساب بعد ساعتين (بدون كوبون) ⭐ توصيتي</div>
+      <span class="before">بدون تذكير: زبون نافا حط فستان مانجو 95,000 د.ع بالسلة، الساعة 9 مساءً، انشغل بالتلفزيون ونسى. صباح اليوم التالي ما يذكر وين شاف الفستان → بيع ضائع 100%.</span>
+      <span class="after">بعد ساعتين من آخر نشاط بالسلة: ترسل WA "مرحباً أحمد، تركت فستان مانجو بالسلة. لو تريد نكمل الطلب، اضغط هنا 🛍️ [رابط السلة مباشر]". الزبون يفتح الرسالة (معدل فتح WA 87% بالعراق)، يضغط الرابط، يكمل الطلب. بدون كوبون — لأن السعر أصلاً تنافسي.</span>
+      <span class="gain">استعادة 25-30% من السلال المتروكة. بدون تكلفة خصم. نستفيد من template نافا (id=43) الجاهز.</span>
+    </div>
+    <div class="daily-item">
+      <div class="head">السيناريو B · واتساب + كوبون 5% بعد 24 ساعة</div>
+      <span class="before">السيناريو A يرسل بسرعة، لكن بعض الزبائن يحتاجون "push" إضافي ليرجعوا بعد يوم كامل.</span>
+      <span class="after">سلسلة: الساعة 0 → سلة تُترك. بعد ساعتين → WA تذكير بسيط. بعد 24 ساعة لو ما كمل → WA ثاني بكوبون 5% صالح 48 ساعة. "نقدّرك تعال وخذ خصم 5% على طلبك: CODE48". كود فريد لكل زبون (one-time use).</span>
+      <span class="gain">استعادة إضافية 10-15% على الدفعة الأولى. التكلفة: 5% خصم × الطلبات المستعادة = ROI إيجابي.</span>
+    </div>
+    <div class="daily-item">
+      <div class="head">السيناريو C · إيميل فقط (الحالي بنافا)</div>
+      <span class="before">Odoo يرسل إيميل abandoned cart تلقائياً بعد 2 ساعة. لكن: معدل فتح الإيميل بالعراق 22% فقط (مقابل 87% واتساب). 78% من الزبائن ما يشوفون التذكير → بيع ضائع.</span>
+      <span class="after">نحتفظ بالإيميل كـ fallback فقط (إذا الرقم بدون واتساب). الأساس يصير WA template 43. إيميل يروح بس للـ 5-10% من الحالات الاستثنائية.</span>
+      <span class="gain">تحسين معدل الاستعادة من 5-8% (إيميل) إلى 25-30% (واتساب). فرق هائل.</span>
+    </div>
+    <div class="daily-item">
+      <div class="head">السيناريو D · واتساب بعد 30 دقيقة (قوي جداً)</div>
+      <span class="before">ساعتين ممكن يكون متأخر، 30 دقيقة ممكن يبدو مُقتحم/مُزعج (الزبون حاط الفستان بس خرج يشوف اختيارات).</span>
+      <span class="after">30 دقيقة: الزبون يستقبل WA وهو لساته يفكّر → كأنك تقرأ أفكاره. لو صار عادة مزعجة مع نفس الزبون (يترك بشكل متكرر) → نحول تلقائياً لـ ساعتين للزبائن المتكررين.</span>
+      <span class="gain">استعادة 35%+ (أعلى معدل) لكن يحتاج ذكاء (لا نزعج المتسوقين المتصفحين). صعب التعديل لو المنطق غلط.</span>
+    </div>
+  </div>
+  <p><strong>توصيتي:</strong> السيناريو A (ساعتين بدون كوبون) كبداية + إيميل fallback. نراقب معدل الاستعادة لشهر، إذا أقل من 20% نترقى لـ B (إضافة كوبون بعد 24h).</p>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q18','wa-2h')">A · WA 2h بدون كوبون ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','wa-coupon')">B · WA + كوبون بعد 24h</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','email-only')">C · إيميل فقط</button>
+    <button class="opt-btn" onclick="pick(this,'Q18','wa-30m')">D · WA 30 دقيقة</button>
+  </div>
+  <textarea placeholder="رأيك..." data-qid="Q18-open"></textarea>
+</div>
+
+<div class="open-question">
+  <div class="oq-title">Q-OPEN-3 · المشروع الأول للتجريب على DEV</div>
+  <p>القرار الأولي من القائمة المعتمدة: <strong>الثلاثة بالتوازي</strong>. تأكيدك عليه مطلوب فقط لأنه يفرض تنسيق أكبر بين فريقي التطوير والمحاسبة عند نشر كل ميلستون على DEV الثلاث متاجر.</p>
+  
+  <div class="daily-block">
+    <div class="daily-title">حالات واقعية — استراتيجية التجريب</div>
+    <div class="daily-item">
+      <div class="head">الثلاثة بالتوازي على DEV ⭐ المعتمد حالياً</div>
+      <span class="before">كود shop_pro مشترك بـ <code>/opt/shared/shared/shop_pro/</code>. لو نجرب فقط على سبورت مور DEV → نافا وبلو DEV يستقبلون الكود بعد شهرين بدون اختبار → مفاجآت كارثية.</span>
+      <span class="after">نشر موازٍ: كل commit يتنشر على 3 DEV databases فوراً. ساعة يومياً نختبر على الثلاثة (سبورت مور DEV → نافا DEV → بلو DEV). أي bug خاص بـ database معين يظهر مبكراً (مثلاً: نافا بيها Style attribute id=570، بلو ما عنده).</span>
+      <span class="gain">جودة أعلى، مخاطر أقل عند PROD، اكتشاف bugs database-specific مبكراً.</span>
+    </div>
+    <div class="daily-item">
+      <div class="head">سبورت مور DEV أولاً (تسلسلي)</div>
+      <span class="before">نركز على سبورت مور (عنده pricelist id=4 جاهز بـ 564 rule + كتالوج نظيف). نكمل M0-M7 عليه. بعدها نطبّق على نافا، بعدها بلو.</span>
+      <span class="after">نختم سبورت مور DEV بـ 6 أسابيع، نكمله PROD. نافا DEV يبدأ بـ الأسبوع 7 → فجأة نكتشف إن الخصائص الشبحية ما اتعاملت معها → نرجع نعدّل shop_pro → نخسر أسبوعين.</span>
+      <span class="gain">أبسط للفريق الصغير. عيب: مخاطر عالية على نافا وبلو لأن الكود ما اختُبر بيئتهم.</span>
+    </div>
+    <div class="daily-item">
+      <div class="head">بلو DEV أولاً (أصعب بيئة)</div>
+      <span class="before">بلو عندها تعقيد pricelist (دولار + دينار). لو نبدأ بيها → نضمن التعامل مع عملتين منذ اليوم الأول.</span>
+      <span class="after">ممكن أيضاً — بلو كـ "case hardest" يكشف كل التعقيدات بالبداية. سبورت مور ونافا يصيرون أسهل بعدها.</span>
+      <span class="gain">يغطي أصعب حالة أولاً. عيب: بلو كتالوجه أصغر → إحصائيات وتنوع اختبار أقل.</span>
+    </div>
+  </div>
+  <p><strong>توصيتي:</strong> الثلاثة بالتوازي على DEV (المعتمد). تأكيدك يقفل النقطة.</p>
+  <div class="opt-btns">
+    <button class="opt-btn" onclick="pick(this,'Q23','parallel')">الثلاثة بالتوازي ⭐</button>
+    <button class="opt-btn" onclick="pick(this,'Q23','sportmore')">سبورت مور أولاً</button>
+    <button class="opt-btn" onclick="pick(this,'Q23','blo')">بلو أولاً</button>
+  </div>
+  <textarea placeholder="رأيك..." data-qid="Q23-open"></textarea>
+</div>
+
+<h3>0.6 · ملخص السير الزمني (Timeline)</h3>
+
+<div class="table-wrap">
+<table class="exec-table">
+  <thead><tr><th>المرحلة</th><th>المهام</th><th>المدة التقديرية</th><th>البيئة</th></tr></thead>
+  <tbody>
+    <tr><td class="ch">M0 · التنظيف</td><td>5 مهام SQL آمنة</td><td>1 يوم</td><td>PROD nava_db</td></tr>
+    <tr><td class="ch">M1 · Faceted Filters</td><td>6 مهام (controller + OWL + builder options)</td><td>5-7 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">M2 · فلتر المخزون + On Sale</td><td>5 مهام (variant-level + pricelists)</td><td>3-4 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">M3 · الفرز الموسّع</td><td>5 مهام (sales_30d + view_count + trending)</td><td>4 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">M4 · البحث الذكي</td><td>4 مهام (autocomplete + trigram + synonyms)</td><td>3-4 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">M5 · Quick View + Proof</td><td>5 مهام (OWL + long-press + social)</td><td>4-5 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">M6 · Abandoned Cart + WA</td><td>5 مهام (cron + templates)</td><td>3-4 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">M7 · Website Builder</td><td>6 مهام (options على snippets الموجودة)</td><td>4-5 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">M8 · shop_pro_auth</td><td>7 مهام (phone unique + OAuth + boxy.area)</td><td>5-6 أيام</td><td>DEV × 3</td></tr>
+    <tr><td class="ch">PROD rollout</td><td>نشر متدرّج + مراقبة</td><td>1 أسبوع</td><td>PROD × 3</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>المجموع التقديري:</strong> ~6-8 أسابيع من بداية M0 إلى PROD rollout. الحدود مرنة حسب ملاحظاتك على كل ميلستون.</p>
+
+</section>
+
 <!-- CH1 -->
 <section id="ch1">
 <h2><span class="icon-wrap"><svg class="icon"><use href="#i-layers"/></svg></span>1 · اسم الموديول والأيقونة</h2>
+
+<div class="callout callout-info" style="background:#fef9c3;border-color:#facc15;margin:14px 0">
+  <svg class="icon"><use href="#i-info"/></svg>
+  <div>
+    <strong>الفصول التالية (1-13) للمرجع التاريخي والتوثيق التفصيلي.</strong>
+    كل القرارات المعتمدة (30 قرار) + الخطة التنفيذية بـ checkboxes + تحقيق DB الحي موجودة بـ
+    <a href="#ch0" style="color:#0f766e;font-weight:700"><strong>القسم 0 · القرارات المعتمدة</strong></a>.
+    النقاط المفتوحة الثلاث (Most Viewed, Abandoned Cart, DEV parallel) كلها بالأعلى أيضاً مع سيناريوهات مكثفة.
+  </div>
+</div>
 
 <p>قبل أي شي، لازم نثبّت اسم الموديول لأنه راح يبقى بـ <code>/opt/shared/shared/</code> لسنوات.
 اقتراحي الأول <strong>Shop Pro</strong> — مختصر، ما يتعارض مع أسماء Odoo الأصلية، ويعطي
@@ -2866,6 +3663,33 @@ document.querySelectorAll('.chapter-comment textarea[data-qid]').forEach(ta=>{
   ta.addEventListener('input', ()=>{
     answers[qid] = answers[qid] || {};
     answers[qid].note = ta.value;
+    saveAnswers(answers);
+  });
+});
+
+// Wire open-question textareas (data-qid="QX-open")
+document.querySelectorAll('.open-question textarea[data-qid]').forEach(ta=>{
+  const qid = ta.dataset.qid;
+  if(answers[qid]?.note) ta.value = answers[qid].note;
+  ta.addEventListener('input', ()=>{
+    answers[qid] = answers[qid] || {};
+    answers[qid].note = ta.value;
+    saveAnswers(answers);
+  });
+});
+
+// Wire execution plan checkboxes (data-task)
+document.querySelectorAll('.task-check input[type=checkbox][data-task]').forEach(cb=>{
+  const tid = cb.dataset.task;
+  const parent = cb.closest('.task-check');
+  if(answers['tasks']?.[tid]){
+    cb.checked = true;
+    parent.classList.add('done');
+  }
+  cb.addEventListener('change', ()=>{
+    answers['tasks'] = answers['tasks'] || {};
+    answers['tasks'][tid] = cb.checked;
+    parent.classList.toggle('done', cb.checked);
     saveAnswers(answers);
   });
 });
