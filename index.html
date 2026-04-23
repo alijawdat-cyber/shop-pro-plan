@@ -197,8 +197,8 @@ details .details-body{padding:0 16px 14px;font-size:14px}
     جاهز ترسله لنفسك أو لي.
   </p>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
-    <span class="chip accent">10 فصول</span>
-    <span class="chip accent">26 سؤال</span>
+    <span class="chip accent">11 فصل</span>
+    <span class="chip accent">26 سؤال + إضافات</span>
     <span class="chip accent">52 ملف مراجعة</span>
     <span class="chip info">حفظ تلقائي</span>
   </div>
@@ -217,6 +217,7 @@ details .details-body{padding:0 16px 14px;font-size:14px}
     <li><a href="#ch8">السناپنات والبلوكات</a></li>
     <li><a href="#ch9">خطة المراحل السبع</a></li>
     <li><a href="#ch10">جرد 52 ملف</a></li>
+    <li><a href="#extra">مواضيع ومهام إضافية</a></li>
   </ol>
 </section>
 
@@ -1127,13 +1128,30 @@ GROUP BY pav.attribute_id, pav.id;</div>
 </section>
 
 <!-- Final -->
+<!-- CH11: مواضيع إضافية -->
+<section id="extra">
+<h2><span class="icon-wrap"><svg class="icon"><use href="#i-info"/></svg></span>11 · مواضيع ومهام إضافية منك</h2>
+
+<p>هاي مساحة مفتوحة — أي موضوع نقاش جديد، مهمة تريد تضيفها، فكرة راحت ببالك، أو ملاحظة على مشاريع ثانية (NAVA / BLO / InOff / Clinica) غير Shop Pro. اضغط «أضف موضوع» وكل شي محفوظ تلقائياً ويطلع بواتساب مع بقية الإجابات.</p>
+
+<div id="extra-topics-list"></div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+  <button class="btn" onclick="addExtraTopic()" type="button">
+    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    أضف موضوع جديد
+  </button>
+  <span class="muted small" id="extra-count" style="align-self:center"></span>
+</div>
+</section>
+
 <section id="final">
 <h2><span class="icon-wrap"><svg class="icon"><use href="#i-check"/></svg></span>الخطوة اللي بعد</h2>
 
 <ol>
   <li>تجاوب على الأسئلة (تختار خيار أو تكتب ملاحظة — أو الاثنين).</li>
-  <li>تضغط «أرسل بواتساب» — ينفتح واتساب بنص جاهز.</li>
-  <li>ترسله لنفسك أو لي مباشرة.</li>
+  <li>تضيف مواضيعك الإضافية بفصل 11 إذا عندك.</li>
+  <li>تضغط «أرسل بواتساب» — ينفتح واتساب على رقمك <code dir="ltr">0771 995 6000</code> بنص جاهز.</li>
   <li>أقرا إجاباتك وأرسلك ملخص نهائي قبل البدء بالبناء.</li>
   <li>نبلّش المرحلة M0 (التنظيف) — صغيرة وقابلة للتراجع.</li>
 </ol>
@@ -1237,7 +1255,7 @@ function showProgress(){
 
 function buildAnswersText(){
   const lines = ['*Shop Pro — إجابات علي جودت*', new Date().toLocaleString('ar-IQ'), ''];
-  document.querySelectorAll('.question').forEach(q=>{
+  document.querySelectorAll('.question[data-qid]').forEach(q=>{
     const qid = q.dataset.qid;
     const title = q.querySelector('.question-title')?.textContent?.trim() || qid;
     const a = answers[qid];
@@ -1247,14 +1265,79 @@ function buildAnswersText(){
     if(a.note)   lines.push(`• ملاحظة: ${a.note}`);
     lines.push('');
   });
+  const extras = (answers.extra_topics||[]).filter(t=>t.title || t.note);
+  if(extras.length){
+    lines.push('*— مواضيع إضافية —*', '');
+    extras.forEach((t, i)=>{
+      lines.push(`*E${i+1}* — ${t.title || '(بدون عنوان)'}`);
+      if(t.note) lines.push(`• ${t.note}`);
+      lines.push('');
+    });
+  }
   if(lines.length <= 3) lines.push('(لا توجد إجابات)');
   return lines.join('\n');
 }
 
 function sendWhatsApp(){
   const text = buildAnswersText();
-  window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+  // رقم علي جودت: 07719956000 → دولي 9647719956000
+  window.open('https://wa.me/9647719956000?text=' + encodeURIComponent(text), '_blank');
 }
+
+// === مواضيع إضافية ===
+function renderExtraTopics(){
+  const list = document.getElementById('extra-topics-list');
+  if(!list) return;
+  const topics = answers.extra_topics || [];
+  list.innerHTML = '';
+  topics.forEach((t, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.innerHTML = `
+      <div class="question-header">
+        <span class="question-badge">E${idx+1}</span>
+        <input type="text" class="extra-title" data-idx="${idx}" placeholder="عنوان الموضوع / المهمة" value="${(t.title||'').replace(/"/g,'&quot;')}" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;background:#fff;color:var(--text)">
+        <button class="btn" onclick="removeExtraTopic(${idx})" type="button" title="احذف" style="padding:6px 10px">
+          <svg class="icon icon-sm" style="color:var(--danger)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+        </button>
+      </div>
+      <textarea class="extra-note" data-idx="${idx}" placeholder="تفاصيل الموضوع — شنو تريد نناقش أو ننفذ..." style="min-height:90px">${t.note||''}</textarea>
+      <span class="saved-indicator"><svg class="icon icon-sm"><use href="#i-check"/></svg>محفوظ</span>
+    `;
+    list.appendChild(div);
+  });
+  list.querySelectorAll('.extra-title').forEach(inp=>{
+    inp.addEventListener('input', e=>{
+      const i = +e.target.dataset.idx;
+      answers.extra_topics[i].title = e.target.value;
+      saveAnswers(answers);
+      showSaved(e.target.closest('.question'));
+    });
+  });
+  list.querySelectorAll('.extra-note').forEach(ta=>{
+    ta.addEventListener('input', e=>{
+      const i = +e.target.dataset.idx;
+      answers.extra_topics[i].note = e.target.value;
+      saveAnswers(answers);
+      showSaved(e.target.closest('.question'));
+    });
+  });
+  const cnt = document.getElementById('extra-count');
+  if(cnt) cnt.textContent = topics.length ? `${topics.length} موضوع محفوظ` : 'لا توجد مواضيع إضافية بعد';
+}
+function addExtraTopic(){
+  answers.extra_topics = answers.extra_topics || [];
+  answers.extra_topics.push({title:'', note:''});
+  saveAnswers(answers);
+  renderExtraTopics();
+}
+function removeExtraTopic(idx){
+  if(!confirm('حذف هذا الموضوع؟')) return;
+  answers.extra_topics.splice(idx, 1);
+  saveAnswers(answers);
+  renderExtraTopics();
+}
+renderExtraTopics();
 
 function exportAnswers(){
   const text = JSON.stringify({date: new Date().toISOString(), answers}, null, 2);
